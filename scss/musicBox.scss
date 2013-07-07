@@ -1,0 +1,175 @@
+body{
+    height:100%;
+    background-color: grey;
+    margin: 0px;
+}
+
+.btn{
+    &:hover{
+        cursor: pointer;
+    }
+}
+
+.container{
+    height: 100%;
+    width: 960px;
+    margin: auto;
+}
+
+#device_controls{
+    height: 10%;
+    background-color: #BBBBBB;
+    box-shadow: 3px 10px 10px;
+    border-left: 2px solid #444444;
+    border-right: 2px solid #444444;
+
+    menu{
+        width: 100px;
+        margin: auto;
+    }
+}
+
+#device_controller{
+    .song_info{
+        padding:5px;
+
+        .song_img{
+            width:30px;
+            height:30px;
+            float:left;
+            margin: 5px;
+        }
+
+        .song_title{
+            margin-top:5px;
+        }
+
+        .song_details{
+            margin-top:0px;
+            font-size: 10px;
+        }
+    }
+}
+
+.hidden{
+    display:none;
+}
+
+html{
+    height: 100%;
+}
+
+menu{
+    margin: 0px;
+}
+
+#page_content{
+    height: 100%;
+    .container{
+        //background-color: #BBBBBB;
+    }
+}
+
+#page_footer{
+    background-color: #333333;
+    color: white;
+}
+
+#page_header{
+    height: 10%;
+    background-color: #333333;
+    color: white;
+
+    menu{
+        display: inline;
+        float: right;
+        margin: auto;
+    }
+}
+
+#queue_controller{
+    max-width: 600px;
+    margin: auto;
+    height: 80%;
+
+    #queue_controls{
+        padding: 0px;
+        position: relative;
+
+        .btn{
+            position: absolute;
+            top: 0px;
+            padding: 5px;
+            margin: 15px;
+            border-radius: 5px;
+        }
+    }
+
+    #queue_list{
+        min-height: 200px;
+        height: 80%;
+        border-radius: 0px 0px 15px 15px;
+        border: 1px solid black;
+        overflow-y: scroll;
+        background-color: #EEEEEE;
+        box-shadow: inset 1px 1px 2px 2px #888888;
+    }
+
+    #song_search_field{
+        width: 100%;
+        margin: 0px;
+        padding: 0px;
+        border: 0px;
+        border-bottom: 1px solid black;
+        height: 30px;
+        box-sizing: border-box;
+        background-color: #EEEEEE;
+    }
+}
+
+#tab_area{
+    height: 80%;
+
+    #tab_controller{
+        padding: 0px;
+        position: relative;
+
+        .tab_selector{
+            border-width: 0px 2px 1px 1px;
+            border-color: #333333;
+            border-style: solid;
+            border-radius: 0px 0px 10px 10px;
+            padding: 10px;
+            box-sizing: border-box;
+            position: relative;
+            float: right;
+            margin: 0px 0px 3px 5px;
+            box-shadow: 3px 9px 13px;
+            background-color: #777777;
+            opacity: .80;
+
+            &.selected{
+                background-color: #BBBBBB;
+                opacity: 1;
+            }
+
+            &:hover{
+                cursor: pointer;
+            }
+        }
+    }
+
+    .tab_view{
+        height: 100%;
+    }
+
+    #tab_views{
+        height: 90%;
+        box-shadow: 3px 8px 10px;
+        border: 2px solid #444444;
+        border-top: none;
+        border-bottom: none;
+        background-color: #BBBBBB;
+    }
+}
+

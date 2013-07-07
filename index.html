@@ -1,0 +1,75 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="css/jquery-ui-1.10.3.custom.min.css"/>
+    <link rel="stylesheet" type="text/css" href="css/musicbox.css"/>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="js/autobahn.js"></script>
+    <script src="js/jquery-ui-1.10.3.custom.js"></script>
+    <script src="js/settings.js"></script>
+    <script src="js/webClient.template.js"></script>
+    <script src="js/webClient.initialize.js"></script>
+    <script src="js/webClient.spotify.js"></script>
+    <script src="js/webClient.ui.js"></script>
+    <script src="js/webClient.js"></script>
+</head>
+<body id="home" style="font-family: arial;">
+    <header id="page_header">
+        <div class="container">
+            Project Music Box
+            <menu>
+                <menuitem>Sign Up</menuitem>
+            </menu>
+        </div>
+    </header>
+    <div id="page_content">
+        <div class="container">
+            <noscript>
+                You need to be running javascript to control the device!
+            </noscript>
+            <section id="device_controls">
+                <div id="song_progress_bar"></div>
+                <menu id="song_controls">
+                    <menuitem class="btn" id="song_play_pause" data-state="play">Play</menuitem>
+                    <menuitem class="btn" id="song_skip">Skip</menuitem>
+                </menu>
+            </section>
+            <section id="tab_area">
+                <div id="tab_views">
+                    <section id="device_controller" class="tab_view">
+                        <div id="queue_controller">
+                            <div id="queue_list">
+                                <input type="text" id="song_search_field"/>
+                                <!--div class="song_info" style="">
+                                    <img class="song_img" style=""/>
+                                    <header class="song_title" style="">Title</header>
+                                    <p class="song_details" style="">
+                                        Song Details
+                                    </p>
+                                </div-->
+                            </div>
+                            <menu id="queue_controls">
+                                <menuitem class="btn" id="refresh_queue">Refresh</menuitem>
+                            </menu>
+                        </div>
+                    </section>
+                    <section id="find_songs" class="tab_view hidden">
+                        <header></header>
+                        <div id=""></div>
+                        <footer></footer>
+                    </section>
+                </div>
+                <menu id="tab_controller">
+                    <menuitem class="tab_selector selected" id="tab1">Control Devices</menuitem>
+                    <menuitem class="tab_selector" id="tab2">Find Songs</menuitem>
+                </menu>
+            </section>
+        </div>
+    </div>
+    <footer id="page_footer">
+        <div class="container">
+            Test
+        </div>
+    </footer>
+</body>
+</html>
