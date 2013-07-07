@@ -13,14 +13,47 @@ var client = (function(webClient){
         initializeInteractions(webClient.ui);
     });
 
-    function initializeInteractions(ui){
+    function initializeControls(ui){
+        ui.deviceControls = $("#device_controls");
+        ui.deviceControls.songControls = ui.deviceControls.find("#song_controls");
+        ui.deviceControls.songControls.buttons = ui.deviceControls.songControls.find(".btn");
+        ui.deviceControls.songControls.buttons.playPause = ui.deviceControls.songControls.buttons.filter("#song_play_pause");
+        ui.deviceControls.songControls.buttons.skip = ui.deviceControls.songControls.buttons.filter("#song_skip");
+        ui.deviceControls.queueControls = ui.deviceControls.find("#queue_controls");
+        ui.deviceControls.queueControls.refreshButton = ui.deviceControls.queueControls.find("#refresh_queue");
+
+        ui.deviceControls.songControls.buttons.playPause.click(function(){
+            if(ui.deviceControls.songControls.buttons.playPause.attr('data-state') == "play"){
+                webClient.sendPauseMessage();
+                ui.deviceControls.songControls.buttons.playPause.removeClass('icon-pause');
+                ui.deviceControls.songControls.buttons.playPause.addClass('icon-play');
+                ui.deviceControls.songControls.buttons.playPause.attr('data-state', "pause")
+            }
+            else
+            {
+                webClient.sendPlayMessage();
+                ui.deviceControls.songControls.buttons.playPause.removeClass('icon-play');
+                ui.deviceControls.songControls.buttons.playPause.addClass('icon-pause');
+                ui.deviceControls.songControls.buttons.playPause.attr('data-state', "play")
+            }
+        });
+
+        ui.deviceControls.songControls.buttons.skip.click(function(){
+            webClient.sendSkipMessage();
+            ui.deviceController.queue.removeSong(0);
+        });
+
+        ui.deviceControls.queueControls.refreshButton.click(function(){
+            webClient.sendRefreshMessage();
+        });
+    }
+
+    function initializeTabs(ui){
         ui.tabs = $("#tab_area");
         ui.tabs.tabController = ui.tabs.find("#tab_controller");
         ui.tabs.tabController.selectors = ui.tabs.tabController.find(".tab_selector");
         ui.tabs.deviceTabSelector = ui.tabs.tabController.selectors.filter("#tab1");
         ui.tabs.findSongsTabSelector = ui.tabs.tabController.selectors.filter("#tab2");
-
-        console.log(ui.tabs.findSongsTabSelector);
 
         ui.tabs.tabViews = ui.tabs.find(".tab_view");
         ui.tabs.deviceTabView = ui.tabs.tabViews.filter("#device_controller");
@@ -31,6 +64,8 @@ var client = (function(webClient){
             ui.tabs.deviceTabSelector.addClass("selected");
             ui.tabs.tabViews.not("#"+ui.tabs.deviceTabView.attr('id')).hide();
             ui.tabs.deviceTabView.show();
+
+            ui.deviceControls.queueControls.removeClass("hidden");
         });
 
         ui.tabs.findSongsTabSelector.click(function(){
@@ -38,36 +73,22 @@ var client = (function(webClient){
             ui.tabs.findSongsTabSelector.addClass("selected");
             ui.tabs.tabViews.not("#"+ui.tabs.findSongView.attr('id')).hide();
             ui.tabs.findSongView.show();
+            ui.deviceControls.queueControls.addClass("hidden");
         });
+    }
 
-        ui.deviceControls = $("#device_controls");
-        ui.deviceControls.songControls = ui.deviceControls.find("#song_controls");
-        ui.deviceControls.songControls.buttons = ui.deviceControls.songControls.find(".btn");
-        ui.deviceControls.songControls.buttons.playPause = ui.deviceControls.songControls.buttons.filter("#song_play_pause");
-        ui.deviceControls.songControls.buttons.skip = ui.deviceControls.songControls.buttons.filter("#song_skip");
+    function initializeInteractions(ui){
+        initializeControls(ui);
+        initializeTabs(ui);
 
-        ui.deviceControls.songControls.buttons.playPause.click(function(){
-            if(ui.deviceControls.songControls.buttons.playPause.attr('data-state') == "play"){
-                webClient.sendPauseMessage();
-                ui.deviceControls.songControls.buttons.playPause.attr('data-state', "pause")
-            }
-            else
-            {
-                webClient.sendPlayMessage();
-                ui.deviceControls.songControls.buttons.playPause.attr('data-state', "play")
-            }
-        });
-
-        ui.deviceControls.songControls.buttons.skip.click(function(){
-            webClient.sendSkipMessage();
-            ui.deviceController.queue.removeSong(0);
-        })
 
         ui.deviceController = $("#device_controller");
         ui.deviceController.queueControls = ui.deviceController.find("#queue_controls");
-        ui.deviceController.queueControls.addButton = ui.deviceController.find("#add_song");
+        ui.deviceController.queueControls.refreshButton = ui.deviceController.queueControls.find("#refresh_queue");
         ui.deviceController.queueControls.searchField = ui.deviceController.find("#song_search_field");
         ui.deviceController.queue = ui.deviceController.find("#queue_list");
+
+
 
         ui.deviceController.queueControls.searchField.autocomplete({
         //$("#song_search").autocomplete({
@@ -88,9 +109,8 @@ var client = (function(webClient){
                 return ui.deviceController.queue.find(".song_info");
             },
             addSong:function(service, serviceId, trackId, title, artist, detail, imgUri){
-                var command = "AddTrack,"+service+","+serviceId;
 
-                webClient.sendMessage("AddTrack", command);
+                webClient.sendAddTrackMessage(service, serviceId);
 
                 var song = template.queue.track(trackId, title, artist, detail, imgUri);
 

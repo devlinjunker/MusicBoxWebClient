@@ -3,8 +3,11 @@ body {
   background-color: grey;
   margin: 0px; }
 
-.btn:hover {
-  cursor: pointer; }
+.btn {
+  background-color: #dddddd;
+  box-shadow: 0 1px 2px white, 0 -1px 1px #666666, inset 0 -1px 1px rgba(0, 0, 0, 0.5), inset 0 1px 1px rgba(255, 255, 255, 0.8); }
+  .btn:hover {
+    cursor: pointer; }
 
 .container {
   height: 100%;
@@ -12,17 +15,33 @@ body {
   margin: auto; }
 
 #device_controls {
-  height: 10%;
-  background-color: #BBBBBB;
+  height: 15%;
+  min-height: 100px;
+  background-color: #bbbbbb;
   box-shadow: 3px 10px 10px;
   border-left: 2px solid #444444;
   border-right: 2px solid #444444; }
-  #device_controls menu {
-    width: 100px;
-    margin: auto; }
+  #device_controls #controls_container {
+    margin: auto;
+    text-align: center;
+    width: 600px;
+    position: relative; }
+  #device_controls form {
+    display: inline;
+    position: absolute;
+    margin-top: 5px;
+    top: 0px;
+    right: 0px;
+    font-size: small; }
+    #device_controls form * {
+      float: right;
+      text-align: right; }
+    #device_controls form #device_selecter {
+      clear: both; }
 
 #device_controller .song_info {
-  padding: 5px; }
+  padding: 5px;
+  border-bottom: 1px solid #999999; }
   #device_controller .song_info .song_img {
     width: 30px;
     height: 30px;
@@ -44,42 +63,54 @@ menu {
   margin: 0px; }
 
 #page_content {
-  height: 100%; }
+  height: 100%;
+  margin-bottom: 80px; }
 
 #page_footer {
   background-color: #333333;
-  color: white; }
+  color: white;
+  font-size: small;
+  margin-bottom: -50px; }
 
 #page_header {
-  height: 10%;
+  height: 40px;
   background-color: #333333;
-  color: white; }
+  color: white;
+  vertical-align: middle; }
+  #page_header h1 {
+    margin-top: 0px;
+    display: inline; }
+    #page_header h1 a {
+      color: white;
+      text-decoration: none; }
   #page_header menu {
     display: inline;
-    float: right;
-    margin: auto; }
+    float: right; }
+
+#queue_controls {
+  float: left;
+  position: relative; }
+  #queue_controls .btn {
+    position: absolute;
+    padding: 7px 10px;
+    margin: 15px;
+    border-radius: 10px;
+    clear: both; }
 
 #queue_controller {
   max-width: 600px;
   margin: auto;
   height: 80%; }
-  #queue_controller #queue_controls {
-    padding: 0px;
-    position: relative; }
-    #queue_controller #queue_controls .btn {
-      position: absolute;
-      top: 0px;
-      padding: 5px;
-      margin: 15px;
-      border-radius: 5px; }
   #queue_controller #queue_list {
     min-height: 200px;
     height: 80%;
     border-radius: 0px 0px 15px 15px;
     border: 1px solid black;
     overflow-y: scroll;
-    background-color: #EEEEEE;
-    box-shadow: inset 1px 1px 2px 2px #888888; }
+    background-color: #eeeeee;
+    box-shadow: inset 1px 1px 2px 2px #888888;
+    vertical-align: middle;
+    text-align: center; }
   #queue_controller #song_search_field {
     width: 100%;
     margin: 0px;
@@ -88,7 +119,36 @@ menu {
     border-bottom: 1px solid black;
     height: 30px;
     box-sizing: border-box;
-    background-color: #EEEEEE; }
+    background-color: #eeeeee; }
+
+#song_progress_bar {
+  min-height: 20px; }
+  #song_progress_bar #progress_bar {
+    background-color: #dddddd;
+    height: 1px;
+    border: 1px solid #aaaaaa; }
+  #song_progress_bar span {
+    font-size: small;
+    padding-top: 5px; }
+    #song_progress_bar span#current_progress {
+      float: left; }
+    #song_progress_bar span#song_length {
+      float: right; }
+
+#song_controls {
+  background-color: #cccccc;
+  padding: 18px;
+  width: 250px;
+  margin: auto;
+  border: 1px solid black;
+  border-top: none;
+  border-radius: 0px 0px 10px 10px;
+  margin-bottom: 5px; }
+  #song_controls .btn {
+    padding: 13px;
+    border-radius: 20px;
+    box-sizing: border-box;
+    margin: 10px; }
 
 #tab_area {
   height: 80%; }
@@ -96,7 +156,7 @@ menu {
     padding: 0px;
     position: relative; }
     #tab_area #tab_controller .tab_selector {
-      border-width: 0px 2px 1px 1px;
+      border-width: 1px 2px 1px 1px;
       border-color: #333333;
       border-style: solid;
       border-radius: 0px 0px 10px 10px;
@@ -107,18 +167,20 @@ menu {
       margin: 0px 0px 3px 5px;
       box-shadow: 3px 9px 13px;
       background-color: #777777;
-      opacity: .80; }
+      opacity: .90; }
       #tab_area #tab_controller .tab_selector.selected {
-        background-color: #BBBBBB;
+        border-top: 0px;
+        background-color: #bbbbbb;
         opacity: 1; }
       #tab_area #tab_controller .tab_selector:hover {
         cursor: pointer; }
   #tab_area .tab_view {
-    height: 100%; }
+    height: 100%;
+    clear: both; }
   #tab_area #tab_views {
     height: 90%;
     box-shadow: 3px 8px 10px;
     border: 2px solid #444444;
     border-top: none;
     border-bottom: none;
-    background-color: #BBBBBB; }
+    background-color: #bbbbbb; }

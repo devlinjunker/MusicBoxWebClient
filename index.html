@@ -2,6 +2,7 @@
 <html>
 <head>
     <link rel="stylesheet" type="text/css" href="css/jquery-ui-1.10.3.custom.min.css"/>
+    <link rel="stylesheet" type="text/css" href="css/font-awesome.css"/>
     <link rel="stylesheet" type="text/css" href="css/musicbox.css"/>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <script src="js/autobahn.js"></script>
@@ -16,9 +17,11 @@
 <body id="home" style="font-family: arial;">
     <header id="page_header">
         <div class="container">
-            Project Music Box
+            <h1><a href="">Project Music Box</a></h1>
             <menu>
                 <menuitem>Sign Up</menuitem>
+                <!--menuitem>Account</menuitem>
+                <menuitem>Log Out</menuitem-->
             </menu>
         </div>
     </header>
@@ -28,11 +31,27 @@
                 You need to be running javascript to control the device!
             </noscript>
             <section id="device_controls">
-                <div id="song_progress_bar"></div>
-                <menu id="song_controls">
-                    <menuitem class="btn" id="song_play_pause" data-state="play">Play</menuitem>
-                    <menuitem class="btn" id="song_skip">Skip</menuitem>
-                </menu>
+                <div id="controls_container">
+                    <menu id="queue_controls">
+                        <menuitem class="btn icon-refresh" id="refresh_queue"></menuitem>
+                    </menu>
+                    <menu id="song_controls">
+                        <div id="song_progress_bar">
+                            <span id="current_progress">0:00</span>
+                            <span id="song_length">4:22</span>
+                            <div id="progress_bar"></div>
+                        </div>
+                        <menuitem class="btn icon-play icon-large" id="song_play_pause" data-state="pause"></menuitem>
+                        <menuitem class="btn icon-forward icon-large" id="song_skip"></menuitem>
+                    </menu>
+                    <form>
+                        <label for="device_selecter">Device List:
+                        <select id="device_selecter">
+                            <option value="LivingRoom">LivingRoom</option>
+                        </select>
+                        </label>
+                    </form>
+                </div>
             </section>
             <section id="tab_area">
                 <div id="tab_views">
@@ -40,6 +59,7 @@
                         <div id="queue_controller">
                             <div id="queue_list">
                                 <input type="text" id="song_search_field"/>
+                                Song Queue is Empty!
                                 <!--div class="song_info" style="">
                                     <img class="song_img" style=""/>
                                     <header class="song_title" style="">Title</header>
@@ -48,9 +68,6 @@
                                     </p>
                                 </div-->
                             </div>
-                            <menu id="queue_controls">
-                                <menuitem class="btn" id="refresh_queue">Refresh</menuitem>
-                            </menu>
                         </div>
                     </section>
                     <section id="find_songs" class="tab_view hidden">
@@ -68,7 +85,7 @@
     </div>
     <footer id="page_footer">
         <div class="container">
-            Test
+            Copyright 2013 All Rights Reserved.
         </div>
     </footer>
 </body>

@@ -51,22 +51,36 @@ var client = (function webClient(webClient)
         }
     }
 
+    webClient.sendAddTrackMessage = function(service, serviceId)
+    {
+        alert("Send Add :"+service+", "+serviceId);
+
+        var command = "AddTrack,"+service+","+serviceId;
+
+        webClient.sendMessage("AddTrack", command);
+    }
+
     webClient.sendPlayMessage = function()
     {
-        alert("play");
+        alert("Send Play");
         webClient.sendMessage("PlayTrack", "PlayTrack");
     }
 
     webClient.sendPauseMessage = function()
     {
-        alert("pause");
+        alert("Send Pause");
         webClient.sendMessage("PauseTrack", "PauseTrack");
     }
 
     webClient.sendSkipMessage = function()
     {
-        alert("skip");
+        alert("Send Skip");
         webClient.sendMessage("NextTrack", "NextTrack");
+    }
+
+    webClient.sendRefreshMessage = function()
+    {
+        alert("Send Refresh Request");
     }
 
     return webClient;

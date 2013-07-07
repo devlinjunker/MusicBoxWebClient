@@ -1,10 +1,44 @@
+$bodyBG: grey;
+
+$controlButtonBG: #DDDDDD;
+
+$deviceControlBG: #BBBBBB;
+$deviceControlBorder: #444444;
+
+$pageFooterHeaderBG: #333333;
+$pageFooterHeaderFont: white;
+
+$songInfoSeparator: #999999;
+
+$queueListBG: #EEEEEE;
+$queueListShadow: #888888;
+
+$progressBarBG: #DDDDDD;
+$progressBarBorder: #AAAAAA;
+
+$songControlBG: #CCCCCC;
+
+$tabSelectorBorder: #333333;
+$tabSelectorUnselected: #777777;
+
+$tabSelectorSelected: #BBBBBB;
+
+$tabViewBG: $tabSelectorSelected;
+
 body{
     height:100%;
-    background-color: grey;
+    background-color: $bodyBG;
     margin: 0px;
 }
 
 .btn{
+    background-color: $controlButtonBG;
+    box-shadow:
+        0 1px 2px #fff, /*bottom external highlight*/
+        0 -1px 1px #666, /*top external shadow*/
+        inset 0 -1px 1px rgba(0,0,0,0.5), /*bottom internal shadow*/
+        inset 0 1px 1px rgba(255,255,255,0.8);
+
     &:hover{
         cursor: pointer;
     }
@@ -17,21 +51,43 @@ body{
 }
 
 #device_controls{
-    height: 10%;
-    background-color: #BBBBBB;
+    height: 15%;
+    min-height: 100px;
+    background-color: $deviceControlBG;
     box-shadow: 3px 10px 10px;
-    border-left: 2px solid #444444;
-    border-right: 2px solid #444444;
+    border-left: 2px solid $deviceControlBorder;
+    border-right: 2px solid $deviceControlBorder;
 
-    menu{
-        width: 100px;
+    #controls_container{
         margin: auto;
+        text-align:center;
+        width: 600px;
+        position: relative;
+    }
+
+    form{
+        display: inline;
+        position: absolute;
+        margin-top: 5px;
+        top: 0px;
+        right: 0px;
+        font-size:small;
+
+        *{
+            float: right;
+            text-align: right;
+        }
+
+        #device_selecter{
+            clear: both;
+        }
     }
 }
 
 #device_controller{
     .song_info{
         padding:5px;
+        border-bottom: 1px solid $songInfoSeparator;
 
         .song_img{
             width:30px;
@@ -65,25 +121,51 @@ menu{
 
 #page_content{
     height: 100%;
+    margin-bottom:80px;
     .container{
         //background-color: #BBBBBB;
     }
 }
 
 #page_footer{
-    background-color: #333333;
-    color: white;
+    background-color: $pageFooterHeaderBG;
+    color: $pageFooterHeaderFont;
+    font-size: small;
+    margin-bottom:-50px;
 }
 
 #page_header{
-    height: 10%;
-    background-color: #333333;
-    color: white;
+    height: 40px;
+    background-color: $pageFooterHeaderBG;
+    color: $pageFooterHeaderFont;
+    vertical-align: middle;
+
+    h1{
+        margin-top: 0px;
+        display:inline;
+
+        a{
+            color: $pageFooterHeaderFont;
+            text-decoration: none;
+        }
+    }
 
     menu{
         display: inline;
         float: right;
-        margin: auto;
+    }
+}
+
+#queue_controls{
+    float: left;
+    position: relative;
+
+    .btn{
+        position: absolute;
+        padding: 7px 10px;
+        margin: 15px;
+        border-radius: 10px;
+        clear: both;
     }
 }
 
@@ -92,27 +174,16 @@ menu{
     margin: auto;
     height: 80%;
 
-    #queue_controls{
-        padding: 0px;
-        position: relative;
-
-        .btn{
-            position: absolute;
-            top: 0px;
-            padding: 5px;
-            margin: 15px;
-            border-radius: 5px;
-        }
-    }
-
     #queue_list{
         min-height: 200px;
         height: 80%;
         border-radius: 0px 0px 15px 15px;
         border: 1px solid black;
         overflow-y: scroll;
-        background-color: #EEEEEE;
-        box-shadow: inset 1px 1px 2px 2px #888888;
+        background-color: $queueListBG;
+        box-shadow: inset 1px 1px 2px 2px $queueListShadow;
+        vertical-align: middle;
+        text-align: center;
     }
 
     #song_search_field{
@@ -123,7 +194,48 @@ menu{
         border-bottom: 1px solid black;
         height: 30px;
         box-sizing: border-box;
-        background-color: #EEEEEE;
+        background-color: $queueListBG;
+    }
+}
+
+#song_progress_bar{
+    min-height: 20px;
+
+    #progress_bar{
+        background-color: $progressBarBG;
+        height: 1px;
+        border: 1px solid $progressBarBorder;
+    }
+
+    span{
+        font-size: small;
+        padding-top: 5px;
+
+        &#current_progress{
+            float: left;
+        }
+
+        &#song_length{
+            float: right;
+        }
+    }
+}
+
+#song_controls{
+    background-color: $songControlBG;
+    padding: 18px;
+    width: 250px;
+    margin: auto;
+    border: 1px solid black;
+    border-top: none;
+    border-radius: 0px 0px 10px 10px;
+    margin-bottom: 5px;
+
+    .btn{
+        padding: 13px;
+        border-radius: 20px;
+        box-sizing: border-box;
+        margin: 10px;
     }
 }
 
@@ -135,8 +247,8 @@ menu{
         position: relative;
 
         .tab_selector{
-            border-width: 0px 2px 1px 1px;
-            border-color: #333333;
+            border-width: 1px 2px 1px 1px;
+            border-color: $tabSelectorBorder;
             border-style: solid;
             border-radius: 0px 0px 10px 10px;
             padding: 10px;
@@ -145,11 +257,12 @@ menu{
             float: right;
             margin: 0px 0px 3px 5px;
             box-shadow: 3px 9px 13px;
-            background-color: #777777;
-            opacity: .80;
+            background-color: $tabSelectorUnselected;
+            opacity: .90;
 
             &.selected{
-                background-color: #BBBBBB;
+                border-top: 0px;
+                background-color: $tabSelectorSelected;;
                 opacity: 1;
             }
 
@@ -161,6 +274,7 @@ menu{
 
     .tab_view{
         height: 100%;
+        clear: both;
     }
 
     #tab_views{
@@ -169,7 +283,7 @@ menu{
         border: 2px solid #444444;
         border-top: none;
         border-bottom: none;
-        background-color: #BBBBBB;
+        background-color: $tabViewBG;
     }
 }
 
