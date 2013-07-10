@@ -11,6 +11,7 @@
     <script src="js/webClient.template.js"></script>
     <script src="js/webClient.initialize.js"></script>
     <script src="js/webClient.spotify.js"></script>
+    <script src="js/webClient.lastfm.js"></script>
     <script src="js/webClient.ui.js"></script>
     <script src="js/webClient.js"></script>
 </head>
@@ -25,6 +26,10 @@
             </menu>
         </div>
     </header>
+    <div id="alert_box" class="hidden">
+        <span id="alert_message">This is an alert!
+        </span>
+    </div>
     <div id="page_content">
         <div class="container">
             <noscript>
@@ -59,7 +64,7 @@
                         <div id="queue_controller">
                             <div id="queue_list">
                                 <input type="text" id="song_search_field"/>
-                                Song Queue is Empty!
+                                <!--Song Queue is Empty!-->
                                 <!--div class="song_info" style="">
                                     <img class="song_img" style=""/>
                                     <header class="song_title" style="">Title</header>

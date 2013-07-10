@@ -35,7 +35,7 @@ var client = (function webClient(webClient)
         }
     };
 
-    webClient.sendMessage = function(msgType, args)
+    webClient.sendWebsocketMessage = function(msgType, args)
     {
         if(this.session != null)
         {
@@ -57,30 +57,31 @@ var client = (function webClient(webClient)
 
         var command = "AddTrack,"+service+","+serviceId;
 
-        webClient.sendMessage("AddTrack", command);
+        webClient.sendWebsocketMessage("AddTrack", command);
     }
 
     webClient.sendPlayMessage = function()
     {
         alert("Send Play");
-        webClient.sendMessage("PlayTrack", "PlayTrack");
+        webClient.sendWebsocketMessage("PlayTrack", "PlayTrack");
     }
 
     webClient.sendPauseMessage = function()
     {
         alert("Send Pause");
-        webClient.sendMessage("PauseTrack", "PauseTrack");
+        webClient.sendWebsocketMessage("PauseTrack", "PauseTrack");
     }
 
     webClient.sendSkipMessage = function()
     {
         alert("Send Skip");
-        webClient.sendMessage("NextTrack", "NextTrack");
+        webClient.sendWebsocketMessage("NextTrack", "NextTrack");
     }
 
     webClient.sendRefreshMessage = function()
     {
         alert("Send Refresh Request");
+        //webClient.
     }
 
     return webClient;

@@ -1,3 +1,15 @@
+#alert_box {
+  position: absolute;
+  width: 300px;
+  left: 50%;
+  margin-left: -150px;
+  text-align: center;
+  background-color: white;
+  border-radius: 0px 0px 5px 5px;
+  padding: 20px;
+  z-index: 5;
+  box-sizing: border-box; }
+
 body {
   height: 100%;
   background-color: grey;
@@ -40,6 +52,7 @@ body {
       clear: both; }
 
 #device_controller .song_info {
+  text-align: left;
   padding: 5px;
   border-bottom: 1px solid #999999; }
   #device_controller .song_info .song_img {
@@ -103,10 +116,9 @@ menu {
   height: 80%; }
   #queue_controller #queue_list {
     min-height: 200px;
-    height: 80%;
+    min-height: 80%;
     border-radius: 0px 0px 15px 15px;
     border: 1px solid black;
-    overflow-y: scroll;
     background-color: #eeeeee;
     box-shadow: inset 1px 1px 2px 2px #888888;
     vertical-align: middle;
@@ -183,4 +195,5 @@ menu {
     border: 2px solid #444444;
     border-top: none;
     border-bottom: none;
-    background-color: #bbbbbb; }
+    background-color: #bbbbbb;
+    padding-bottom: 50px; }

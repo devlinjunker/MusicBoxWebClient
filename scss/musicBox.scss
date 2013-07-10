@@ -1,3 +1,5 @@
+$alertBoxBG: white;
+
 $bodyBG: grey;
 
 $controlButtonBG: #DDDDDD;
@@ -24,6 +26,20 @@ $tabSelectorUnselected: #777777;
 $tabSelectorSelected: #BBBBBB;
 
 $tabViewBG: $tabSelectorSelected;
+
+#alert_box{
+    $alert_box_size: 300px;
+    position: absolute;
+    width: $alert_box_size;
+    left: 50%;
+    margin-left: -$alert_box_size/2;
+    text-align: center;
+    background-color: $alertBoxBG;
+    border-radius: 0px 0px 5px 5px;
+    padding: 20px;
+    z-index: 5;
+    box-sizing: border-box;
+}
 
 body{
     height:100%;
@@ -86,6 +102,7 @@ body{
 
 #device_controller{
     .song_info{
+        text-align: left;
         padding:5px;
         border-bottom: 1px solid $songInfoSeparator;
 
@@ -176,10 +193,9 @@ menu{
 
     #queue_list{
         min-height: 200px;
-        height: 80%;
+        min-height: 80%;
         border-radius: 0px 0px 15px 15px;
         border: 1px solid black;
-        overflow-y: scroll;
         background-color: $queueListBG;
         box-shadow: inset 1px 1px 2px 2px $queueListShadow;
         vertical-align: middle;
@@ -284,6 +300,7 @@ menu{
         border-top: none;
         border-bottom: none;
         background-color: $tabViewBG;
+        padding-bottom: 50px;
     }
 }
 

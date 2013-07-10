@@ -2,8 +2,9 @@ var client = (function(webClient){
     if(webClient == null) webClient = {};
 
     webClient.template = {};
+    webClient.template.queue = {};
 
-    webClient.template.track = function(trackId, trackTitle, trackArtist, trackDetail, trackImgUri){
+    webClient.template.queue.track = function(trackId, trackTitle, trackArtist, trackDetail, trackImgUri){
 
         var element = $("<div></div>").addClass("song_info");
 

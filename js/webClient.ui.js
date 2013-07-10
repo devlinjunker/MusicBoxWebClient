@@ -96,8 +96,18 @@ var client = (function(webClient){
             source: webClient.spotify.search,
             select: function(event, selected){
                 var title = selected.item.label;
-                var Uri = selected.item.value;
-                ui.deviceController.queue.addSong("Spotify", Uri, null, title, null, Uri, null);
+                var uri = selected.item.value;
+                var album = selected.item.album;
+                var artist = selected.item.artist;
+
+                webClient.lastfm.getAlbumInfo(artist, album, function(albumInfo){
+                    console.log(albumInfo);
+
+                    var imgUri = albumInfo.image[0]["#text"];
+
+                    ui.deviceController.queue.addSong("Spotify", uri, null, title, album, artist, uri, imgUri);
+                });
+
                 ui.deviceController.queueControls.searchField.val("");
                 return false;
             }
@@ -108,11 +118,11 @@ var client = (function(webClient){
             songs: function(){
                 return ui.deviceController.queue.find(".song_info");
             },
-            addSong:function(service, serviceId, trackId, title, artist, detail, imgUri){
+            addSong:function(service, serviceId, trackId, title, album, artist, detail, imgUri){
 
                 webClient.sendAddTrackMessage(service, serviceId);
 
-                var song = template.queue.track(trackId, title, artist, detail, imgUri);
+                var song = webClient.template.queue.track(trackId, title, artist, detail, imgUri);
 
                 ui.deviceController.queue.songQueue.push(song);
 

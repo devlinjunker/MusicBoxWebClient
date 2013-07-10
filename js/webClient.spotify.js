@@ -22,7 +22,15 @@ var client = (function(webClient){
                 for(var i = 0; i < 10; i++)
                 {
                     track = data.tracks[i];
-                    results.push({label:track["name"], value: track["href"]});
+                    //console.log(track.artists[0].name);
+                    results.push(
+                        {
+                            label: track["name"],
+                            value: track["href"],
+                            artist: track.artists[0].name,
+                            album: track.album.name
+                        }
+                    );
                 }
 
                 if(resultCallback != null)
