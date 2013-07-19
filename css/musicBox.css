@@ -12,7 +12,7 @@
 
 body {
   height: 100%;
-  background-color: grey;
+  background-image: url("http://www.twitterevolutions.com/bgs/space-dust-twitter-background.jpg");
   margin: 0px; }
 
 .btn {
@@ -29,10 +29,10 @@ body {
 #device_controls {
   height: 15%;
   min-height: 100px;
-  background-color: #bbbbbb;
+  background-color: #444444;
   box-shadow: 3px 10px 10px;
-  border-left: 2px solid #444444;
-  border-right: 2px solid #444444; }
+  border-left: 2px solid #666666;
+  border-right: 2px solid #666666; }
   #device_controls #controls_container {
     margin: auto;
     text-align: center;
@@ -77,28 +77,42 @@ menu {
 
 #page_content {
   height: 100%;
-  margin-bottom: 80px; }
+  margin-bottom: 80px;
+  opacity: .95; }
 
 #page_footer {
-  background-color: #333333;
+  background-color: #222222;
   color: white;
   font-size: small;
   margin-bottom: -50px; }
 
 #page_header {
   height: 40px;
-  background-color: #333333;
+  background-color: #222222;
   color: white;
-  vertical-align: middle; }
+  vertical-align: middle;
+  box-shadow: 1px 3px 5px black; }
+  #page_header .container {
+    box-shadow: 0px 5px 3px 0px black; }
   #page_header h1 {
     margin-top: 0px;
-    display: inline; }
+    display: inline;
+    padding-left: 20px;
+    padding-top: 5px; }
     #page_header h1 a {
       color: white;
       text-decoration: none; }
+      #page_header h1 a:hover {
+        color: grey; }
   #page_header menu {
     display: inline;
-    float: right; }
+    float: right;
+    padding-top: 10px; }
+  #page_header menuitem {
+    padding: 0px 30px;
+    cursor: pointer; }
+    #page_header menuitem:hover {
+      color: grey; }
 
 #queue_controls {
   float: left;
@@ -169,7 +183,7 @@ menu {
     position: relative; }
     #tab_area #tab_controller .tab_selector {
       border-width: 1px 2px 1px 1px;
-      border-color: #333333;
+      border-color: #666666;
       border-style: solid;
       border-radius: 0px 0px 10px 10px;
       padding: 10px;
@@ -181,9 +195,11 @@ menu {
       background-color: #777777;
       opacity: .90; }
       #tab_area #tab_controller .tab_selector.selected {
-        border-top: 0px;
-        background-color: #bbbbbb;
-        opacity: 1; }
+        border-top: 1px solid #444444;
+        background-color: #444444;
+        opacity: 1;
+        position: relative;
+        top: -1px; }
       #tab_area #tab_controller .tab_selector:hover {
         cursor: pointer; }
   #tab_area .tab_view {
@@ -192,8 +208,8 @@ menu {
   #tab_area #tab_views {
     height: 90%;
     box-shadow: 3px 8px 10px;
-    border: 2px solid #444444;
+    border: 2px solid #666666;
     border-top: none;
-    border-bottom: none;
-    background-color: #bbbbbb;
+    border-bottom: 1px solid #666666;
+    background-color: #444444;
     padding-bottom: 50px; }

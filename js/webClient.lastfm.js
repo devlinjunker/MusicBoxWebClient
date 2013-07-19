@@ -6,6 +6,7 @@ var client = (function(webClient){
 
 
     var getAlbumInfoUri = "http://ws.audioscrobbler.com/2.0/?method=album.getinfo&format=json";
+    var getTopTracksUri = "http://ws.audioscrobbler.com/2.0/?method=chart.gettoptracks&format=json"
 
     webClient.lastfm = {};
 
@@ -27,6 +28,17 @@ var client = (function(webClient){
         // return albumInfo;
     }
 
+    webClient.lastfm.getTopTracks = function(callback){
+        $.get(getTopTracksUri,
+            {
+                api_key: apiKey
+            },
+            function(data, textStatus, jqXHR)
+            {
+                callback(data);
+            }
+        );
+    }
 
 
     return webClient;
