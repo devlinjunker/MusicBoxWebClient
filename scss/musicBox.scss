@@ -7,6 +7,7 @@ $controlButtonBG: #DDDDDD;
 
 $deviceControlBG: #444444;
 $deviceControlBorder: #666666;
+$deviceControlText: #999999;
 
 $pageFooterHeaderBG: #222222;
 $pageFooterHeaderFont: white;
@@ -21,15 +22,16 @@ $progressBarBG: #DDDDDD;
 $progressBarBorder: #AAAAAA;
 
 $songControlBG: #CCCCCC;
-
+$songControlFont: black;
 
 $tabSelectorBorder: $deviceControlBorder;
 $tabSelectorUnselected: #777777;
 
-$tabSelectorSelected: #444444;
+$tabSelectorSelected: $deviceControlBG;
 
-$tabViewBG: $tabSelectorSelected;
+$tabViewBG: $deviceControlBG;
 $tabViewBorder: $deviceControlBorder;
+$tabViewText: $deviceControlText;
 
 #alert_box{
     $alert_box_size: 300px;
@@ -78,6 +80,8 @@ body{
     box-shadow: 3px 10px 10px;
     border-left: 2px solid $deviceControlBorder;
     border-right: 2px solid $deviceControlBorder;
+    color: $deviceControlText;
+    font-weight: bold;
 
     #controls_container{
         margin: auto;
@@ -106,10 +110,20 @@ body{
 }
 
 #device_controller{
+
     .song_info{
         text-align: left;
         padding:5px;
         border-bottom: 1px solid $songInfoSeparator;
+
+        .icon-remove{
+            float: right;
+
+            &:hover{
+                color: grey;
+                cursor: pointer;
+            }
+        }
 
         .song_img{
             width:30px;
@@ -214,6 +228,7 @@ menu{
 }
 
 #queue_controller{
+    color: $songControlFont;
     max-width: 600px;
     margin: auto;
     height: 80%;
@@ -227,12 +242,20 @@ menu{
         box-shadow: inset 1px 1px 2px 2px $queueListShadow;
         vertical-align: middle;
         text-align: center;
+
+        #no_song_alert{
+            font-style: italic;
+            font-size: 80%;
+            text-align: center;
+            vertical-align: mid7dle;
+            height: 100%;
+        }
     }
 
     #song_search_field{
         width: 100%;
         margin: 0px;
-        padding: 0px;
+        padding: 0px 7px;
         border: 0px;
         border-bottom: 1px solid black;
         height: 30px;
@@ -266,7 +289,10 @@ menu{
 
 #song_controls{
     background-color: $songControlBG;
-    padding: 18px;
+    color: $songControlFont;
+    font-weight: normal;
+
+    padding: 0px 18px 18px 18px;
     width: 250px;
     margin: auto;
     border: 1px solid black;
@@ -279,6 +305,13 @@ menu{
         border-radius: 20px;
         box-sizing: border-box;
         margin: 10px;
+    }
+
+    #current_song_detail{
+        font-size: 10pt;
+        padding: 5px;
+        overflow: hidden;
+        white-space: nowrap;
     }
 }
 
@@ -320,7 +353,7 @@ menu{
     .tab_view{
         height: 100%;
         clear: both;
-
+        color: $tabViewText;
     }
 
     #tab_views{
@@ -330,7 +363,7 @@ menu{
         border-top: none;
         border-bottom: 1px solid $tabViewBorder;
         background-color: $tabViewBG;
-        padding-bottom: 50px;
+        //padding-bottom: 50px;
     }
 }
 

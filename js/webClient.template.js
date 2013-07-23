@@ -5,6 +5,8 @@ var client = (function(webClient){
     webClient.template.queue = {};
 
     webClient.template.queue.track = function(trackId, trackTitle, trackArtist, trackDetail, trackImgUri){
+        console.log("Creating Track Container from Template");
+
 
         var element = $("<div></div>").addClass("song_info");
 
@@ -17,18 +19,28 @@ var client = (function(webClient){
 
         element.attr("data-song-id", trackId);
 
-        var song_image = $("<img/>")
+        element.removeButton = $("<div></div>")
+                                    .addClass("icon-remove")
+        element.append(element.removeButton);
+
+        element.albumArt = $("<img/>")
                                 .addClass("song_img")
                                 .attr('src', trackImgUri);
-        element.append(song_image);
-        var song_title = $("<header></header>")
+        element.append(element.albumArt);
+
+        element.songTitle = $("<header></header>")
                                 .addClass("song_title")
                                 .text(trackTitle);
-        element.append(song_title);
-        var song_detail = $("<p></p>")
+        element.append(element.songTitle);
+
+        element.songDetails = $("<p></p>")
                                 .addClass("song_details")
-                                .text(trackDetail);
-        element.append(song_detail);
+                                .text(trackDetail)
+        element.append(element.songDetails);
+
+        element.purchaseContainer = $("<div></div>")
+                                        .addClass("purchase_container");
+        element.append(element.purchaseContainer);
 
         return element;
     }

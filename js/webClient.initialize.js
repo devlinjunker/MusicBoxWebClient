@@ -14,7 +14,7 @@ var client = (function webClient(webClient)
     };
 
     webClient.errorHandler = function(code, reason){
-         alert(code + ": " + reason)
+         console.log("Error Connecting Websocket ("+code + "): " + reason)
     };
 
     webClient.establishPrefixes = function(){
@@ -30,7 +30,7 @@ var client = (function webClient(webClient)
     webClient.subscribeChannel = function(channelUri, eventHandler){
         if(this.session != null)
         {
-            alert('test');
+            console.log('Subscribing to Channel: '+channelUri);
             this.session.subscribe(channelUri, eventHandler);
         }
     };
@@ -47,13 +47,13 @@ var client = (function webClient(webClient)
         }
         else
         {
-            alert("The websocket is closed");
+            console.log("Unable to send Message: "+msgType+" args: "+args);
         }
     }
 
     webClient.sendAddTrackMessage = function(service, serviceId)
     {
-        alert("Send Add :"+service+", "+serviceId);
+        console.log("Send Add :"+service+", "+serviceId);
 
         var command = "AddTrack,"+service+","+serviceId;
 
@@ -62,25 +62,25 @@ var client = (function webClient(webClient)
 
     webClient.sendPlayMessage = function()
     {
-        alert("Send Play");
+        console.log("Send Play");
         webClient.sendWebsocketMessage("PlayTrack", "PlayTrack");
     }
 
     webClient.sendPauseMessage = function()
     {
-        alert("Send Pause");
+        console.log("Send Pause");
         webClient.sendWebsocketMessage("PauseTrack", "PauseTrack");
     }
 
     webClient.sendSkipMessage = function()
     {
-        alert("Send Skip");
+        console.log("Send Skip");
         webClient.sendWebsocketMessage("NextTrack", "NextTrack");
     }
 
     webClient.sendRefreshMessage = function()
     {
-        alert("Send Refresh Request");
+        console.log("Send Refresh Request");
         //webClient.
     }
 

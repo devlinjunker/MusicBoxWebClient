@@ -16,7 +16,7 @@ var client = (function(webClient){
     });
 
     function buildTopTracksTab(data){
-        console.log(webClient.ui);
+        console.log("Top Track Data: ");
         console.log(data);
     }
 
@@ -31,11 +31,16 @@ var client = (function(webClient){
     function initializeControls(ui){
         ui.deviceControls = $("#device_controls");
         ui.deviceControls.songControls = ui.deviceControls.find("#song_controls");
-        ui.deviceControls.songControls.buttons = ui.deviceControls.songControls.find(".btn");
-        ui.deviceControls.songControls.buttons.playPause = ui.deviceControls.songControls.buttons.filter("#song_play_pause");
-        ui.deviceControls.songControls.buttons.skip = ui.deviceControls.songControls.buttons.filter("#song_skip");
-        ui.deviceControls.queueControls = ui.deviceControls.find("#queue_controls");
-        ui.deviceControls.queueControls.refreshButton = ui.deviceControls.queueControls.find("#refresh_queue");
+
+        $.extend(ui.deviceControls.songControls, {
+            currentSongInfo: $("#current_song_detail"),
+            buttons: ui.deviceControls.songControls.find(".btn")
+        });
+
+        $.extend(ui.deviceControls.songControls.buttons, {
+            playPause: ui.deviceControls.songControls.buttons.filter("#song_play_pause"),
+            skip: ui.deviceControls.songControls.buttons.filter("#song_skip")
+        });
 
         ui.deviceControls.songControls.buttons.playPause.click(function(){
             if(ui.deviceControls.songControls.buttons.playPause.attr('data-state') == "play"){
@@ -58,9 +63,6 @@ var client = (function(webClient){
             ui.deviceController.queue.removeSong(0);
         });
 
-        ui.deviceControls.queueControls.refreshButton.click(function(){
-            webClient.sendRefreshMessage();
-        });
     }
 
     /// <summary>
@@ -83,8 +85,6 @@ var client = (function(webClient){
             ui.tabs.deviceTabSelector.addClass("selected");
             ui.tabs.tabViews.not("#"+ui.tabs.deviceTabView.attr('id')).hide();
             ui.tabs.deviceTabView.show();
-
-            ui.deviceControls.queueControls.removeClass("hidden");
         });
 
         ui.tabs.findSongsTabSelector.click(function(){
@@ -92,7 +92,6 @@ var client = (function(webClient){
             ui.tabs.findSongsTabSelector.addClass("selected");
             ui.tabs.tabViews.not("#"+ui.tabs.findSongView.attr('id')).hide();
             ui.tabs.findSongView.show();
-            ui.deviceControls.queueControls.addClass("hidden");
         });
     }
 
@@ -147,9 +146,14 @@ var client = (function(webClient){
         $.extend(ui.deviceController.queue, {
             // Array to hold song objects
             songQueue: [],
-            // TODO: Want this to returns all song objects
+            noSongAlert: $("#no_song_alert"),
+            // TODO: Header
             getSongs: function(){
                 return ui.deviceController.queue.find(".song_info");
+            },
+            // TODO: Header
+            getSongAt: function(index){
+                return ui.deviceController
             },
             // Add song with the details specified to the song queue, sends an
             // add message to the socket, creates a new song and adds it to the
@@ -162,7 +166,15 @@ var client = (function(webClient){
                 var song = webClient.template.queue.track(trackId, title, artist,
                     detail, imgUri);
 
-                this.songQueue.push(song);
+                if(this.songQueue.length == 0){
+                    this.noSongAlert.hide();
+                }
+
+                var index = this.songQueue.push(song)-1;
+
+                song.removeButton.bind('click', function(){
+                    ui.deviceController.queue.removeSong(index)
+                });
 
                 $(ui.deviceController.queue).append(song)
                 ui.deviceController.queue.append(song);
@@ -170,9 +182,15 @@ var client = (function(webClient){
             // Removes the song at the index from the song queue array and webpage
             removeSong:function(index){
                 // TODO: send remove song message to socket
-                var removed = ui.deviceController.queue.songQueue.slice(index, 1);
+                console.log("Removed Song from Queue at index "+index+": ");
+                var removed = this.songQueue.splice(index, 1)[0];
+                console.log(removed);
 
-                ui.deviceController.queue.songs().eq(index).remove();
+                this.getSongs().eq(index).remove();
+
+                if(this.songQueue.length == 0){
+                    this.noSongAlert.show();
+                }
             }
         });
     }

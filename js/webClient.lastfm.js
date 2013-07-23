@@ -11,6 +11,8 @@ var client = (function(webClient){
     webClient.lastfm = {};
 
     webClient.lastfm.getAlbumInfo = function(artist, album, callback){
+        console.log("Retrieving Album Info from Last.fm: "+artist+", "+album);
+
         var albumInfo = null;
         $.get(getAlbumInfoUri,
             {
@@ -35,6 +37,7 @@ var client = (function(webClient){
             },
             function(data, textStatus, jqXHR)
             {
+                console.log("Retrieving Top Tracks from Last.fm");
                 callback(data);
             }
         );

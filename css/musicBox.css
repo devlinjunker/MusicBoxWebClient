@@ -32,7 +32,9 @@ body {
   background-color: #444444;
   box-shadow: 3px 10px 10px;
   border-left: 2px solid #666666;
-  border-right: 2px solid #666666; }
+  border-right: 2px solid #666666;
+  color: #999999;
+  font-weight: bold; }
   #device_controls #controls_container {
     margin: auto;
     text-align: center;
@@ -55,6 +57,11 @@ body {
   text-align: left;
   padding: 5px;
   border-bottom: 1px solid #999999; }
+  #device_controller .song_info .icon-remove {
+    float: right; }
+    #device_controller .song_info .icon-remove:hover {
+      color: grey;
+      cursor: pointer; }
   #device_controller .song_info .song_img {
     width: 30px;
     height: 30px;
@@ -125,6 +132,7 @@ menu {
     clear: both; }
 
 #queue_controller {
+  color: black;
   max-width: 600px;
   margin: auto;
   height: 80%; }
@@ -137,10 +145,16 @@ menu {
     box-shadow: inset 1px 1px 2px 2px #888888;
     vertical-align: middle;
     text-align: center; }
+    #queue_controller #queue_list #no_song_alert {
+      font-style: italic;
+      font-size: 80%;
+      text-align: center;
+      vertical-align: mid7dle;
+      height: 100%; }
   #queue_controller #song_search_field {
     width: 100%;
     margin: 0px;
-    padding: 0px;
+    padding: 0px 7px;
     border: 0px;
     border-bottom: 1px solid black;
     height: 30px;
@@ -163,7 +177,9 @@ menu {
 
 #song_controls {
   background-color: #cccccc;
-  padding: 18px;
+  color: black;
+  font-weight: normal;
+  padding: 0px 18px 18px 18px;
   width: 250px;
   margin: auto;
   border: 1px solid black;
@@ -175,6 +191,11 @@ menu {
     border-radius: 20px;
     box-sizing: border-box;
     margin: 10px; }
+  #song_controls #current_song_detail {
+    font-size: 10pt;
+    padding: 5px;
+    overflow: hidden;
+    white-space: nowrap; }
 
 #tab_area {
   height: 80%; }
@@ -204,12 +225,12 @@ menu {
         cursor: pointer; }
   #tab_area .tab_view {
     height: 100%;
-    clear: both; }
+    clear: both;
+    color: #999999; }
   #tab_area #tab_views {
     height: 90%;
     box-shadow: 3px 8px 10px;
     border: 2px solid #666666;
     border-top: none;
     border-bottom: 1px solid #666666;
-    background-color: #444444;
-    padding-bottom: 50px; }
+    background-color: #444444; }

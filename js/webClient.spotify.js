@@ -7,6 +7,7 @@ var client = (function(webClient){
     webClient.spotify = {};
 
     webClient.spotify.search = function(request, resultCallback){
+        console.log("Searching Spotify: "+request.term);
         var encoded_query = encodeURIComponent(request.term);
 
         //console.log(request);
@@ -41,6 +42,7 @@ var client = (function(webClient){
     };
 
     webClient.spotify.lookupTrack = function(uri, callback){
+        console.log("Retrieve Spotify Track Info: "+uri)
         var result = null;
         $.get(trackLookupUri,
             {

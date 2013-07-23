@@ -36,20 +36,18 @@
             </noscript>
             <section id="device_controls">
                 <div id="controls_container">
-                    <menu id="queue_controls">
-                        <menuitem class="btn icon-refresh" id="refresh_queue"></menuitem>
-                    </menu>
                     <menu id="song_controls">
+                        <div id="current_song_detail">No Song Playing Currently</div>
                         <div id="song_progress_bar">
                             <span id="current_progress">0:00</span>
-                            <span id="song_length">4:22</span>
+                            <span id="song_length">0:00</span>
                             <div id="progress_bar"></div>
                         </div>
                         <menuitem class="btn icon-play icon-large" id="song_play_pause" data-state="pause"></menuitem>
                         <menuitem class="btn icon-forward icon-large" id="song_skip"></menuitem>
                     </menu>
-                    <form>
-                        <label for="device_selecter">Device List:
+                    <form id="device_picker">
+                        <label for="device_selecter">Select Device:
                         <select id="device_selecter">
                             <option value="LivingRoom">LivingRoom</option>
                         </select>
@@ -62,8 +60,8 @@
                     <section id="device_controller" class="tab_view">
                         <div id="queue_controller">
                             <div id="queue_list">
-                                <input type="text" id="song_search_field"/>
-                                <!--Song Queue is Empty!-->
+                                <input type="text" id="song_search_field" placeholder="Search"/>
+                                <div id="no_song_alert">There are currently no songs playing</div>
                                 <!--div class="song_info" style="">
                                     <img class="song_img" style=""/>
                                     <header class="song_title" style="">Title</header>
