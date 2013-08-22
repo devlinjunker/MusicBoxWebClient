@@ -235,8 +235,14 @@ var client = (function(webClient){
                     ui.deviceController.queue._addSong("Spotify", serviceId, trackId, title, album, artist, detail, imgUri);
                 }
 
-                if(ui.deviceController.queue.length == 1){
+                if(this.songQueue.length == 0){
                     ui.deviceControls.songControls.currentSongInfo.text(title);
+
+                    if(ui.deviceControls.songControls.buttons.playPause.attr("data-state") == "pause"){
+                        ui.deviceControls.songControls.buttons.playPause.removeClass('icon-play');
+                        ui.deviceControls.songControls.buttons.playPause.addClass('icon-pause');
+                        ui.deviceControls.songControls.buttons.playPause.attr('data-state', "play");
+                    }
                 }
             },
             getServiceId: function(service, title, album, artist, callback){
@@ -277,11 +283,12 @@ var client = (function(webClient){
                 var index = this.songQueue.push(song)-1;
 
                 song.removeButton.bind('click', function(){
-                    ui.deviceController.queue.removeSong(index)
+                    console.log('remove button pressed')
+                    ui.deviceController.queue.removeSong(song)
                 });
 
                 $(ui.deviceController.queue).append(song)
-                ui.deviceController.queue.append(song);
+                //ui.deviceController.queue.append(song);
 
                 // TODO: Probably should be event
                 rebuildSimilarTracks(ui);
@@ -289,22 +296,36 @@ var client = (function(webClient){
             endSong: function(){
                 if(this.songQueue.length != 0)
                 {
+                    ui.deviceController.queue.children(".song_info").first().remove();
                     var song = this.songQueue.splice(0, 1);
 
                     this.songHistory.push(song);
+
+                    if(this.songQueue.length != 0){
+                        ui.deviceControls.songControls.currentSongInfo.text(this.songQueue[0].track.title);
+                    }
                 }
             },
             // Removes the song at the index from the song queue array and webpage
-            removeSong:function(index){
+            removeSong:function(song){
                 // TODO: send remove song message to socket
-                console.log("Removed Song from Queue at index "+index+": ");
-                var removed = this.songQueue.splice(index, 1)[0];
-                console.log(removed);
 
-                this.getSongs().eq(index).remove();
+                var removed;
+
+                for(index in this.songQueue){
+                    if(this.songQueue[index] == song){
+                        removed = this.songQueue.splice(index, 1)[0];
+
+                        ui.deviceController.queue.children(".song_info").get(index).remove();
+                    }
+                }
+
+                // removed.remove();
+
+                // this.getSongs().eq(index).remove();
 
                 if(this.songQueue.length == 0){
-                    this.noSongAlert.show();
+                    ui.deviceControls.songControls.currentSongInfo.text("No Song Playing Currently");
                 }
             }
         });
