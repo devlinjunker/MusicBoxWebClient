@@ -1,18 +1,18 @@
 #alert_box {
   position: absolute;
-  width: 300px;
+  width: 500px;
   left: 50%;
-  margin-left: -150px;
+  margin-left: -250px;
   text-align: center;
   background-color: white;
   border-radius: 0px 0px 5px 5px;
-  padding: 20px;
+  padding: 15px;
   z-index: 5;
   box-sizing: border-box; }
 
 body {
   height: 100%;
-  background-image: url("http://www.twitterevolutions.com/bgs/space-dust-twitter-background.jpg");
+  background-image: url("images/space-dust-twitter-background.jpg");
   margin: 0px; }
 
 .btn {
@@ -72,6 +72,45 @@ body {
   #device_controller .song_info .song_details {
     margin-top: 0px;
     font-size: 10px; }
+
+#find_song_controller #find_song_area {
+  overflow: hidden;
+  padding: 15px;
+  height: 100%;
+  box-sizing: border-box; }
+  #find_song_controller #find_song_area .song_info {
+    float: left;
+    clear: right;
+    width: 100%;
+    font-size: .8em;
+    color: #664609;
+    padding: 2%;
+    box-sizing: border-box;
+    box-shadow: 1px 1px 1px 0px; }
+    #find_song_controller #find_song_area .song_info:hover {
+      color: #222222;
+      box-shadow: 1px 1px 2px 1px;
+      cursor: default; }
+    #find_song_controller #find_song_area .song_info .add_song_button {
+      float: right; }
+      #find_song_controller #find_song_area .song_info .add_song_button:hover {
+        cursor: pointer; }
+    #find_song_controller #find_song_area .song_info .song_title {
+      font-weight: bold;
+      float: left; }
+  #find_song_controller #find_song_area #top_song_container {
+    display: inline-block;
+    margin-bottom: 15px;
+    overflow: hidden;
+    height: 100%;
+    padding: 5px;
+    box-sizing: border-box; }
+    #find_song_controller #find_song_area #top_song_container header {
+      margin-bottom: 5px; }
+  #find_song_controller #find_song_area #similar_song_area {
+    display: inline-block;
+    max-width: 40%;
+    background-color: #DDDDDD; }
 
 .hidden {
   display: none; }

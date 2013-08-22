@@ -1,9 +1,11 @@
 var client = (function webClient(webClient)
 {
-    if(webClient == null) webClient = {};
+    if(webClient == null) webClient = {
+        session: null
+    };
 
     webClient.connectionEstablished = function(session){
-        this.session = session;
+        webClient.session = session;
 
         //this.subscribeChannel()
         this.establishPrefixes();
@@ -28,22 +30,28 @@ var client = (function webClient(webClient)
     };
 
     webClient.subscribeChannel = function(channelUri, eventHandler){
-        if(this.session != null)
+        if(webClient.session != null)
         {
             console.log('Subscribing to Channel: '+channelUri);
-            this.session.subscribe(channelUri, eventHandler);
+            webClient.session.subscribe(channelUri, eventHandler);
         }
     };
 
     webClient.sendWebsocketMessage = function(msgType, args)
     {
-        if(this.session != null)
+        if(webClient.session != null)
         {
-            var eventDetails = {};
+            console.log("Sending "+msgType+" message:");
 
-            console.log(msgType);
-            console.log(args);
-            this.session.publish(channelUri, args, true);
+            var command = {
+                "command": msgType,
+                "data": args
+            };
+
+            console.log(command);
+
+
+            webClient.session.publish(channelUri, args, true);
         }
         else
         {
@@ -55,33 +63,58 @@ var client = (function webClient(webClient)
     {
         console.log("Send Add :"+service+", "+serviceId);
 
-        var command = "AddTrack,"+service+","+serviceId;
 
-        webClient.sendWebsocketMessage("AddTrack", command);
+        var track = {
+            "url": serviceId,
+            "trackName":"",
+            "artistName": "",
+            "albumName": "",
+            "service": service,
+        }
+
+        webClient.sendWebsocketMessage("AddTrack", [track]);
     }
 
     webClient.sendPlayMessage = function()
     {
         console.log("Send Play");
-        webClient.sendWebsocketMessage("PlayTrack", "PlayTrack");
+
+        var command = {"command" : "playTrack"};
+        webClient.sendWebsocketMessage("PlayTrack", "");
     }
 
     webClient.sendPauseMessage = function()
     {
         console.log("Send Pause");
-        webClient.sendWebsocketMessage("PauseTrack", "PauseTrack");
+        webClient.sendWebsocketMessage("PauseTrack", "");
     }
 
     webClient.sendSkipMessage = function()
     {
         console.log("Send Skip");
-        webClient.sendWebsocketMessage("NextTrack", "NextTrack");
+        webClient.sendWebsocketMessage("NextTrack", "");
     }
 
     webClient.sendRefreshMessage = function()
     {
-        console.log("Send Refresh Request");
-        //webClient.
+        console.log("Request Status");
+
+        var refreshURL = channelUri + "currentQueueRequest";
+
+        if(webClient.session!= null)
+        {
+            webClient.session.call(refreshURL, userName, password, deviceName);
+        }
+    }
+
+    webClient.getDeviceList = function(callback){
+        console.log("Request Device List")
+        var deviceURL = channelUri + "players";
+
+        if(webClient.session!= null)
+        {
+            webClient.session.call(deviceURL, userName, password).then(callback);
+        }
     }
 
     return webClient;

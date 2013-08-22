@@ -6,9 +6,9 @@ var client = (function(webClient){
 
     webClient.spotify = {};
 
-    webClient.spotify.search = function(request, resultCallback){
-        console.log("Searching Spotify: "+request.term);
-        var encoded_query = encodeURIComponent(request.term);
+    webClient.spotify.search = function(query, callback){
+
+        var encoded_query = encodeURIComponent(query);
 
         //console.log(request);
         $.get(searchUri,
@@ -20,22 +20,28 @@ var client = (function(webClient){
             {
                 var results = new Array();
 
-                for(var i = 0; i < 10; i++)
+                if(data.tracks != undefined)
                 {
-                    track = data.tracks[i];
-                    //console.log(track.artists[0].name);
-                    results.push(
-                        {
-                            label: track["name"],
-                            value: track["href"],
-                            artist: track.artists[0].name,
-                            album: track.album.name
-                        }
-                    );
+                    for(var i = 0; i < 10; i++)
+                    {
+                        var track = data.tracks[i];
+                        //console.log(track.artists[0].name);
+                        results.push(
+                            {
+                                label: track["name"],
+                                value: track["href"],
+                                artist: track.artists[0].name,
+                                album: track.album.name
+                            }
+                        );
+                    }
                 }
 
-                if(resultCallback != null)
-                    resultCallback(results);
+                console.log("Results:");
+                console.log(results);
+
+                if(callback != null)
+                    callback(results);
             },
             "json"
         );
@@ -50,9 +56,17 @@ var client = (function(webClient){
             },
             function(data, textStatus, jqXHR)
             {
-                callback(data);
+                if(callback != null)
+                    callback(data);
             }
         );
+    }
+
+    webClient.spotify.getServiceId = function(title, artist, album, callback)
+    {
+        webClient.spotify.search(title, function(results){
+            callback(results[0].label);
+        })
     }
 
     return webClient;

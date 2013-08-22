@@ -1,7 +1,7 @@
 $alertBoxBG: white;
 
 $bodyBG: grey;
-$bodyBGUri: "http://www.twitterevolutions.com/bgs/space-dust-twitter-background.jpg";
+$bodyBGUri: "images/space-dust-twitter-background.jpg";
 
 $controlButtonBG: #DDDDDD;
 
@@ -33,8 +33,10 @@ $tabViewBG: $deviceControlBG;
 $tabViewBorder: $deviceControlBorder;
 $tabViewText: $deviceControlText;
 
+
+
 #alert_box{
-    $alert_box_size: 300px;
+    $alert_box_size: 500px;
     position: absolute;
     width: $alert_box_size;
     left: 50%;
@@ -42,7 +44,7 @@ $tabViewText: $deviceControlText;
     text-align: center;
     background-color: $alertBoxBG;
     border-radius: 0px 0px 5px 5px;
-    padding: 20px;
+    padding: 15px;
     z-index: 5;
     box-sizing: border-box;
 }
@@ -139,6 +141,67 @@ body{
         .song_details{
             margin-top:0px;
             font-size: 10px;
+        }
+    }
+}
+
+#find_song_controller{
+    #find_song_area{
+        overflow: hidden;
+        padding: 15px;
+        height: 100%;
+        box-sizing: border-box;
+
+        .song_info{
+            float: left;
+            clear: right;
+            width: 100%;
+            font-size: .8em;
+
+            color: #664609;
+
+            padding: 2%;
+            box-sizing: border-box;
+
+            box-shadow: 1px 1px 1px 0px;
+
+            &:hover{
+                color: #222222;
+                box-shadow: 1px 1px 2px 1px;
+                cursor: default;
+            }
+
+            .add_song_button{
+                float: right;
+
+                &:hover{
+                    cursor: pointer;
+                }
+            }
+
+            .song_title{
+                font-weight: bold;
+                float: left;
+            }
+        }
+
+        #top_song_container{
+            display: inline-block;
+            margin-bottom: 15px;
+            overflow: hidden;
+            height: 100%;
+            padding: 5px;
+            box-sizing: border-box;
+
+            header{
+                margin-bottom: 5px;
+            }
+        }
+
+        #similar_song_area{
+            display: inline-block;
+            max-width: 40%;
+            background-color: #DDDDDD;
         }
     }
 }
