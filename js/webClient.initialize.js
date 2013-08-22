@@ -51,7 +51,7 @@ var client = (function webClient(webClient)
             console.log(command);
 
 
-            webClient.session.publish(channelUri, args, true);
+            webClient.session.publish(channelUri, command, true);
         }
         else
         {
@@ -72,7 +72,7 @@ var client = (function webClient(webClient)
             "service": service,
         }
 
-        webClient.sendWebsocketMessage("AddTrack", [track]);
+        webClient.sendWebsocketMessage("addTrack", [track]);
     }
 
     webClient.sendPlayMessage = function()
@@ -80,19 +80,19 @@ var client = (function webClient(webClient)
         console.log("Send Play");
 
         var command = {"command" : "playTrack"};
-        webClient.sendWebsocketMessage("PlayTrack", "");
+        webClient.sendWebsocketMessage("playTrack", "");
     }
 
     webClient.sendPauseMessage = function()
     {
         console.log("Send Pause");
-        webClient.sendWebsocketMessage("PauseTrack", "");
+        webClient.sendWebsocketMessage("pauseTrack", "");
     }
 
     webClient.sendSkipMessage = function()
     {
         console.log("Send Skip");
-        webClient.sendWebsocketMessage("NextTrack", "");
+        webClient.sendWebsocketMessage("nextTrack", "");
     }
 
     webClient.sendRefreshMessage = function()

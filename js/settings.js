@@ -5,15 +5,15 @@ var musicBox = {
     }
 }
 
-var deviceName = "LivingRoom";
+var deviceName = "Beatles";
 
 var userName = "christopher.vanderschuere@gmail.com";
 var password = "root";
 
-var channelUri = "http://www.musicbox.com/"+userName+"/"+deviceName+"/currentQueue/";
+var channelUri = "http://www.musicbox.com/"+userName+"/"+deviceName;
 
 function rebuildChannelUri(){
-    channelUri = "http://www.musicbox.com/"+userName+"/"+deviceName+"/currentQueue/";
+    channelUri = "http://www.musicbox.com/"+userName+"/"+deviceName;
 }
 
 var EndOfTrack = 1;

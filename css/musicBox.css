@@ -55,7 +55,7 @@ body {
 
 #device_controller .song_info {
   text-align: left;
-  padding: 5px;
+  padding: 10px 5px;
   border-bottom: 1px solid #999999; }
   #device_controller .song_info .icon-remove {
     float: right; }

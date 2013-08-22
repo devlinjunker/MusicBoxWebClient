@@ -180,7 +180,7 @@ var client = (function(webClient){
                 var album = selected.item.album;
                 var artist = selected.item.artist;
 
-                ui.deviceController.queue.addSong("Spotify", uri, null, title, album, artist, uri, null);
+                ui.deviceController.queue.addSong("Spotify", uri, null, title, album, artist, "", null);
 
                 // clear search field
                 ui.deviceController.queueControls.searchField.val("");
@@ -233,6 +233,10 @@ var client = (function(webClient){
                 }
                 else{
                     ui.deviceController.queue._addSong("Spotify", serviceId, trackId, title, album, artist, detail, imgUri);
+                }
+
+                if(ui.deviceController.queue.length == 1){
+                    ui.deviceControls.songControls.currentSongInfo.text(title);
                 }
             },
             getServiceId: function(service, title, album, artist, callback){
