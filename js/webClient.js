@@ -18,7 +18,7 @@ var client = (function(webClient){
 
                 var handler = webClient.mBoxChannelEventHandler;
 
-                webClient.subscribeChannel(channelUri, handler);
+                webClient.subscribeChannel(webClient.channelUri, handler);
             },
             function(code, reason){
                 webClient.errorHandler(code, reason);

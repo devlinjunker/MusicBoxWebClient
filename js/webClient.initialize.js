@@ -4,6 +4,8 @@ var client = (function webClient(webClient)
         session: null
     };
 
+    webClient.channelUri = "http://www.musicbox.com/"+userName+"/"+deviceName;
+
     webClient.connectionEstablished = function(session){
         webClient.session = session;
 
@@ -18,6 +20,10 @@ var client = (function webClient(webClient)
     webClient.errorHandler = function(code, reason){
          console.log("Error Connecting Websocket ("+code + "): " + reason)
     };
+
+    webClient.reconnect = function(deviceName){
+        webClientchannelUri = "http://www.musicbox.com/"+userName+"/"+deviceName;
+    }
 
     webClient.establishPrefixes = function(){
         // if(this.session != null)
@@ -51,7 +57,7 @@ var client = (function webClient(webClient)
             console.log(command);
 
 
-            webClient.session.publish(channelUri, command, true);
+            webClient.session.publish(webClient.channelUri, command, true);
         }
         else
         {
@@ -99,7 +105,7 @@ var client = (function webClient(webClient)
     {
         console.log("Request Status");
 
-        var refreshURL = channelUri + "currentQueueRequest";
+        var refreshURL = webClient.channelUri + "/currentQueueRequest";
 
         if(webClient.session!= null)
         {
@@ -109,7 +115,7 @@ var client = (function webClient(webClient)
 
     webClient.getDeviceList = function(callback){
         console.log("Request Device List")
-        var deviceURL = channelUri + "players";
+        var deviceURL = webClient.channelUri + "/players";
 
         if(webClient.session!= null)
         {

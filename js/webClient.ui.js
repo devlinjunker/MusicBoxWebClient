@@ -28,22 +28,6 @@ var client = (function(webClient){
         }
     });
 
-    // webclient.user.addSimilarSongs: (function(this, songs){
-    //     console.log(songs);
-    //     if(songs.length != undefined)
-    //     {
-    //         for(song in songs){
-    //             webclient.user.similarSongs.push(song);
-    //             webClient.ui.tabs.findSongTabView.similarSongArea.prepend(song);
-    //         }
-    //     }
-    //     else
-    //     {
-    //         webclient.user.similarSongs.push(song);
-    //         webClient.ui.tabs.findSongTabView.similarSongArea.prepend(song);
-    //     }
-    // }
-
     var songQueue = {};
 
     // webClient.subscribeChannel(channelUri, function(topicUri, ){
@@ -59,7 +43,6 @@ var client = (function(webClient){
         initializeSongController(ui);
         initializeTabController(ui);
         initializeDeviceControllerTab(ui);
-        initializeFindTracksTab(ui);
     }
 
 
@@ -68,10 +51,6 @@ var client = (function(webClient){
         ui.deviceControls.songControls = ui.deviceControls.find("#song_controls");
         ui.deviceControls.devicePicker = ui.deviceControls.find("#device_picker");
 
-        webClient.getDeviceList(function(results)
-        {
-            console.log(this.results);
-        });
 
         $.extend(ui.deviceControls.songControls, {
             currentSongInfo: $("#current_song_detail"),
@@ -143,13 +122,12 @@ var client = (function(webClient){
         initializeDeviceQueue(ui);
     }
 
+
     /// <summary>Enables the event handler for queue refresh messages and
     /// initializes the UI actions for the device song queue on the queue
     /// controller tab (add, remove, getSongs)</summary>
     /// <param name="ui">UI object that will store all interface actions</param>
     function initializeDeviceQueue(ui){
-        // Enables the event handler for queue refresh socket messages
-        enableQueueRefreshEvent();
 
         ui.deviceController.queueControls = $("#queue_controls");
         ui.deviceController.queueControls.refreshButton = $("#refresh_queue");
@@ -180,7 +158,7 @@ var client = (function(webClient){
                 var album = selected.item.album;
                 var artist = selected.item.artist;
 
-                ui.deviceController.queue.addSong("Spotify", uri, null, title, album, artist, "", null);
+                ui.deviceController.queue.addSong("Spotify", uri, null, title, album, artist, artist, null);
 
                 // clear search field
                 ui.deviceController.queueControls.searchField.val("");
@@ -331,85 +309,6 @@ var client = (function(webClient){
         });
     }
 
-    /// <summary>Subscribes queueRefreshEventHandler() to the QueueRefesh
-    /// Event</summary>
-    function enableQueueRefreshEvent(){
-        // TODO: Move this elsewhere
-        var queueChannelUri = "http://www.musicbox.com/"+userName+"/"+deviceName;
-        webClient.subscribeChannel(channelUri, queueRefreshEventHandler);
-    }
-
-    function initializeFindTracksTab(ui){
-        ui.tabs.findSongTabView.findSongArea = $("#find_song_area");
-        ui.tabs.findSongTabView.similarSongArea = $("#similar_song_area");
-
-
-        function buildTopTracks (data){
-            console.log("Top Track Data: ");
-            console.log(data);
-
-            var i = 0;
-            for(id in data.tracks.track)
-            {
-                if(i < 10)
-                {
-                    var track = data.tracks.track[id];
-
-                    var trackImg = (track.image != undefined ? track.image[0]["#text"] : '')
-                    var song = webClient.template.find.track('',track.name, track.artist.name, track.url, trackImg);
-
-                    song.addButton.click(function(){
-                        ui.deviceController.queue.addSong("Spotify", null, null,
-                            song.track.title, null, song.track.artist, null, null);
-                    });
-
-
-                    ui.tabs.findSongTabView.similarSongArea.append(song);
-
-                    i++;
-                }
-            }
-        };
-
-        webClient.lastfm.getTopTracks(buildTopTracks);
-    }
-
-    function buildSimilarTracks(data){
-        console.log("Similar Track Data");
-        console.log(data);
-
-        var songs = data.similartracks.track;
-
-        for(i in songs){
-            var track = songs[i];
-
-            var song = new webClient.template.find.track('',
-                                                        track.name,
-                                                        track.artist.name,
-                                                        '',
-                                                        '');
-
-            song.addButton.click(function(){
-                console.log('test');
-                webClient.ui.deviceController.queue.addSong("Spotify", null, null,
-                    song.track.title, null, song.track.artist, null, null);
-            });
-
-            webClient.user.addSimilarSong(song);
-            webClient.user.normalizeSimilarSongs();
-        }
-
-        console.log(webClient.user);
-    }
-
-    function rebuildSimilarTracks(ui){
-        var songs = ui.deviceController.queue.songQueue.concat(ui.deviceController.queue.songHistory);
-
-        for(i in songs){
-            console.log(songs[i]);
-            webClient.lastfm.getSimilarTracks(songs[i].track.title, songs[i].track.artist, 20, buildSimilarTracks);
-        }
-    }
 
     /***** EVENT HANDLERS *****/
 

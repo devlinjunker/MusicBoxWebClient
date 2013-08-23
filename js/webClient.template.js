@@ -53,34 +53,5 @@ var client = (function(webClient){
         return element;
     }
 
-    webClient.template.find.track = function(trackId, trackTitle, trackArtist, trackDetail, trackImgUri){
-        console.log("Creating Track Container From Template");
-
-        console.log(arguments);
-
-        var element = webClient.template.track(trackId, trackTitle, trackArtist, trackDetail, trackImgUri);
-
-        element.songTitle = $("<header></header>")
-                                .addClass("song_title")
-                                .text(trackTitle);
-        element.append(element.songTitle);
-
-        // element.addButton = $("<span></span>")
-        //                         .addClass("icon-stack add_song_button")
-        //                         .append(
-        //                             $("<i></i>")
-        //                                 .addClass("icon-circle")
-        //                         )
-        //                         .append(
-        //                             $("<i></i>")
-        //                                 .addClass("icon-small icon-plus-sign")
-        //                         );
-        element.addButton = $("<i></i>")
-                                .addClass("icon-plus-sign add_song_button icon-large");
-        element.append(element.addButton);
-
-        return element;
-    }
-
     return webClient;
 })(client);
