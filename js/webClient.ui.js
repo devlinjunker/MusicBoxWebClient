@@ -49,8 +49,14 @@ var client = (function(webClient){
     function initializeSongController(ui){
         ui.deviceControls = $("#device_controls");
         ui.deviceControls.songControls = ui.deviceControls.find("#song_controls");
-        ui.deviceControls.devicePicker = ui.deviceControls.find("#device_picker");
+        ui.deviceControls.deviceSelecter = ui.deviceControls.find("#device_selecter");
 
+        ui.deviceControls.deviceSelecter.bind('change', function(){
+            console.log(ui.deviceControls.deviceSelecter.val());
+            webClient.subscribeChannel(
+                ui.deviceControls.deviceSelecter.val(),
+                webClient.reconnect);
+        })
 
         $.extend(ui.deviceControls.songControls, {
             currentSongInfo: $("#current_song_detail"),
