@@ -1,19 +1,10 @@
-<!DOCTYPE HTML>
-<html>
+<!doctype html>
+<html data-ng-app="musicBox" data-ng-cloak>
 <head>
-    <link rel="stylesheet" type="text/css" href="css/jquery-ui-1.10.3.custom.min.css"/>
+	<title>Look Angular.js!</title>
+
     <link rel="stylesheet" type="text/css" href="css/font-awesome.css"/>
-    <link rel="stylesheet" type="text/css" href="css/musicBox.css"/>
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-    <script src="js/autobahn.js"></script>
-    <script src="js/jquery-ui-1.10.3.custom.js"></script>
-    <script src="js/settings.js"></script>
-    <script src="js/webClient.template.js"></script>
-    <script src="js/webClient.initialize.js"></script>
-    <script src="js/webClient.spotify.js"></script>
-    <script src="js/webClient.lastfm.js"></script>
-    <script src="js/webClient.ui.js"></script>
-    <script src="js/webClient.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/musicbox.css"/>
 </head>
 <body id="home" style="font-family: arial;">
     <header id="page_header">
@@ -25,34 +16,27 @@
             </menu-->
         </div>
     </header>
-    <div id="alert_box" class="hidden">
-        <span id="alert_message">This is an alert!
-        </span>
-    </div>
     <div id="page_content">
         <div class="container">
             <noscript>
                 You need to be running javascript to control the device!
             </noscript>
-            <section id="device_controls">
+            <section id="device_controls" ng-controller='deviceController'>
                 <div id="controls_container">
                     <menu id="song_controls">
-                        <div id="current_song_detail">No Song Playing Currently</div>
+                        <div id="current_song_detail">{{songPlaying.TrackName}}</div>
                         <div id="song_progress_bar">
                             <span id="current_progress">0:00</span>
-                            <span id="song_length">0:00</span>
+                            <span id="song_length">{{songPlaying.length}}</span>
                             <div id="progress_bar"></div>
                         </div>
-                        <menuitem class="btn icon-play icon-large" id="song_play_pause" data-state="pause"></menuitem>
-                        <menuitem class="btn icon-forward icon-large" id="song_skip"></menuitem>
+                        <menuitem id="song_play_pause" class="btn icon-large {{ isPlaying | playPauseIcon}}" ng-click="playPauseTrack()"></menuitem>
+                        <menuitem id="song_skip" class="btn icon-forward icon-large" ng-click="skipTrack()"></menuitem>
                     </menu>
                     <form id="device_picker">
                         <label for="device_selecter">Select Device:
-                        <select id="device_selecter">
-                            <option value="Awolnation">Awolnation</option>
-                            <option value="Beatles" selected>Beatles</option>
-                            <option value="Coldplay">Coldplay</option>
-                            <option value="deadmau5">deadmau5</option>
+                        <select id="device_selecter" ng-model="deviceSelected">
+                            <option value="LivingRoom" ng-repeat="device in devices">{{device.name}}</option>
                         </select>
                         </label>
                     </form>
@@ -61,23 +45,23 @@
             <section id="tab_area">
                 <div id="tab_views">
                     <section id="device_controller" class="tab_view">
-                        <div id="queue_controller">
+                        <div id="queue_controller" data-ng-controller="queueController">
                             <header></header>
                             <div id="queue_list">
-                                <input type="text" id="song_search_field" placeholder="Search"/>
-                                <div id="no_song_alert">Add a song to begin</div>
-                                <!--div class="song_info" style="">
+                                <input type="text" id="song_search_field" placeholder="Add"/>
+                                <div id="no_song_alert">There are currently no songs playing</div>
+                                <div class="song_info" style="" data-ng-repeat="track in trackQueue">
                                     <img class="song_img" style=""/>
-                                    <header class="song_title" style="">Title</header>
+                                    <header class="song_title" style="">{{track.TrackTitle}}</header>
                                     <p class="song_details" style="">
                                         Song Details
                                     </p>
-                                </div-->
+                                </div>
                             </div>
                             <footer></footer>
                         </div>
                     </section>
-                    <!--section id="find_song_controller" class="tab_view hidden">
+                    <section id="find_song_controller" class="tab_view hidden">
                         <header></header>
                         <div></div>
                         <div id="find_song_area">
@@ -88,19 +72,29 @@
                             </div>
                         </div>
                         <footer></footer>
-                    </section-->
+                    </section>
                 </div>
-                <!--menu id="tab_controller">
+                <menu id="tab_controller">
                     <menuitem class="tab_selector selected" id="tab1">Control Device</menuitem>
                     <menuitem class="tab_selector" id="tab2">Find Music</menuitem>
-                </menu-->
+                </menu>
             </section>
         </div>
     </div>
     <footer id="page_footer">
         <div class="container">
-            Copyright 2013 All Rights Reserved.
+            Copyright 2013 All Rights Reserved.     I can add: {{1+2}}
         </div>
     </footer>
+
+    <script src="js/lib/autobahn/autobahn.js"></script>
+    <script src="js/lib/angular/angular.js"></script>
+    <script src="js/src/main.js"></script>
+    <script src="js/src/socket.js"></script>
+    <script src="js/src/controllers/deviceController.js"></script>
+    <script src="js/src/controllers/queueController.js"></script>
+    <script src="js/src/filters.js"></script>
+    <script src="js/src/trackQueue.js"></script>
+    <!--script src="js/res/spotify.js"></script-->
 </body>
 </html>
