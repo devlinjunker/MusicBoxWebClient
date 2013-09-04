@@ -27,7 +27,6 @@ body {
   margin: auto; }
 
 #device_controls {
-  height: 15%;
   min-height: 100px;
   background-color: #444444;
   box-shadow: 3px 10px 10px;
@@ -51,11 +50,12 @@ body {
       float: right;
       text-align: right; }
     #device_controls form #device_selecter {
-      clear: both; }
+      clear: both;
+      width: auto; }
 
 #device_controller .song_info {
   text-align: left;
-  padding: 5px;
+  padding: 10px 5px;
   border-bottom: 1px solid #999999; }
   #device_controller .song_info .icon-remove {
     float: right; }
@@ -218,7 +218,7 @@ menu {
   background-color: #cccccc;
   color: black;
   font-weight: normal;
-  padding: 0px 18px 18px 18px;
+  padding: 0px 18px 5px 18px;
   width: 250px;
   margin: auto;
   border: 1px solid black;
@@ -226,10 +226,10 @@ menu {
   border-radius: 0px 0px 10px 10px;
   margin-bottom: 5px; }
   #song_controls .btn {
-    padding: 13px;
+    padding: 15px;
     border-radius: 20px;
-    box-sizing: border-box;
-    margin: 10px; }
+    line-height: 16px;
+    margin: 0px 10px; }
   #song_controls #current_song_detail {
     font-size: 10pt;
     padding: 5px;

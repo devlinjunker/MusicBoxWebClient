@@ -3,18 +3,9 @@ musicBox.
         var user = {};
 
         user.name = "christopher.vanderschuere@gmail.com";
+        user.password ="test";
 
-        user.myDeviceUriPrefix =  "http://www.musicbox.com/"+user.name+"/";
-
-        user.currentDeviceUri = null;
-
-        user.updateCurrentDeviceUri = function(deviceName){
-            user.currentDeviceUri = user.myDeviceUriPrefix + deviceName;
-        }
-
-        this.setCurrentDeviceUri = function(deviceName){
-            user.currentDeviceUri = user.myDeviceUriPrefix + deviceName;
-        }
+        user.deviceUriPrefix =  "http://www.musicbox.com/"+user.name+"/";
 
         this.$get = function(){
             return user;

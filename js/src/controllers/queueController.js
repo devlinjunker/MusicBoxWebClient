@@ -1,9 +1,16 @@
 musicBox.controller(
     'queueController',
-function($scope, trackQueue, socketSession, user){
+function($scope, trackQueue, musicBoxSession, user){
     $scope.trackQueue = trackQueue.queue;
 
-    socketSession.subscribe(user.currentDeviceUri, function(topicUri, event){
+    $scope.isEmpty = function(){
+        if(trackQueue.currentTrack == trackQueue.noSong)
+            return true;
+        else
+            return false;
+    }
+
+    musicBoxSession.addCallback(function(topicUri, event){
         console.log('Event Handler!');
         console.log(event);
 

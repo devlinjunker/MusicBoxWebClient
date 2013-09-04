@@ -1,10 +1,10 @@
 musicBox.controller(
     'queueSearchController',
-function($scope, trackQueue){
+function($scope, $q, trackQueue, spotifyService){
     $scope.selected = undefined;
 
     $scope.findTracks = function(value){
-        return [{id:1, TrackTitle: "test"},{id:2, TrackTitle:"bob"}];
+        return (spotifyService.search(value));
     }
 
     $scope.addTrack = function(){

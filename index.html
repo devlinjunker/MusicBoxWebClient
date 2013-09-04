@@ -5,6 +5,7 @@
 
     <link rel="stylesheet" type="text/css" href="css/font-awesome.css"/>
     <link rel="stylesheet" type="text/css" href="css/musicbox.css"/>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap/bootstrap.min.css"
 </head>
 <body id="home" style="font-family: arial;">
     <header id="page_header">
@@ -21,10 +22,10 @@
             <noscript>
                 You need to be running javascript to control the device!
             </noscript>
-            <section id="device_controls" ng-controller='deviceController'>
+            <section id="device_controls" class="clearfix" ng-controller='deviceController'>
                 <div id="controls_container">
                     <menu id="song_controls">
-                        <div id="current_song_detail">{{songPlaying.TrackName}}</div>
+                        <div id="current_song_detail">{{currentTrack.TrackTitle}}</div>
                         <div id="song_progress_bar">
                             <span id="current_progress">0:00</span>
                             <span id="song_length">{{songPlaying.length}}</span>
@@ -35,8 +36,7 @@
                     </menu>
                     <form id="device_picker">
                         <label for="device_selecter">Select Device:
-                        <select id="device_selecter" ng-model="deviceSelected">
-                            <option value="LivingRoom" ng-repeat="device in devices">{{device.name}}</option>
+                        <select id="device_selecter" ng-model="deviceSelected"  ng-options="device.name for device in deviceList" ng-change="changeDevice()">
                         </select>
                         </label>
                     </form>
@@ -48,8 +48,10 @@
                         <div id="queue_controller" data-ng-controller="queueController">
                             <header></header>
                             <div id="queue_list">
-                                <input type="text" id="song_search_field" placeholder="Add"/>
-                                <div id="no_song_alert">There are currently no songs playing</div>
+                                <div class="" data-ng-controller="queueSearchController">
+                                    <input type="text" id="song_search_field" class="typeahead"  placeholder="Add" ng-model="selected" typeahead-on-select="addTrack()" typeahead="value as value.TrackTitle for value in findTracks($viewValue)" autocomplete="off"/>
+                                </div>
+                                <div id="no_song_alert" data-ng-hide="!isEmpty()">There are currently no songs playing</div>
                                 <div class="song_info" style="" data-ng-repeat="track in trackQueue">
                                     <img class="song_img" style=""/>
                                     <header class="song_title" style="">{{track.TrackTitle}}</header>
@@ -83,18 +85,25 @@
     </div>
     <footer id="page_footer">
         <div class="container">
-            Copyright 2013 All Rights Reserved.     I can add: {{1+2}}
+            Copyright 2013 All Rights Reserved.
         </div>
     </footer>
 
     <script src="js/lib/autobahn/autobahn.js"></script>
     <script src="js/lib/angular/angular.js"></script>
+    <script src="js/lib/angular-ui/bootstrap/dist/ui-bootstrap-custom-0.5.0.min.js"></script>
+    <script src="js/src/appconfig.js"></script>
+    <script src="js/src/user.js"></script>
     <script src="js/src/main.js"></script>
     <script src="js/src/socket.js"></script>
+    <script src="js/src/musicBoxSession.js"></script>
     <script src="js/src/controllers/deviceController.js"></script>
     <script src="js/src/controllers/queueController.js"></script>
+    <script src="js/src/controllers/queueSearchController.js"></script>
+    <script src="js/src/services/spotify.js"></script>
     <script src="js/src/filters.js"></script>
     <script src="js/src/trackQueue.js"></script>
+
     <!--script src="js/res/spotify.js"></script-->
 </body>
 </html>

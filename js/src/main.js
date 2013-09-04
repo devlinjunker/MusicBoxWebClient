@@ -1,26 +1,8 @@
-var musicBox = angular.module('musicBox', ['webSocket']).provider('user', function(){
-        var user = {};
+musicBox.
+	config(function($httpProvider, socketSessionProvider, userProvider){
+		delete $httpProvider.defaults.headers.common['X-Requested-With'];
 
-        user.name = "christopher.vanderschuere@gmail.com";
-
-        user.myDeviceUriPrefix =  "http://www.musicbox.com/"+user.name+"/";
-
-        user.currentDeviceUri = null;
-
-        user.updateCurrentDeviceUri = function(deviceName){
-            user.currentDeviceUri = user.myDeviceUriPrefix + deviceName;
-        }
-
-        this.setCurrentDeviceUri = function(deviceName){
-            user.currentDeviceUri = user.myDeviceUriPrefix + deviceName;
-        }
-
-        this.$get = function(){
-            return user;
-        }
-    }).
-	config(function(socketSessionProvider, userProvider){
-		var socketUri = "ec2-54-218-97-11.us-west-2.compute.amazonaws.com";
+        var socketUri = "clientBalencer-394863257.us-west-2.elb.amazonaws.com";
         var socketPort = 8080;
 
 		socketSessionProvider.connect(socketUri, socketPort,
@@ -32,5 +14,4 @@ var musicBox = angular.module('musicBox', ['webSocket']).provider('user', functi
 			}
 		);
 
-		userProvider.setCurrentDeviceUri("Beatles");
 	});

@@ -1,0 +1,1 @@
+var musicBox = angular.module('musicBox', ['webSocket', 'ui.bootstrap']);

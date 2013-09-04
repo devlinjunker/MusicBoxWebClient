@@ -76,7 +76,7 @@ body{
 }
 
 #device_controls{
-    height: 15%;
+    //height: 15%;
     min-height: 100px;
     background-color: $deviceControlBG;
     box-shadow: 3px 10px 10px;
@@ -107,6 +107,7 @@ body{
 
         #device_selecter{
             clear: both;
+            width: auto;
         }
     }
 }
@@ -355,7 +356,7 @@ menu{
     color: $songControlFont;
     font-weight: normal;
 
-    padding: 0px 18px 18px 18px;
+    padding: 0px 18px 5px 18px;
     width: 250px;
     margin: auto;
     border: 1px solid black;
@@ -364,10 +365,11 @@ menu{
     margin-bottom: 5px;
 
     .btn{
-        padding: 13px;
+        padding: 15px;
         border-radius: 20px;
-        box-sizing: border-box;
-        margin: 10px;
+        //box-sizing: border-box;
+        line-height:16px;
+        margin: 0px 10px;
     }
 
     #current_song_detail{

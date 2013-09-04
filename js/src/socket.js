@@ -32,6 +32,13 @@ angular.module('webSocket', []).
 			});
 		}
 
+		socket.unsubscribe = function(uri){
+			console.log(uri);
+			socket.onConnect(function(){
+				socket.session.unsubscribe(uri);
+			})
+		}
+
 
 
 
