@@ -1,4 +1,6 @@
-angular.module('webSocket', []).
+var websocket = angular.module('webSocket', []);
+
+websocket.
     factory('socket', function(){
         var socket = {};
         socket.connectedCallbacks = [];
@@ -40,8 +42,10 @@ angular.module('webSocket', []).
         }
 
         return socket;
-    }).
-    provider('session', function(socket){
+    });
+
+websocket.
+    provider('socketSession', function(socket){
 
         var socket = new socket();
 

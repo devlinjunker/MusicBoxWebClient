@@ -1,0 +1,62 @@
+<!doctype html>
+<html >
+<head>
+	<title>Project Music Box</title>
+
+    <link rel="stylesheet" type="text/css" href="../css/font-awesome.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/musicbox.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/bootstrap/bootstrap.min.css"
+</head>
+<body id="home" style="font-family: arial;">
+    <header id="page_header">
+        <div class="container">
+            <h1><a href="..">Project Music Box</a></h1>
+            <menu>
+                <menuitem><a href=''>Log In</a></menuitem>
+            </menu>
+        </div>
+    </header>
+    <div id="page_content">
+        <div class="container">
+            <noscript>
+                You need to be running javascript to use this website!
+            </noscript>
+            <section id="tab_area" style='min-height:300px;'>
+                <div id="tab_views">
+                    <section id="device_controller" class="tab_view">
+                        <div style='width:300px;margin:auto;text-align:center;padding-top:100px;'>
+							<h5>Log In to View Your Devices</h5>
+							<label for='username'>
+								<span class='label_text' style='width:80px;text-align:right;display:inline-block;'>Username:</span>
+								<input type='text' name='username' id='username' style='width:200px;display:inline-block;'/>
+							</label>
+							<label for='password'>
+								<span class='label_text' style='width:80px;text-align:right;display:inline-block;'>Password:</span>
+								<input type='password' name='password' id='password' style='width:200px;'/>
+							</label>
+							<button style='float:right;' class='btn' >Log In</button>
+						</div>
+                    </section>
+                </div>
+            </section>
+        </div>
+    </div>
+    <footer id="page_footer">
+        <div class="container">
+            Copyright 2013 All Rights Reserved.
+        </div>
+    </footer>
+
+    <script src="../js/lib/autobahn/autobahn.js"></script>
+    <script src="../js/lib/angular/angular.js"></script>
+    
+    <script src="../js/src/appconfig.js"></script>
+    <script src="../js/src/user.js"></script>
+    <script src="../js/src/main.js"></script>
+    <script src="../js/src/socket.js"></script>
+    <script src="../js/src/musicBoxSession.js"></script>
+    
+
+    <!--script src="js/res/spotify.js"></script-->
+</body>
+</html>

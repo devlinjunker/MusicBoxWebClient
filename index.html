@@ -1,7 +1,7 @@
 <!doctype html>
 <html data-ng-app="musicBox" data-ng-cloak>
 <head>
-	<title>Look Angular.js!</title>
+	<title>Project Music Box</title>
 
     <link rel="stylesheet" type="text/css" href="css/font-awesome.css"/>
     <link rel="stylesheet" type="text/css" href="css/musicbox.css"/>
@@ -11,10 +11,9 @@
     <header id="page_header">
         <div class="container">
             <h1><a href="">Project Music Box</a></h1>
-            <!--menu>
-                <menuitem>Account</menuitem>
-                <menuitem>Log Out</menuitem>
-            </menu-->
+            <menu>
+                <menuitem><a href='admin'>Log In</a></menuitem>
+            </menu>
         </div>
     </header>
     <div id="page_content">
@@ -31,8 +30,6 @@
                             <span id="song_length">{{songPlaying.length}}</span>
                             <div id="progress_bar"></div>
                         </div>
-                        <menuitem id="song_play_pause" class="btn icon-large {{ isPlaying | playPauseIcon}}" ng-click="playPauseTrack()"></menuitem>
-                        <menuitem id="song_skip" class="btn icon-forward icon-large" ng-click="skipTrack()"></menuitem>
                     </menu>
                     <form id="device_picker">
                         <label for="device_selecter">Select Device:
@@ -48,9 +45,9 @@
                         <div id="queue_controller" data-ng-controller="queueController">
                             <header></header>
                             <div id="queue_list">
-                                <div class="" data-ng-controller="queueSearchController">
+                                <!--div class="" data-ng-controller="queueSearchController">
                                     <input type="text" id="song_search_field" class="typeahead"  placeholder="Add" ng-model="selected" typeahead-on-select="addTrack()" typeahead="value as value.TrackTitle for value in findTracks($viewValue)" autocomplete="off"/>
-                                </div>
+                                </div-->
                                 <div id="no_song_alert" data-ng-hide="!isEmpty()">There are currently no songs playing</div>
                                 <div class="song_info" style="" data-ng-repeat="track in trackQueue">
                                     <img class="song_img" style=""/>
@@ -63,23 +60,7 @@
                             <footer></footer>
                         </div>
                     </section>
-                    <section id="find_song_controller" class="tab_view hidden">
-                        <header></header>
-                        <div></div>
-                        <div id="find_song_area">
-                            <div id="top_song_container">
-                                <header>Songs you might like:</header>
-                                <div id="similar_song_area">
-                                </div>
-                            </div>
-                        </div>
-                        <footer></footer>
-                    </section>
                 </div>
-                <menu id="tab_controller">
-                    <menuitem class="tab_selector selected" id="tab1">Control Device</menuitem>
-                    <menuitem class="tab_selector" id="tab2">Find Music</menuitem>
-                </menu>
             </section>
         </div>
     </div>
