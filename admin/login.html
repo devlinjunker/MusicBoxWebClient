@@ -1,5 +1,5 @@
 <!doctype html>
-<html >
+<html data-ng-app="musicBox">
 <head>
 	<title>Project Music Box</title>
 
@@ -24,17 +24,17 @@
             <section id="tab_area" style='min-height:300px;'>
                 <div id="tab_views">
                     <section id="device_controller" class="tab_view">
-                        <div style='width:300px;margin:auto;text-align:center;padding-top:100px;'>
+                        <div style='width:300px;margin:auto;text-align:center;padding-top:100px;' data-ng-controller="loginController">
 							<h5>Log In to View Your Devices</h5>
 							<label for='username'>
 								<span class='label_text' style='width:80px;text-align:right;display:inline-block;'>Username:</span>
-								<input type='text' name='username' id='username' style='width:200px;display:inline-block;'/>
+								<input type='text' name='username' id='username' style='width:200px;display:inline-block;' data-ng-model="username"/>
 							</label>
 							<label for='password'>
 								<span class='label_text' style='width:80px;text-align:right;display:inline-block;'>Password:</span>
-								<input type='password' name='password' id='password' style='width:200px;'/>
+								<input type='password' name='password' id='password' style='width:200px;' data-ng-model="password"/>
 							</label>
-							<button style='float:right;' class='btn' >Log In</button>
+							<button style='float:right;' class='btn' data-ng-click="submitLogin()">Log In</button>
 						</div>
                     </section>
                 </div>
@@ -49,14 +49,14 @@
 
     <script src="../js/lib/autobahn/autobahn.js"></script>
     <script src="../js/lib/angular/angular.js"></script>
-    
+    <script src="../js/lib/angular-ui/bootstrap/dist/ui-bootstrap-custom-0.5.0.min.js"></script>
     <script src="../js/src/appconfig.js"></script>
     <script src="../js/src/user.js"></script>
     <script src="../js/src/main.js"></script>
     <script src="../js/src/socket.js"></script>
     <script src="../js/src/musicBoxSession.js"></script>
     
-
+	<script src="../js/src/controllers/loginController.js"></script>
     <!--script src="js/res/spotify.js"></script-->
 </body>
 </html>

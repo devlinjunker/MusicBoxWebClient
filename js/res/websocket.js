@@ -17,9 +17,10 @@ websocket.
         }
 
         socket.catchUp = function(){
-            for(i in socket.connectedCallbacks)
+            while(socket.connectedCallbacks.length != 0)
             {
-                socket.connectedCallbacks[i]();
+				var callback = socket.connectedCallbacks.shift();
+                callback();
             }
         }
 
@@ -50,8 +51,10 @@ websocket.
         var socket = new socket();
 
         this.connect = function(socketUri, port, success, failure){
-            ab.connect(
-                "ws://"+socketUri+":"+port,
+            ab.launch(
+                {
+					wsuri: "ws://"+socketUri+":"+port,
+				},
                 function(session){
                     socket.session = session;
 
