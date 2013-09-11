@@ -1,7 +1,8 @@
 var websocket = angular.module('webSocket', []);
 
 websocket.
-    factory('socket', function(){
+    provider('socketSession', function(){
+
         var socket = {};
         socket.connectedCallbacks = [];
 
@@ -30,6 +31,14 @@ websocket.
             });
         }
 
+		socket.unsubscribe = function(uri){
+			console.log(uri);
+			socket.onConnect(function(){
+				socket.session.unsubscribe(uri);
+			})
+		}
+		
+		
         socket.publish = function(channelUri, command, excludeMe){
             socket.onConnect(function(){
                 socket.session.publish(channelUri, command, excludeMe);
@@ -38,23 +47,13 @@ websocket.
 
         socket.call = function(rpcUri, args, success, failure){
             socket.onConnect(function(){
-                socket.session.call(rpcUri, args, success, failure);
+                socket.session.call(rpcUri, args).then(success, failure);
             });
         }
-
-        return socket;
-    });
-
-websocket.
-    provider('socketSession', function(socket){
-
-        var socket = new socket();
-
+		
         this.connect = function(socketUri, port, success, failure){
-            ab.launch(
-                {
-					wsuri: "ws://"+socketUri+":"+port,
-				},
+            ab.connect(
+                "ws://"+socketUri+":"+port,
                 function(session){
                     socket.session = session;
 

@@ -4,6 +4,7 @@ musicBox.factory('musicBoxSession', function(user, socketSession){
 
     this.deviceUri = undefined;
 
+	// Sets the Device URI using the device name and user's device prefix
     this.setDeviceUri = function(deviceName){
         this.deviceUri = user.deviceUriPrefix + deviceName;
     }

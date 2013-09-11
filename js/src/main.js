@@ -1,5 +1,5 @@
 musicBox.
-	config(function($httpProvider, socketSessionProvider, userProvider){
+	config(function($httpProvider, socketSessionProvider){
 		delete $httpProvider.defaults.headers.common['X-Requested-With'];
 
         var socketUri = "clientBalencer-394863257.us-west-2.elb.amazonaws.com";
