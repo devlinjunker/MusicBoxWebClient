@@ -20,7 +20,7 @@ musicBox.factory('musicBoxSession', function(user, socketSession){
     this.changeDevice = function(newDeviceId, newDeviceName, oldDeviceId, oldDeviceName){
         this.unsubscribeDevice(oldDeviceId, oldDeviceName);
 
-        this.deviceUri = user.deviceUriPrefix + newDeviceName;
+        this.deviceUri = user.deviceUriPrefix + newDeviceId;
         this.subscribeDevice(newDeviceId, newDeviceName)
         this.getStatusUpdate(newDeviceName);
     }
