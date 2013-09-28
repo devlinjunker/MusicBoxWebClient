@@ -1,44 +1,119 @@
-musicBox.
-	factory('user', function(socketSession){
-		var user = {};
+musicBox.factory(
+    'user',
+function(socketSession, $q){
+	var loginUri = 'http://www.musicbox.com/user/startSession';
 
-		user.name = "christopher.vanderschuere@gmail.com";
-        user.password ="test";
+    var user = {};
 
-        user.sessionId;
-        user.permissions;
+	user.username = undefined;
+    user.password = undefined;
+    user.sessionId = undefined;
+    user.permissions = undefined;
 
-        user.deviceUriPrefix =  "http://www.musicbox.com/"+user.name+"/";
+    user.musicBoxes = [];
 
-		user.login = function(username, password){
-			var args = {
-				username: username,
-				password: password
-			};
+    // User Authentication
+	user.login = function(username, password, success, fail){
+        var args = {
+			username: username,
+			password: password
+		};
 
-			socketSession.call('http://www.musicbox.com/user/startSession', args, function(result){
-				user.sessionId = result.sessionID;
+        // call the startSession RPC to retrieve the sessionID
+		socketSession.call(loginUri, args, function(result){
+			// set Session Id from RPC return
+            user.sessionId = result.sessionID;
 
-                socketSession.onConnect(function(){
-					socketSession.session.authreq(username).then(function(challenge){
+            console.log(result.sessionID)
 
-                        var passKey = ab.deriveKey(password, JSON.parse(challenge).extra)
+            // Start Authenticating the socket with the sessionID
+            socketSession.onConnect(function(){
+				socketSession.session.authreq(username).then(function(challenge){
 
-						var signature = socketSession.session.authsign(challenge, user.sessionId);
+                    var passKey = ab.deriveKey(password, JSON.parse(challenge).extra)
 
-                        console.log('test')
-						socketSession.session.auth(signature).then(function(permissions){
-							console.log('authenticated!');
-                            console.log(permissions);
+					user.signature = socketSession.session.authsign(challenge, user.sessionId);
 
-                            user.permissions = permissions;
-						}, function(){
-                            console.log('test')
-                        });
-					});
+					socketSession.session.auth(user.signature).then(function(permissions){
+						console.log('authenticated!');
+                        console.log(permissions);
+
+                        // Set User Information
+                        user.username = username;
+                        user.password = password;
+                        user.permissions = permissions;
+
+                        user.updateMusicBoxes();
+
+                        if(success != null && success != undefined)
+                            success();
+					}, function(){
+                        console.log('authentication failed');
+
+                        if(fail != null && fail != undefined)
+                            fail();
+                    });
 				});
-			}, null);
-		}
+			});
+		}, function(){
 
-		return user;
-	});
+            console.log('rpc failed')
+        });
+	}
+
+    user.updateMusicBoxes = function(success, fail){
+        console.log('updating boxes')
+
+        var ids = user.getMusicBoxIds();
+
+        ids.then(function(ids){
+            user.musicBoxes = user.getBoxDetails(ids);
+        });
+    }
+
+    user.getMusicBoxIds = function(){
+        var deferred = $q.defer();
+
+        socketSession.call('http://www.musicbox.com/players', [],
+            function(result){
+                var ids = []
+                for(i in result){
+                    var id = result[i];
+
+                    ids.push(id);
+                }
+
+                deferred.resolve(ids);
+            }, null);
+
+        return deferred.promise;
+    }
+
+    user.getBoxDetails = function(ids){
+        var deferred = $q.defer();
+
+        // HACK: this slows performance
+        ids = [].concat(ids);
+
+        socketSession.call('http://www.musicbox.com/boxDetails', ids,
+            function(result){
+                var boxes = [];
+                for(i in result){
+                    boxes.push(result[i]);
+                }
+
+                deferred.resolve(boxes);
+            }, null)
+
+        return deferred.promise;
+    }
+
+    user.clearMusicBoxes = function(){
+        user.musicBoxes = [];
+    }
+
+
+
+
+	return user;
+});

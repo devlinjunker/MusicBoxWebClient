@@ -1,3 +1,17 @@
+#admin_controller #device_list {
+  width: 20%;
+  border-left: 1px solid black; }
+  #admin_controller #device_list li {
+    width: 100%; }
+    #admin_controller #device_list li .icon-collapse {
+      display: inline;
+      float: right; }
+  #admin_controller #device_list #title {
+    display: block;
+    text-align: center; }
+  #admin_controller #device_list ul {
+    list-style-type: none; }
+
 #alert_box {
   position: absolute;
   width: 500px;
@@ -26,7 +40,7 @@ body {
   width: 960px;
   margin: auto; }
 
-#device_controls {
+#device_detail_controls {
   min-height: 100px;
   background-color: #444444;
   box-shadow: 3px 10px 10px;
@@ -34,22 +48,22 @@ body {
   border-right: 2px solid #666666;
   color: #999999;
   font-weight: bold; }
-  #device_controls #controls_container {
+  #device_detail_controls #controls_container {
     margin: auto;
     text-align: center;
     width: 600px;
     position: relative; }
-  #device_controls form {
+  #device_detail_controls form {
     display: inline;
     position: absolute;
     margin-top: 5px;
     top: 0px;
     right: 0px;
     font-size: small; }
-    #device_controls form * {
+    #device_detail_controls form * {
       float: right;
       text-align: right; }
-    #device_controls form #device_selecter {
+    #device_detail_controls form #device_selecter {
       clear: both;
       width: auto; }
 

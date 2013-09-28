@@ -33,7 +33,30 @@ $tabViewBG: $deviceControlBG;
 $tabViewBorder: $deviceControlBorder;
 $tabViewText: $deviceControlText;
 
+#admin_controller{
+    #device_list{
+        width: 20%;
+        border-left: 1px solid black;
 
+        li{
+            width:100%;
+
+            .icon-collapse{
+                display:inline;
+                float: right;
+            }
+        }
+
+        #title{
+            display: block;
+            text-align: center;
+        }
+
+        ul{
+            list-style-type: none;
+        }
+    }
+}
 
 #alert_box{
     $alert_box_size: 500px;
@@ -75,7 +98,7 @@ body{
     margin: auto;
 }
 
-#device_controls{
+#device_detail_controls{
     //height: 15%;
     min-height: 100px;
     background-color: $deviceControlBG;

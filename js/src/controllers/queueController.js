@@ -3,14 +3,14 @@ musicBox.controller(
 function($scope, trackQueue, musicBoxSession, user){
     $scope.trackQueue = trackQueue.queue;
 
+    // Returns true if the trackQueue Service queue is empty, false otherwise
     $scope.isEmpty = function(){
-        if(trackQueue.currentTrack == trackQueue.noSong)
-            return true;
-        else
-            return false;
+        return trackQueue.isEmpty();
     }
 
-    musicBoxSession.addCallback(function(topicUri, event){
+    // Message Handling Method, performs methods on the trackQueue Service based
+    // on the message details
+    function handleMessages(topicUri, event){
         console.log('Event Handler!');
         console.log(event);
 
@@ -31,5 +31,7 @@ function($scope, trackQueue, musicBoxSession, user){
 
                 break;
         }
-    });
+    }
+
+    musicBoxSession.addCallback(handleMessages);
 });

@@ -1,1 +1,1 @@
-var musicBox = angular.module('musicBox', ['webSocket', 'ui.bootstrap']);
+var musicBox = angular.module('musicBox', ['webSocket', 'ui.bootstrap', 'ngRoute']);

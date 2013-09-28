@@ -1,0 +1,19 @@
+<section id="device_controller" class="tab_view">
+    <div id="queue_controller" >
+        <header></header>
+        <div id="queue_list">
+            <!--div class="" data-ng-controller="queueSearchController">
+                <input type="text" id="song_search_field" class="typeahead"  placeholder="Add" ng-model="selected" typeahead-on-select="addTrack()" typeahead="value as value.TrackTitle for value in findTracks($viewValue)" autocomplete="off"/>
+            </div-->
+            <div id="no_song_alert" data-ng-hide="!isEmpty()">There are currently no songs in the queue</div>
+            <div class="song_info" style="" data-ng-repeat="track in trackQueue">
+                <img class="song_img" style=""/>
+                <header class="song_title" style="">{{track.TrackTitle}}</header>
+                <p class="song_details" style="">
+                    Song Details
+                </p>
+            </div>
+        </div>
+        <footer></footer>
+    </div>
+</section>

@@ -1,0 +1,15 @@
+<section id="admin_controller" class="tab_view">
+    <aside id='device_list'>
+        <strong id='title'>Device List</strong>
+        <ul>
+            <li data-ng-repeat="box in user.musicBoxes"
+            data-ng-click="selectBox(box)">
+            {{box.DeviceName}}
+            <i class='icon-collapse'></i>
+            </li>
+        </ul>
+    </aside>
+    <section id='playlist'>
+    </section>
+    {{boxSelected.deviceName}}
+</section>

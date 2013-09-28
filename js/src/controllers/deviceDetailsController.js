@@ -1,11 +1,13 @@
 musicBox.controller(
-	'deviceController',
+	'deviceDetailsController',
 function($scope, musicBoxSession, user, trackQueue){
 
 	$scope.deviceList = [{name: 'Beatles', id: '1'}, {name: 'Deadmau5', id: '2'},
 	 	{name: 'AwolNation', id: '3'},{name: 'Coldplay', id: '4'}];
 
+
 	$scope.deviceSelected = $scope.deviceList[0];
+
 	$scope.$watch('deviceSelected', function(newVal, oldVal, $scope){
 		if(newVal){
 			musicBoxSession.changeDevice(newVal.id, newVal.name, oldVal.id, oldVal.name);
