@@ -1,3 +1,0 @@
-[submodule "js/lib/angular-ui/bootstrap"]
-	path = js/lib/angular-ui/bootstrap
-	url = git@github.com:devlinjunker/bootstrap.git

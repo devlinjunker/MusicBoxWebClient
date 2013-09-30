@@ -1,11 +1,17 @@
 #admin_controller #device_list {
   width: 20%;
   border-left: 1px solid black; }
+  #admin_controller #device_list i:hover {
+    color: #777777; }
   #admin_controller #device_list li {
     width: 100%; }
     #admin_controller #device_list li .icon-collapse {
       display: inline;
       float: right; }
+    #admin_controller #device_list li:hover {
+      cursor: pointer;
+      border-bottom: 1px solid #777777;
+      border-top: 1px solid #555555; }
   #admin_controller #device_list #title {
     display: block;
     text-align: center; }

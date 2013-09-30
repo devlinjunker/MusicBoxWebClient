@@ -8,6 +8,7 @@ $controlButtonBG: #DDDDDD;
 $deviceControlBG: #444444;
 $deviceControlBorder: #666666;
 $deviceControlText: #999999;
+$deviceControlTextHover: #777777;
 
 $pageFooterHeaderBG: #222222;
 $pageFooterHeaderFont: white;
@@ -38,12 +39,22 @@ $tabViewText: $deviceControlText;
         width: 20%;
         border-left: 1px solid black;
 
+        i:hover{
+            color:$deviceControlTextHover;
+        }
+
         li{
             width:100%;
 
             .icon-collapse{
                 display:inline;
                 float: right;
+            }
+
+            &:hover{
+                cursor: pointer;
+                border-bottom: 1px solid #777777;
+                border-top: 1px solid #555555;
             }
         }
 
