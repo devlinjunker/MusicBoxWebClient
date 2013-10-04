@@ -8,6 +8,33 @@ angular.module('webSocket', []).
 		var socket = {};
 		var connectedCallbacks = [];
 
+		socket.authenticate = function(username, password, sessionId, success, fail){
+			console.log('authenticating..')
+
+			// Start Authenticating the socket with the sessionID
+            socket.onConnect(function(){
+				socket.session.authreq(username).then(function(challenge){
+
+                    var passKey = ab.deriveKey(password, JSON.parse(challenge).extra)
+
+					var signature = socket.session.authsign(challenge, sessionId);
+
+					socket.session.auth(signature).then(function(permissions){
+						console.log('authenticated!');
+                        console.log(permissions);
+
+                        if(success != null && success != undefined)
+                            success(permissions);
+					}, function(){
+                        console.log('authentication failed');
+
+                        if(fail != null && fail != undefined)
+                            fail();
+                    });
+				});
+			});
+		}
+
 		// Calls the callback once the socket is connected, unless it is already
 		// connected, and it is called immediately
 		socket.onConnect = function(callback){

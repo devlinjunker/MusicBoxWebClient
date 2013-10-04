@@ -1,13 +1,36 @@
 musicBox.controller(
     'adminController',
-function($scope, user){
-    $scope.user = user;
+function($scope, user, musicBoxSession, trackQueue){
+    $scope.subviews = ['playlist', 'settings'];
 
-    $scope.boxSelected;
+    $scope.boxSession = musicBoxSession;
+
+    $scope.user = user;
+    $scope.subview = $scope.subviews[0];
+
+    $scope.boxSession.currentDevice = user.musicBoxes[0];
 
     $scope.selectBox = function(box){
-        console.log(box)
-        $scope.boxSelected = box;
+        $scope.boxSession.currentDevice = box;
+
+        musicBoxSession.getTrackHistory();
+    }
+
+    $scope.selectSubview = function(viewName){
+        $scope.subview = viewName;
+    }
+
+    function updatePlaylist(){
+
+    }
+
+    $scope.deviceDropdownController = function($scope){
+        $scope.views = [
+            {
+                name: 'Settings',
+                viewName: 'settings'
+            }
+        ];
     }
 
 });

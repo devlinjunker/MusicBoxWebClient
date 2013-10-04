@@ -15,10 +15,16 @@ function(socketSession, user){
     // Array to hold the track queue
     this.queue = [];
 
+    this.history = [];
+
     // Adds the trackData to the queue array. Sets the current track if it is
     // the only track in the queue.
     this.addTrack = function(trackData){
         this.queue.push(trackData);
+        this.history.push({
+            action: 'Added',
+            track: trackData
+        });
 
         if(this.queue.length == 1){
             this.currentTrack = trackData;

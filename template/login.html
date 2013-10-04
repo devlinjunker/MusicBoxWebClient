@@ -1,14 +1,16 @@
 <section id="device_controller" class="tab_view">
     <div style='width:300px;margin:auto;text-align:center;padding-top:100px;'>
         <h5>Log In to View Your Devices</h5>
-        <label for='username'>
-            <span class='label_text' style='width:80px;text-align:right;display:inline-block;'>Username:</span>
-            <input type='text' name='username' id='username' style='width:200px;display:inline-block;' data-ng-model="username"/>
-        </label>
-        <label for='password'>
-            <span class='label_text' style='width:80px;text-align:right;display:inline-block;'>Password:</span>
-            <input type='password' name='password' id='password' style='width:200px;' data-ng-model="password"/>
-        </label>
-        <button style='float:right;' class='btn' data-ng-click="submitLogin()">Log In</button>
+        <form ng-submit="submitLogin()">
+            <label for='username'>
+                <span class='label_text' style='width:80px;text-align:right;display:inline-block;'>Username:</span>
+                <input type='text' name='username' id='username' style='width:200px;display:inline-block;' data-ng-model="username"/>
+            </label>
+            <label for='password'>
+                <span class='label_text' style='width:80px;text-align:right;display:inline-block;'>Password:</span>
+                <input type='password' name='password' id='password' style='width:200px;' data-ng-model="password"/>
+            </label>
+            <input style='float:right;' class='btn' type='submit' value='Log In'/>
+        </form>
     </div>
 </section>

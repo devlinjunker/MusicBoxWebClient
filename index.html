@@ -7,12 +7,13 @@
     <link rel="stylesheet" type="text/css" href="css/musicbox.css"/>
     <link rel="stylesheet" type="text/css" href="css/bootstrap/bootstrap.min.css"
 </head>
-<body id="home" style="font-family: arial;" >
+<body id="home" style="font-family: arial;" data-ng-controller='deviceController'>
     <header id="page_header">
         <div class="container">
             <h1><a href="/">Project Music Box</a></h1>
             <menu>
-                <menuitem><a ng-href='musicbox/login'>Log In</a></menuitem>
+                <menuitem ng-hide='user.permissions != undefined'><a ng-href='musicbox/login'>Log In</a></menuitem>
+                <menuitem ng-hide='user.permissions == undefined'><a ng-href='musicbox/admin'>Account</a></menuitem>
             </menu>
         </div>
     </header>
@@ -22,7 +23,7 @@
                 You need to be running javascript to control the device!
             </noscript>
 
-            <section id="device_detail_controls" class="clearfix" data-ng-controller='deviceDetailsController'>
+            <section id="device_detail_controls" class="clearfix" >
                 <div id="controls_container">
                     <menu id="song_controls">
                         <div id="current_song_detail">{{currentTrack.TrackTitle}}</div>
@@ -56,7 +57,7 @@
     <script src="js/lib/angular/angular.js"></script>
     <script src="js/lib/angular/angular-route.js"></script>
     <script src="js/lib/autobahn/autobahn.js"></script>
-    <script src="js/lib/angular-ui/ui-bootstrap-custom-0.5.0.min.js"></script>
+    <script src="js/lib/angular-ui/ui-bootstrap-custom-0.6.0.min.js"></script>
 
     <script src="js/res/socket.js"></script>
 
@@ -66,10 +67,11 @@
     <script src="js/src/musicBoxSession.js"></script>
 
     <script src="js/src/controllers/loginController.js"></script>
-    <script src="js/src/controllers/deviceDetailsController.js"></script>
+    <script src="js/src/controllers/deviceController.js"></script>
     <script src="js/src/controllers/queueController.js"></script>
     <script src="js/src/controllers/queueSearchController.js"></script>
     <script src="js/src/controllers/adminController.js"></script>
+    <script src="js/src/controllers/settingsController.js"></script>
 
     <script src="js/src/services/spotify.js"></script>
     <script src="js/src/filters.js"></script>

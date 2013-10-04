@@ -1,7 +1,8 @@
 musicBox.controller(
     'queueController',
 function($scope, trackQueue, musicBoxSession, user){
-    $scope.trackQueue = trackQueue.queue;
+    $scope.queue = trackQueue.queue;
+    $scope.history = trackQueue.history;
 
     // Returns true if the trackQueue Service queue is empty, false otherwise
     $scope.isEmpty = function(){
@@ -28,7 +29,12 @@ function($scope, trackQueue, musicBoxSession, user){
             case "endOfTrack":
                 break;
             case "statusUpdate":
-
+                break;
+            case "startedTrack":
+                $scope.$apply(function(){
+                    trackQueue.addTrack(event.data);
+                    trackQueue.nextTrack();
+                })
                 break;
         }
     }

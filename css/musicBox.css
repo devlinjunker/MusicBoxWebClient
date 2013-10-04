@@ -1,6 +1,10 @@
 #admin_controller #device_list {
   width: 20%;
-  border-left: 1px solid black; }
+  border-right: 1px solid black;
+  box-sizing: border-box;
+  float: left; }
+  #admin_controller #device_list .device_dropdown {
+    float: right; }
   #admin_controller #device_list i:hover {
     color: #777777; }
   #admin_controller #device_list li {
@@ -17,6 +21,14 @@
     text-align: center; }
   #admin_controller #device_list ul {
     list-style-type: none; }
+#admin_controller #device_view {
+  width: 80%;
+  box-sizing: border-box;
+  float: right; }
+#admin_controller section, #admin_controller aside {
+  padding: 7px; }
+#admin_controller ul, #admin_controller ol {
+  margin: 0px; }
 
 #alert_box {
   position: absolute;

@@ -24,37 +24,22 @@ function(socketSession, $q){
 			// set Session Id from RPC return
             user.sessionId = result.sessionID;
 
-            console.log(result.sessionID)
+            socketSession.authenticate(username, password, user.sessionId,
+                function(permissions){
+                    user.username = username;
+                    user.password = password;
 
-            // Start Authenticating the socket with the sessionID
-            socketSession.onConnect(function(){
-				socketSession.session.authreq(username).then(function(challenge){
+                    user.permissions = permissions;
+                    user.updateMusicBoxes();
 
-                    var passKey = ab.deriveKey(password, JSON.parse(challenge).extra)
+                    success();
 
-					user.signature = socketSession.session.authsign(challenge, user.sessionId);
+                }, function(){
+                    fail();
+                }
+            );
 
-					socketSession.session.auth(user.signature).then(function(permissions){
-						console.log('authenticated!');
-                        console.log(permissions);
 
-                        // Set User Information
-                        user.username = username;
-                        user.password = password;
-                        user.permissions = permissions;
-
-                        user.updateMusicBoxes();
-
-                        if(success != null && success != undefined)
-                            success();
-					}, function(){
-                        console.log('authentication failed');
-
-                        if(fail != null && fail != undefined)
-                            fail();
-                    });
-				});
-			});
 		}, function(){
 
             console.log('rpc failed')
@@ -66,8 +51,15 @@ function(socketSession, $q){
 
         var ids = user.getMusicBoxIds();
 
+
         ids.then(function(ids){
+
             user.musicBoxes = user.getBoxDetails(ids);
+
+
+            user.musicBoxes.then(function(boxes){
+                console.log(user.musicBoxes);
+            })
         });
     }
 
@@ -97,12 +89,15 @@ function(socketSession, $q){
 
         socketSession.call('http://www.musicbox.com/boxDetails', ids,
             function(result){
-                var boxes = [];
+                user.musicBoxes = [];
                 for(i in result){
-                    boxes.push(result[i]);
+                    var box = result[i].box;
+                    box.deviceUri = result[i].uri;
+
+                    user.musicBoxes.push(box);
                 }
 
-                deferred.resolve(boxes);
+                deferred.resolve(user.musicBoxes);
             }, null)
 
         return deferred.promise;
@@ -111,9 +106,6 @@ function(socketSession, $q){
     user.clearMusicBoxes = function(){
         user.musicBoxes = [];
     }
-
-
-
 
 	return user;
 });

@@ -2,14 +2,43 @@
     <aside id='device_list'>
         <strong id='title'>Device List</strong>
         <ul>
-            <li data-ng-repeat="box in user.musicBoxes"
-            data-ng-click="selectBox(box)">
-            {{box.DeviceName}}
-            <i class='icon-collapse'></i>
+            <li data-ng-repeat="box in user.musicBoxes" data-ng-click="selectBox(box);selectSubview('playlist')">
+
+                {{box.DeviceName}}
+
+                <span class='device_dropdown dropdown' ng-controller='deviceDropdownController' ng-click='$event.stopPropagation();'>
+                    <i class='icon-collapse dropdown-toggle'></i>
+                    <ul class='dropdown-menu' >
+                        <li ng-repeat='view in views' ng-click='selectBox(box);selectSubview(view.viewName);'>{{view.name}}</li>
+                    </ul>
+                </span>
             </li>
         </ul>
     </aside>
-    <section id='playlist'>
+    <section id='device_view' ng-switch='subview'>
+        <div ng-switch-when='playlist' ng-controller='queueController'>
+            <div class="song_info" style="" data-ng-repeat="track in history">
+                <img class="song_img" style=""/>
+                <header class="song_title" style="">{{track.Title}}</header>
+                <p class="song_details" style="">
+                    Song Details
+                </p>
+            </div>
+        </div>
+
+        <div ng-switch-when='settings' ng-controller='settingsController'>
+            <form ng-submit='saveDeviceSettings()'>
+            <label for='device_name'>
+                Name:
+                <input disabled type='text' id='device_name' ng-model='boxSession.currentDevice.DeviceName'/>
+            </label>
+            <label for='theme_select'>
+                Theme:
+                <select id='theme_select' ng-model='boxSession.currentDevice.Theme' ng-options='theme.ThemeID as theme.Name for theme in themeList'>
+                </select>
+            </label>
+            <input style='float: right;' class='btn' type='submit' value='Save'/>
+            </form>
+        </div>
     </section>
-    {{boxSelected.deviceName}}
 </section>

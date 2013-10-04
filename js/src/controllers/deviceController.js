@@ -1,21 +1,28 @@
 musicBox.controller(
-	'deviceDetailsController',
+	'deviceController',
 function($scope, musicBoxSession, user, trackQueue){
+	$scope.deviceList = [
+		{name: 'Beatles', id: 'musicBox1', deviceUri: 'http://www.musicbox.com/christopher.vanderschuere@gmail.com/musicBox1'},
+		{name: 'Deadmau5', id: 'musicBox2'},
+	 	{name: 'AwolNation', id: 'musicBox3'},
+	 	{name: 'Coldplay', id: 'musicBox4'}
+	 ];
 
-	$scope.deviceList = [{name: 'Beatles', id: '1'}, {name: 'Deadmau5', id: '2'},
-	 	{name: 'AwolNation', id: '3'},{name: 'Coldplay', id: '4'}];
+	$scope.user = user;
+	$scope.boxSession = musicBoxSession;
+	$scope.trackQueue = trackQueue;
 
+	$scope.boxSession.currentDevice = $scope.deviceList[0];
 
-	$scope.deviceSelected = $scope.deviceList[0];
-
-	$scope.$watch('deviceSelected', function(newVal, oldVal, $scope){
+	$scope.$watch('boxSession.currentDevice', function(newVal, oldVal, $scope){
 		if(newVal){
-			musicBoxSession.changeDevice(newVal.id, newVal.name, oldVal.id, oldVal.name);
+			musicBoxSession.getTrackHistory();
+			//musicBoxSession.changeDevice(newVal.id, newVal.name, oldVal.id, oldVal.name);
 		}
 	})
 
 	$scope.isPlaying = true;
-	$scope.trackQueue = trackQueue;
+
 
 	$scope.currentTrack = trackQueue.currentTrack;
 	$scope.$watch('trackQueue.currentTrack', function(newVal, oldVal, $scope){

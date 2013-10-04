@@ -37,7 +37,14 @@ $tabViewText: $deviceControlText;
 #admin_controller{
     #device_list{
         width: 20%;
-        border-left: 1px solid black;
+        border-right: 1px solid black;
+        box-sizing: border-box;
+
+        float:left;
+
+        .device_dropdown{
+            float:right;
+        }
 
         i:hover{
             color:$deviceControlTextHover;
@@ -66,6 +73,21 @@ $tabViewText: $deviceControlText;
         ul{
             list-style-type: none;
         }
+    }
+
+    #device_view{
+        width: 80%;
+        box-sizing: border-box;
+        float: right;
+    }
+
+    section, aside{
+        padding: 7px;
+    }
+
+    ul, ol{
+        margin: 0px;
+
     }
 }
 
