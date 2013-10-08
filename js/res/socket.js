@@ -61,6 +61,7 @@ angular.module('webSocket', []).
 		// Publishes the command to the channelUri given, if exclude me is set
 		// the message will not be recieved at this end of the socket
 		socket.publish = function(channelUri, command, excludeMe){
+			console.log([channelUri, command, excludeMe])
 			socket.onConnect(function(){
 				socket.session.publish(channelUri, command, excludeMe);
 			});
@@ -83,6 +84,14 @@ angular.module('webSocket', []).
 			})
 		}
 
+		socket.ping = function(){
+			if(socket.session != undefined){
+				socket.call("PING", []);
+			}
+
+			setTimeout(socket.ping, 29000);
+		}
+
 		// Socket Connection Method. Starts the Websocket at the socketUri and
 		// port given. The success callback is called on a successful websocket
 		// connection. The failure callback is called on a failed connection.
@@ -96,6 +105,8 @@ angular.module('webSocket', []).
 					{
 						connectedCallbacks[i]();
 					}
+
+					setTimeout(socket.ping, 29000);
 
 					if(success != null && success != undefined)
 						success(session);

@@ -2,7 +2,7 @@
     <aside id='device_list'>
         <strong id='title'>Device List</strong>
         <ul>
-            <li data-ng-repeat="box in user.musicBoxes" data-ng-click="selectBox(box);selectSubview('playlist')">
+            <li data-ng-repeat="box in user.musicBoxes | reverse" data-ng-click="selectBox(box);selectSubview('playlist')">
 
                 {{box.DeviceName}}
 
@@ -16,17 +16,28 @@
         </ul>
     </aside>
     <section id='device_view' ng-switch='subview'>
-        <div ng-switch-when='playlist' ng-controller='queueController'>
-            <div class="song_info" style="" data-ng-repeat="track in history">
-                <img class="song_img" style=""/>
-                <header class="song_title" style="">{{track.Title}}</header>
-                <p class="song_details" style="">
+        <div ng-switch-when='playlist'>
+            <h4>{{boxSession.currentDevice.DeviceName}}</h4>
+            <h5 style='margin:0px;'>Song History</h5>
+            <hr style='margin-top:0px;'/>
+            <div class='no_songs_alert' ng-hide='trackQueue.history.length != 0'>
+                No Songs have been played on this device
+            </div>
+
+            <div class="song_info" style="" data-ng-repeat="track in trackQueue.history | reverse">
+
+                <header class="song_title" style="">{{track.Title}} - {{track.ArtistName}}</header>
+                <!--img class="song_img" src="{{track.ArtworkURL}}" style=""/-->
+                <!--p class="song_details" style="">
                     Song Details
-                </p>
+                </p-->
             </div>
         </div>
 
         <div ng-switch-when='settings' ng-controller='settingsController'>
+            <h4>{{boxSession.currentDevice.DeviceName}}</h4>
+            <h5 style='margin:0px'>Device Settings</h5>
+            <hr style='margin-top:0px;'/>
             <form ng-submit='saveDeviceSettings()'>
             <label for='device_name'>
                 Name:

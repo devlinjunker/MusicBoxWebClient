@@ -14,65 +14,67 @@ function($scope, musicBoxSession, user, trackQueue){
 
 	$scope.boxSession.currentDevice = $scope.deviceList[0];
 
-	$scope.$watch('boxSession.currentDevice', function(newVal, oldVal, $scope){
-		if(newVal){
-			musicBoxSession.getTrackHistory();
-			//musicBoxSession.changeDevice(newVal.id, newVal.name, oldVal.id, oldVal.name);
-		}
-	})
-
-	$scope.isPlaying = true;
-
-
-	$scope.currentTrack = trackQueue.currentTrack;
-	$scope.$watch('trackQueue.currentTrack', function(newVal, oldVal, $scope){
-		if(newVal)
-			$scope.currentTrack = newVal;
-	});
-
-
-	$scope.addTrack = function(details){
-
-	}
-
 	$scope.playPauseTrack = function(){
-		if($scope.isPlaying){
-			//sendPlayMessage();
+		if($scope.boxSession.currentDevice.Playing){
+			$scope.boxSession.sendPauseTrackMessage();
 		}
 		else
 		{
-			//sendPauseMessage();
+			$scope.boxSession.sendPlayTrackMessage();
 		}
 
-		$scope.isPlaying = !$scope.isPlaying;
+		$scope.boxSession.currentDevice.Playing = !$scope.boxSession.currentDevice.Playing;
 	}
 
 	$scope.skipTrack = function(){
 		musicBoxSession.sendSkipTrackMessage();
 	}
 
+	$scope.formatTime = function(length){
+		if(length == undefined){
+			return "0:00";
+		}
+
+		var str = Math.floor(length / 60) + ":";
+		str += (length % 60 < 10 ? "0" : "");
+		str += Math.floor(length % 60);
+
+		return str;
+	}
+
 	function handleMessages(topicUri, event){
-		console.log('Event Handler!');
+		console.log('Message!');
 		console.log(event);
 
 		switch(event.command){
 			case "addTrack":
-				$scope.addTrack(event.data);
+				var trackInfo = event.data.track;
+				$scope.$apply(trackQueue.addTrack(trackInfo));
 				break;
 			case "nextTrack":
+				$scope.$apply(trackQueue.nextTrack());
 				break;
 			case "playTrack":
-				$scope.isPlaying = true;
+				$scope.boxSession.currentDevice.Playing = true;
 				break;
 			case "pauseTrack":
-				$scope.isPlaying = false;
+				$scope.boxSession.currentDevice.Playing = false;
 				break;
 			case "endOfTrack":
 				break;
-			case "statusUpdate":
-				$scope.isPlaying = event.data.isPlaying;
-				$scope.songPlaying = event.data.queue[0];
+			// case "statusUpdate":
+				// $scope.boxSession.currentDevice.Playing = event.data.Playing;
+				// $scope.songPlaying = event.data.queue[0];
+				// break;
+			case "trackHistory":
+
 				break;
+			case "startedTrack":
+                $scope.$apply(function(){
+                    trackQueue.addTrack(event.data.track);
+                    trackQueue.nextTrack();
+                })
+                break;
 		}
 	}
 

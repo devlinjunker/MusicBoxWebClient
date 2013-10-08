@@ -5,6 +5,7 @@ $bodyBGUri: "images/space-dust-twitter-background.jpg";
 
 $controlButtonBG: #DDDDDD;
 
+$deviceControlBGHover: #333333;
 $deviceControlBG: #444444;
 $deviceControlBorder: #666666;
 $deviceControlText: #999999;
@@ -56,12 +57,14 @@ $tabViewText: $deviceControlText;
             .icon-collapse{
                 display:inline;
                 float: right;
+                padding: 2px;
             }
 
             &:hover{
                 cursor: pointer;
                 border-bottom: 1px solid #777777;
                 border-top: 1px solid #555555;
+                background-color:$deviceControlBGHover;
             }
         }
 
@@ -138,7 +141,7 @@ body{
     box-shadow: 3px 10px 10px;
     border-left: 2px solid $deviceControlBorder;
     border-right: 2px solid $deviceControlBorder;
-    color: $deviceControlText;
+    //color: $deviceControlText;
     font-weight: bold;
 
     #controls_container{

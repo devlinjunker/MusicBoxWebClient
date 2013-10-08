@@ -26,12 +26,14 @@
             <section id="device_detail_controls" class="clearfix" >
                 <div id="controls_container">
                     <menu id="song_controls">
-                        <div id="current_song_detail">{{currentTrack.TrackTitle}}</div>
+                        <div id="current_song_detail">{{trackQueue.currentTrack.Title}}</div>
                         <div id="song_progress_bar">
                             <span id="current_progress">0:00</span>
-                            <span id="song_length">{{currentTrack.length}}</span>
+                            <span id="song_length">{{formatTime(trackQueue.currentTrack.Length)}}</span>
                             <div id="progress_bar"></div>
                         </div>
+                        <menuitem id="song_play_pause" class="btn icon-large {{ boxSession.currentDevice.Playing | playPauseIcon}}" ng-click="playPauseTrack()"></menuitem>
+                        <menuitem id="song_skip" class="btn icon-forward icon-large" ng-click="skipTrack()"></menuitem>
                     </menu>
                     <!--form id="device_picker">
                         <label for="device_selecter">Select Device:
@@ -43,7 +45,7 @@
             </section>
 
             <section id="tab_area">
-                <div id="tab_views" data-ng-view>
+                <div style='overflow:hidden;' id="tab_views" data-ng-view>
                 </div>
             </section>
         </div>

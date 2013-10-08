@@ -2,12 +2,15 @@
 
 musicBox.factory(
     'musicBoxSession',
-function(user, socketSession, $q){
+function( socketSession, $q){
     // Sets it's socket to the Apps Socket Session
     this.socket = socketSession;
 
     this.currentDevice = undefined;
     this.isSubscribed = false;
+
+
+
 
     // Array to hold the registered callbacks for messages
     var callbacks = [];
@@ -16,7 +19,7 @@ function(user, socketSession, $q){
     // a message is recieved on the subscribed channel
     this.invokeCallbacks = function(topicUri, event){
         for(i in callbacks){
-            console.log(callbacks[i])
+            //console.log(callbacks[i])
             callbacks[i](topicUri, event);
         }
     }
@@ -27,8 +30,11 @@ function(user, socketSession, $q){
         callbacks.push(callback)
     }
 
-	// Sets the Music Box Session's Device URI using the device name and
-    // the user's device prefix
+
+
+
+
+
     this.setCurrentDevice = function(deviceDetails){
         this.currentDevice = deviceDetails;
     }
@@ -36,14 +42,17 @@ function(user, socketSession, $q){
     // Changes the current device uri
     this.changeDevice = function(newDeviceDetails){
         if(this.currentDevice !== undefined)
-            this.unsubscribeDevice(this.currentDevice.DeviceUri);
+            this.unsubscribeDevice(this.currentDevice.deviceUri);
 
         this.currentDevice = newDeviceDetails;
 
         if(this.currentDevice !== undefined)
-            this.subscribeDevice(newDeviceDetails.DeviceUri);
+            this.subscribeDevice(newDeviceDetails.deviceUri);
         //this.getStatusUpdate(newDeviceName);
     }
+
+
+
 
     // Unsubscribes from the device given in the parameters
     this.unsubscribeDevice = function(deviceUri){
@@ -55,30 +64,51 @@ function(user, socketSession, $q){
     // method to the device
     this.subscribeDevice = function(deviceUri){
         this.isSubscribed = true;
-        this.socket.subscribe(deviceUri);
+        this.socket.subscribe(deviceUri, this.invokeCallbacks);
     }
+
+
+
 
     // Sends the 'Skip Track' message to the current device
     this.sendSkipTrackMessage = function(){
         var message = {
             "command": "nextTrack"
+
         }
 
-        this.socket.publish(this.deviceUri, message, false);
+        this.socket.publish(this.currentDevice.deviceUri, message, false);
     }
+
+    this.sendPlayTrackMessage = function(){
+        var message = {
+            "command": "playTrack"
+        }
+
+        this.socket.publish(this.currentDevice.deviceUri, message, false);
+    }
+
+    this.sendPauseTrackMessage = function(){
+        var message = {
+            "command": "pauseTrack"
+        }
+
+        this.socket.publish(this.currentDevice.deviceUri, message, false);
+    }
+
 
     this.getTrackHistory = function(){
         var deferred = $q.defer();
 
         var args = [
-            this.currentDevice.ID,
-            5
+            this.currentDevice.ID
         ];
 
         this.socket.call("http://www.musicbox.com/trackHistory", args,
             function(result){
                 console.log(result);
 
+                deferred.resolve(result);
             }
         )
 
