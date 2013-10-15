@@ -60,90 +60,86 @@ body {
   width: 960px;
   margin: auto; }
 
-#device_detail_controls {
+#content_area {
+  height: 80%; }
+  #content_area .content_view {
+    clear: both;
+    height: 100%;
+    color: #999999; }
+  #content_area #content_views {
+    height: 90%;
+    box-shadow: 3px 8px 10px;
+    border: 2px solid #666666;
+    border-top: none;
+    border-bottom: 1px solid #666666;
+    background-color: #444444; }
+
+#device_quick_controls {
   min-height: 100px;
-  background-color: #444444;
-  box-shadow: 3px 10px 10px;
   border-left: 2px solid #666666;
   border-right: 2px solid #666666;
-  font-weight: bold; }
-  #device_detail_controls #controls_container {
+  border-bottom: 1px solid black;
+  box-shadow: 3px 10px 10px;
+  font-weight: bold;
+  text-align: center;
+  background-color: #444444; }
+  #device_quick_controls .detail {
+    font-size: 10pt;
+    overflow: hidden;
+    white-space: nowrap; }
+  #device_quick_controls #device_info {
+    font-weight: bold; }
+  #device_quick_controls #controls_container {
+    padding: 10px 18px 5px 18px;
     margin: auto;
-    text-align: center;
-    width: 600px;
-    position: relative; }
-  #device_detail_controls form {
-    display: inline;
-    position: absolute;
-    margin-top: 5px;
-    top: 0px;
-    right: 0px;
-    font-size: small; }
-    #device_detail_controls form * {
-      float: right;
-      text-align: right; }
-    #device_detail_controls form #device_selecter {
-      clear: both;
-      width: auto; }
+    margin-bottom: 5px;
+    font-weight: normal;
+    color: #999999; }
+    #device_quick_controls #controls_container .btn {
+      padding: 15px;
+      margin: 0px 10px;
+      border-radius: 20px;
+      line-height: 16px; }
+    #device_quick_controls #controls_container #volume_control {
+      position: absolute;
+      display: inline-block;
+      width: 100px;
+      height: 20px;
+      margin: 15px;
+      text-align: left; }
+  #device_quick_controls #song_progress_bar {
+    min-height: 20px; }
+    #device_quick_controls #song_progress_bar #progress_bar {
+      background-color: #dddddd;
+      height: 1px;
+      border: 1px solid #aaaaaa; }
+    #device_quick_controls #song_progress_bar span {
+      font-size: small;
+      padding-top: 5px; }
+      #device_quick_controls #song_progress_bar span#current_progress {
+        float: left; }
+      #device_quick_controls #song_progress_bar span#song_length {
+        float: right; }
 
-#device_controller .song_info {
+#queue_controller .song_info {
   text-align: left;
   padding: 10px 5px;
   border-bottom: 1px solid #999999; }
-  #device_controller .song_info .icon-remove {
+  #queue_controller .song_info .icon-remove {
     float: right; }
-    #device_controller .song_info .icon-remove:hover {
+    #queue_controller .song_info .icon-remove:hover {
       color: grey;
       cursor: pointer; }
-  #device_controller .song_info .song_img {
+  #queue_controller .song_info .song_img {
     width: 30px;
     height: 30px;
     float: left;
     margin: 5px; }
-  #device_controller .song_info .song_title {
+  #queue_controller .song_info .song_title {
     margin-top: 5px; }
-  #device_controller .song_info .song_details {
+  #queue_controller .song_info .song_details {
     margin-top: 0px;
     font-size: 10px; }
-
-#find_song_controller #find_song_area {
-  overflow: hidden;
-  padding: 15px;
-  height: 100%;
-  box-sizing: border-box; }
-  #find_song_controller #find_song_area .song_info {
-    float: left;
-    clear: right;
-    width: 100%;
-    font-size: .8em;
-    color: #664609;
-    padding: 2%;
-    box-sizing: border-box;
-    box-shadow: 1px 1px 1px 0px; }
-    #find_song_controller #find_song_area .song_info:hover {
-      color: #222222;
-      box-shadow: 1px 1px 2px 1px;
-      cursor: default; }
-    #find_song_controller #find_song_area .song_info .add_song_button {
-      float: right; }
-      #find_song_controller #find_song_area .song_info .add_song_button:hover {
-        cursor: pointer; }
-    #find_song_controller #find_song_area .song_info .song_title {
-      font-weight: bold;
-      float: left; }
-  #find_song_controller #find_song_area #top_song_container {
-    display: inline-block;
-    margin-bottom: 15px;
-    overflow: hidden;
-    height: 100%;
-    padding: 5px;
-    box-sizing: border-box; }
-    #find_song_controller #find_song_area #top_song_container header {
-      margin-bottom: 5px; }
-  #find_song_controller #find_song_area #similar_song_area {
-    display: inline-block;
-    max-width: 40%;
-    background-color: #DDDDDD; }
 
 .hidden {
   display: none; }
@@ -193,21 +189,12 @@ menu {
     #page_header menuitem:hover {
       color: grey; }
 
-#queue_controls {
-  float: left;
-  position: relative; }
-  #queue_controls .btn {
-    position: absolute;
-    padding: 7px 10px;
-    margin: 15px;
-    border-radius: 10px;
-    clear: both; }
-
 #queue_controller {
-  color: black;
+  height: 80%;
   max-width: 600px;
   margin: auto;
-  height: 80%; }
+  padding-top: 20px;
+  color: black; }
   #queue_controller #queue_list {
     min-height: 200px;
     min-height: 80%;
@@ -233,76 +220,8 @@ menu {
     box-sizing: border-box;
     background-color: #eeeeee; }
 
-#song_progress_bar {
-  min-height: 20px; }
-  #song_progress_bar #progress_bar {
-    background-color: #dddddd;
-    height: 1px;
-    border: 1px solid #aaaaaa; }
-  #song_progress_bar span {
-    font-size: small;
-    padding-top: 5px; }
-    #song_progress_bar span#current_progress {
-      float: left; }
-    #song_progress_bar span#song_length {
-      float: right; }
-
-#song_controls {
-  background-color: #cccccc;
-  color: black;
-  font-weight: normal;
-  padding: 0px 18px 5px 18px;
-  width: 250px;
-  margin: auto;
-  border: 1px solid black;
-  border-top: none;
-  border-radius: 0px 0px 10px 10px;
-  margin-bottom: 5px; }
-  #song_controls .btn {
-    padding: 15px;
-    border-radius: 20px;
-    line-height: 16px;
-    margin: 0px 10px; }
-  #song_controls #current_song_detail {
-    font-size: 10pt;
-    padding: 5px;
-    overflow: hidden;
-    white-space: nowrap; }
-
-#tab_area {
-  height: 80%; }
-  #tab_area #tab_controller {
-    padding: 0px;
-    position: relative; }
-    #tab_area #tab_controller .tab_selector {
-      border-width: 1px 2px 1px 1px;
-      border-color: #666666;
-      border-style: solid;
-      border-radius: 0px 0px 10px 10px;
-      padding: 10px;
-      box-sizing: border-box;
-      position: relative;
-      float: right;
-      margin: 0px 0px 3px 5px;
-      box-shadow: 3px 9px 13px;
-      background-color: #777777;
-      opacity: .90; }
-      #tab_area #tab_controller .tab_selector.selected {
-        border-top: 1px solid #444444;
-        background-color: #444444;
-        opacity: 1;
-        position: relative;
-        top: -1px; }
-      #tab_area #tab_controller .tab_selector:hover {
-        cursor: pointer; }
-  #tab_area .tab_view {
-    height: 100%;
-    clear: both;
-    color: #999999; }
-  #tab_area #tab_views {
-    height: 90%;
-    box-shadow: 3px 8px 10px;
-    border: 2px solid #666666;
-    border-top: none;
-    border-bottom: 1px solid #666666;
-    background-color: #444444; }
+.song_info {
+  border-bottom: 1px solid #666666; }
+  .song_info:hover {
+    cursor: pointer;
+    background-color: #333333; }

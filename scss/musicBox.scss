@@ -8,8 +8,8 @@ $controlButtonBG: #DDDDDD;
 $deviceControlBGHover: #333333;
 $deviceControlBG: #444444;
 $deviceControlBorder: #666666;
-$deviceControlText: #999999;
-$deviceControlTextHover: #777777;
+$deviceControlFont: #999999;
+$deviceControlHoverFont: #777777;
 
 $pageFooterHeaderBG: #222222;
 $pageFooterHeaderFont: white;
@@ -29,12 +29,6 @@ $songControlFont: black;
 $tabSelectorBorder: $deviceControlBorder;
 $tabSelectorUnselected: #777777;
 
-$tabSelectorSelected: $deviceControlBG;
-
-$tabViewBG: $deviceControlBG;
-$tabViewBorder: $deviceControlBorder;
-$tabViewText: $deviceControlText;
-
 #admin_controller{
     #device_list{
         width: 20%;
@@ -48,7 +42,7 @@ $tabViewText: $deviceControlText;
         }
 
         i:hover{
-            color:$deviceControlTextHover;
+            color:$deviceControlHoverFont;
         }
 
         li{
@@ -134,44 +128,110 @@ body{
     margin: auto;
 }
 
-#device_detail_controls{
-    //height: 15%;
-    min-height: 100px;
-    background-color: $deviceControlBG;
-    box-shadow: 3px 10px 10px;
-    border-left: 2px solid $deviceControlBorder;
-    border-right: 2px solid $deviceControlBorder;
-    //color: $deviceControlText;
-    font-weight: bold;
+// Main Area of Application that changes
+#content_area{
+    height: 80%;
 
-    #controls_container{
-        margin: auto;
-        text-align:center;
-        width: 600px;
-        position: relative;
+    .content_view{
+        clear: both;
+
+        height: 100%;
+
+        color: $deviceControlFont;
     }
 
-    form{
-        display: inline;
-        position: absolute;
-        margin-top: 5px;
-        top: 0px;
-        right: 0px;
-        font-size:small;
+    #content_views{
+        height: 90%;
+        box-shadow: 3px 8px 10px;
+        border: 2px solid $deviceControlBorder;
+        border-top: none;
+        border-bottom: 1px solid $deviceControlBorder;
+        background-color: $deviceControlBG;
+        //padding-bottom: 50px;
+    }
+}
 
-        *{
-            float: right;
-            text-align: right;
+// Top of page controls
+#device_quick_controls{
+    min-height: 100px;
+
+    border-left: 2px solid $deviceControlBorder;
+    border-right: 2px solid $deviceControlBorder;
+    border-bottom: 1px solid black;
+
+    box-shadow: 3px 10px 10px;
+
+    font-weight: bold;
+    text-align:center;
+
+    background-color: $deviceControlBG;
+
+    .detail{
+        font-size: 10pt;
+        overflow: hidden;
+        white-space: nowrap;
+    }
+
+    #device_info{
+        font-weight: bold;
+    }
+
+    #controls_container{
+        padding: 10px 18px 5px 18px;
+        margin: auto;
+        margin-bottom: 5px;
+
+        font-weight: normal;
+        color: $deviceControlFont;
+
+        .btn{
+            padding: 15px;
+            margin: 0px 10px;
+
+            border-radius: 20px;
+            line-height:16px;
         }
 
-        #device_selecter{
-            clear: both;
-            width: auto;
+        #volume_control{
+            position: absolute;
+            display: inline-block;
+            width: 100px;;
+            height: 20px;
+
+            margin: 15px;
+
+            text-align: left;
+        }
+    }
+
+    #song_progress_bar{
+        min-height: 20px;
+
+        //padding-right: $volume_control_width + 2 * $volume_control_margin;
+
+        #progress_bar{
+            background-color: $progressBarBG;
+            height: 1px;
+            border: 1px solid $progressBarBorder;
+        }
+
+        span{
+            font-size: small;
+            padding-top: 5px;
+
+            &#current_progress{
+                float: left;
+            }
+
+            &#song_length{
+                float: right;
+            }
         }
     }
 }
 
-#device_controller{
+//
+#queue_controller{
 
     .song_info{
         text-align: left;
@@ -205,67 +265,6 @@ body{
     }
 }
 
-#find_song_controller{
-    #find_song_area{
-        overflow: hidden;
-        padding: 15px;
-        height: 100%;
-        box-sizing: border-box;
-
-        .song_info{
-            float: left;
-            clear: right;
-            width: 100%;
-            font-size: .8em;
-
-            color: #664609;
-
-            padding: 2%;
-            box-sizing: border-box;
-
-            box-shadow: 1px 1px 1px 0px;
-
-            &:hover{
-                color: #222222;
-                box-shadow: 1px 1px 2px 1px;
-                cursor: default;
-            }
-
-            .add_song_button{
-                float: right;
-
-                &:hover{
-                    cursor: pointer;
-                }
-            }
-
-            .song_title{
-                font-weight: bold;
-                float: left;
-            }
-        }
-
-        #top_song_container{
-            display: inline-block;
-            margin-bottom: 15px;
-            overflow: hidden;
-            height: 100%;
-            padding: 5px;
-            box-sizing: border-box;
-
-            header{
-                margin-bottom: 5px;
-            }
-        }
-
-        #similar_song_area{
-            display: inline-block;
-            max-width: 40%;
-            background-color: #DDDDDD;
-        }
-    }
-}
-
 .hidden{
     display:none;
 }
@@ -278,6 +277,7 @@ menu{
     margin: 0px;
 }
 
+// Everything but the top-ribbon
 #page_content{
     height: 100%;
     margin-bottom:80px;
@@ -287,6 +287,7 @@ menu{
     }
 }
 
+// Footer containing copyright
 #page_footer{
     background-color: $pageFooterHeaderBG;
     color: $pageFooterHeaderFont;
@@ -294,6 +295,7 @@ menu{
     margin-bottom:-50px;
 }
 
+// Header with Logo and Quick Menu
 #page_header{
     height: 40px;
     background-color: $pageFooterHeaderBG;
@@ -337,24 +339,15 @@ menu{
     }
 }
 
-#queue_controls{
-    float: left;
-    position: relative;
-
-    .btn{
-        position: absolute;
-        padding: 7px 10px;
-        margin: 15px;
-        border-radius: 10px;
-        clear: both;
-    }
-}
-
+// For displaying the song Queue (only on home page for now)
 #queue_controller{
-    color: $songControlFont;
-    max-width: 600px;
-    margin: auto;
     height: 80%;
+    max-width: 600px;
+
+    margin: auto;
+    padding-top: 20px;
+
+    color: $songControlFont;
 
     #queue_list{
         min-height: 200px;
@@ -387,107 +380,12 @@ menu{
     }
 }
 
-#song_progress_bar{
-    min-height: 20px;
+.song_info{
+    border-bottom: 1px solid $deviceControlBorder;
 
-    #progress_bar{
-        background-color: $progressBarBG;
-        height: 1px;
-        border: 1px solid $progressBarBorder;
-    }
-
-    span{
-        font-size: small;
-        padding-top: 5px;
-
-        &#current_progress{
-            float: left;
-        }
-
-        &#song_length{
-            float: right;
-        }
-    }
-}
-
-#song_controls{
-    background-color: $songControlBG;
-    color: $songControlFont;
-    font-weight: normal;
-
-    padding: 0px 18px 5px 18px;
-    width: 250px;
-    margin: auto;
-    border: 1px solid black;
-    border-top: none;
-    border-radius: 0px 0px 10px 10px;
-    margin-bottom: 5px;
-
-    .btn{
-        padding: 15px;
-        border-radius: 20px;
-        //box-sizing: border-box;
-        line-height:16px;
-        margin: 0px 10px;
-    }
-
-    #current_song_detail{
-        font-size: 10pt;
-        padding: 5px;
-        overflow: hidden;
-        white-space: nowrap;
-    }
-}
-
-#tab_area{
-    height: 80%;
-
-    #tab_controller{
-        padding: 0px;
-        position: relative;
-
-        .tab_selector{
-            border-width: 1px 2px 1px 1px;
-            border-color: $tabSelectorBorder;
-            border-style: solid;
-            border-radius: 0px 0px 10px 10px;
-            padding: 10px;
-            box-sizing: border-box;
-            position: relative;
-            float: right;
-            margin: 0px 0px 3px 5px;
-            box-shadow: 3px 9px 13px;
-            background-color: $tabSelectorUnselected;
-            opacity: .90;
-
-            &.selected{
-                border-top: 1px solid $tabSelectorSelected;
-                background-color: $tabSelectorSelected;
-                opacity: 1;
-                position:relative;
-                top: -1px;
-            }
-
-            &:hover{
-                cursor: pointer;
-            }
-        }
-    }
-
-    .tab_view{
-        height: 100%;
-        clear: both;
-        color: $tabViewText;
-    }
-
-    #tab_views{
-        height: 90%;
-        box-shadow: 3px 8px 10px;
-        border: 2px solid $tabViewBorder;
-        border-top: none;
-        border-bottom: 1px solid $tabViewBorder;
-        background-color: $tabViewBG;
-        //padding-bottom: 50px;
+    &:hover{
+        cursor:pointer;
+        background-color:$deviceControlBGHover;
     }
 }
 

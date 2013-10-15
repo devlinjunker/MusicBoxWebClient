@@ -1,4 +1,5 @@
-<section id="admin_controller" class="tab_view">
+<section id="admin_controller" class="content_view">
+
     <aside id='device_list'>
         <strong id='title'>Device List</strong>
         <ul>
@@ -15,40 +16,43 @@
             </li>
         </ul>
     </aside>
+
     <section id='device_view' ng-switch='subview'>
         <div ng-switch-when='playlist'>
-            <h4>{{boxSession.currentDevice.DeviceName}}</h4>
-            <h5 style='margin:0px;'>Song History</h5>
-            <hr style='margin-top:0px;'/>
+            <h4 sstyle='margin-bottom:10px'>Song History</h4>
+            <!--hr style='margin-top:0px;'/-->
+
             <div class='no_songs_alert' ng-hide='trackQueue.history.length != 0'>
                 No Songs have been played on this device
             </div>
 
-            <div class="song_info" style="" data-ng-repeat="track in trackQueue.history | reverse">
-
+            <div id='{{getTrackID(track)}}' class="song_info" style="" data-ng-repeat="track in trackQueue.history | reverse" ng-click='toggleTrackExtras(getTrackID(track))'>
                 <header class="song_title" style="">{{track.Title}} - {{track.ArtistName}}</header>
-                <!--img class="song_img" src="{{track.ArtworkURL}}" style=""/-->
-                <!--p class="song_details" style="">
-                    Song Details
-                </p-->
+
+                <section class='hidden song_extras clearfix'>
+                    <img class="song_img" src="{{track.ArtworkURL}}" style="float:left; margin: 10px;"/>
+                    <p class="song_details" style="">
+                        Song Details
+                    </p>
+                </section>
             </div>
         </div>
 
         <div ng-switch-when='settings' ng-controller='settingsController'>
-            <h4>{{boxSession.currentDevice.DeviceName}}</h4>
-            <h5 style='margin:0px'>Device Settings</h5>
-            <hr style='margin-top:0px;'/>
+            <h4 style='margin-bottom:10px'>Device Settings</h4>
+            <!--hr style='margin-top:0px;'/-->
+
             <form ng-submit='saveDeviceSettings()'>
-            <label for='device_name'>
-                Name:
-                <input disabled type='text' id='device_name' ng-model='boxSession.currentDevice.DeviceName'/>
-            </label>
-            <label for='theme_select'>
-                Theme:
-                <select id='theme_select' ng-model='boxSession.currentDevice.Theme' ng-options='theme.ThemeID as theme.Name for theme in themeList'>
-                </select>
-            </label>
-            <input style='float: right;' class='btn' type='submit' value='Save'/>
+                <label for='device_name'>
+                    Name:
+                    <input disabled type='text' id='device_name' ng-model='boxSession.currentDevice.DeviceName'/>
+                </label>
+                <label for='theme_select'>
+                    Theme:
+                    <select id='theme_select' ng-model='boxSession.currentDevice.Theme' ng-options='theme.ThemeID as theme.Name for theme in themeList'>
+                    </select>
+                </label>
+                <input style='float: right;' class='btn' type='submit' value='Save'/>
             </form>
         </div>
     </section>

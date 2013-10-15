@@ -2,10 +2,10 @@ musicBox.controller(
 	'deviceController',
 function($scope, musicBoxSession, user, trackQueue){
 	$scope.deviceList = [
-		{name: 'Beatles', id: 'musicBox1', deviceUri: 'http://www.musicbox.com/christopher.vanderschuere@gmail.com/musicBox1'},
-		{name: 'Deadmau5', id: 'musicBox2'},
-	 	{name: 'AwolNation', id: 'musicBox3'},
-	 	{name: 'Coldplay', id: 'musicBox4'}
+		{DeviceName: 'Beatles', id: 'musicBox1', deviceUri: 'http://www.musicbox.com/christopher.vanderschuere@gmail.com/musicBox1'},
+		{DeviceName: 'Deadmau5', id: 'musicBox2'},
+	 	{DeviceName: 'AwolNation', id: 'musicBox3'},
+	 	{DeviceName: 'Coldplay', id: 'musicBox4'}
 	 ];
 
 	$scope.user = user;
@@ -15,22 +15,26 @@ function($scope, musicBoxSession, user, trackQueue){
 	$scope.boxSession.currentDevice = $scope.deviceList[0];
 
 	$scope.playPauseTrack = function(){
-		if($scope.boxSession.currentDevice.Playing){
+		if($scope.boxSession.currentDevice.Playing == 2){
 			$scope.boxSession.sendPauseTrackMessage();
+			$scope.boxSession.currentDevice.Playing = 1;
+		}
+		else if($scope.boxSession.currentDevice.Playing == 1)
+		{
+			$scope.boxSession.sendPlayTrackMessage();
+			$scope.boxSession.currentDevice.Playing = 2;
 		}
 		else
 		{
-			$scope.boxSession.sendPlayTrackMessage();
+			console.log('device disconnected');
 		}
-
-		$scope.boxSession.currentDevice.Playing = !$scope.boxSession.currentDevice.Playing;
 	}
 
 	$scope.skipTrack = function(){
 		musicBoxSession.sendSkipTrackMessage();
 	}
 
-	$scope.formatTime = function(length){
+	$scope.formatLength = function(length){
 		if(length == undefined){
 			return "0:00";
 		}
@@ -40,6 +44,20 @@ function($scope, musicBoxSession, user, trackQueue){
 		str += Math.floor(length % 60);
 
 		return str;
+	}
+
+	$scope.getTrackID = function(track){
+		return track.Title.replace(/ /g, '_');
+	}
+
+	$scope.toggleTrackExtras = function(id){
+		if($('#'+id).children('.song_extras').hasClass('hidden')){
+			$('.song_extras').addClass('hidden');
+
+			$('#'+id).children('.song_extras').removeClass('hidden');
+		}else{
+			$('#'+id).children('.song_extras').addClass('hidden');
+		}
 	}
 
 	function handleMessages(topicUri, event){
