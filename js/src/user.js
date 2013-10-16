@@ -10,7 +10,8 @@ function(socketSession, $q){
     user.sessionId = undefined;
     user.permissions = undefined;
 
-    user.musicBoxes = [];
+    var musicBoxes = $q.defer();
+    user.musicBoxes = musicBoxes.promise;
 
     // User Authentication
 	user.login = function(username, password, success, fail){
@@ -21,16 +22,22 @@ function(socketSession, $q){
 
         // call the startSession RPC to retrieve the sessionID
 		socketSession.call(loginUri, args, function(result){
-			// set Session Id from RPC return
+
+
+            // set Session Id from RPC return
             user.sessionId = result.sessionID;
 
+
+            // Then authenticate with sessionId
             socketSession.authenticate(username, password, user.sessionId,
                 function(permissions){
+
                     user.username = username;
                     user.password = password;
 
                     user.permissions = permissions;
-                    user.updateMusicBoxes();
+
+                    user.getMusicBoxes();
 
                     success();
 
@@ -42,69 +49,73 @@ function(socketSession, $q){
 
 		}, function(){
 
-            console.log('rpc failed')
+            console.log('login failed')
         });
 	}
 
-    user.updateMusicBoxes = function(success, fail){
-        console.log('updating boxes')
+    user.getMusicBoxes = function(){
+        if(user.permissions != undefined){
 
-        var ids = user.getMusicBoxIds();
+            var ids = user.getMusicBoxIds();;
 
+            ids.then(function(ids){
+                var boxes = user.getBoxDetails(ids);
 
-        ids.then(function(ids){
-
-            user.musicBoxes = user.getBoxDetails(ids);
-
-
-            user.musicBoxes.then(function(boxes){
-                console.log(user.musicBoxes);
+                musicBoxes.resolve(boxes);
             })
-        });
+
+            return musicBoxes.promise;
+        }
     }
 
     user.getMusicBoxIds = function(){
-        var deferred = $q.defer();
+        if(user.permissions != undefined){
+            var deferred = $q.defer();
 
-        socketSession.call('http://www.musicbox.com/players', [],
-            function(result){
-                var ids = []
-                for(i in result){
-                    var id = result[i];
+            socketSession.call('http://www.musicbox.com/players', [],
+                function(result){
+                    var ids = []
+                    for(i in result){
+                        var id = result[i];
 
-                    ids.push(id);
-                }
+                        ids.push(id);
+                    }
 
-                deferred.resolve(ids);
-            }, null);
+                    deferred.resolve(ids);
+                }, null);
 
-        return deferred.promise;
+            return deferred.promise;
+        }
     }
 
     user.getBoxDetails = function(ids){
+        if(user.permissions != undefined){
+
         var deferred = $q.defer();
 
-        // HACK: this slows performance
-        ids = [].concat(ids);
+            // HACK: this slows performance
+            ids = [].concat(ids);
 
-        socketSession.call('http://www.musicbox.com/boxDetails', ids,
-            function(result){
-                user.musicBoxes = [];
-                for(i in result){
-                    var box = result[i].box;
-                    box.deviceUri = result[i].uri;
+            socketSession.call('http://www.musicbox.com/boxDetails', ids,
+                function(result){
+                    var boxes = [];
+                    for(i in result){
+                        var box = result[i].box;
+                        box.deviceUri = result[i].uri;
 
-                    user.musicBoxes.push(box);
-                }
+                        boxes.push(box);
+                    }
 
-                deferred.resolve(user.musicBoxes);
-            }, null)
+                    deferred.resolve(boxes);
+                }, null)
 
-        return deferred.promise;
+            return deferred.promise;
+        }
     }
 
     user.clearMusicBoxes = function(){
-        user.musicBoxes = [];
+        musicBoxes = $q.defer();
+        user.musicBoxes = musicBoxes.promise;
     }
 
 	return user;

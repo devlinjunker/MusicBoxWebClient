@@ -1,5 +1,5 @@
 musicBox.
-	config(function($httpProvider, socketSessionProvider, $routeProvider, $locationProvider){
+	config(function($httpProvider, socketSessionProvider, $routeProvider, $locationProvider, routePrefix){
 		// Removed this to allow AJAX requests
         delete $httpProvider.defaults.headers.common['X-Requested-With'];
 
@@ -16,8 +16,6 @@ musicBox.
 				console.log(code +": "+reason);
 			}
 		);
-
-        var routePrefix = "/~junkerd/projects";
 
         // Set up route provider to handle page changes
         $routeProvider.

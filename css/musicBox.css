@@ -1,6 +1,6 @@
 #admin_controller #device_list {
   width: 20%;
-  border-right: 1px solid black;
+  border-right: 1px solid #aaaaaa;
   box-sizing: border-box;
   float: left; }
   #admin_controller #device_list .device_dropdown {
@@ -78,7 +78,7 @@ body {
   min-height: 100px;
   border-left: 2px solid #666666;
   border-right: 2px solid #666666;
-  border-bottom: 1px solid black;
+  border-bottom: 1px solid #aaaaaa;
   box-shadow: 3px 10px 10px;
   font-weight: bold;
   text-align: center;

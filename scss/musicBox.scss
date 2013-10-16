@@ -32,7 +32,7 @@ $tabSelectorUnselected: #777777;
 #admin_controller{
     #device_list{
         width: 20%;
-        border-right: 1px solid black;
+        border-right: 1px solid $progressBarBorder;
         box-sizing: border-box;
 
         float:left;
@@ -157,7 +157,7 @@ body{
 
     border-left: 2px solid $deviceControlBorder;
     border-right: 2px solid $deviceControlBorder;
-    border-bottom: 1px solid black;
+    border-bottom: 1px solid $progressBarBorder;
 
     box-shadow: 3px 10px 10px;
 

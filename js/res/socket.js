@@ -8,6 +8,8 @@ angular.module('webSocket', []).
 		var socket = {};
 		var connectedCallbacks = [];
 
+
+
 		socket.authenticate = function(username, password, sessionId, success, fail){
 			console.log('authenticating..')
 
@@ -23,8 +25,10 @@ angular.module('webSocket', []).
 						console.log('authenticated!');
                         console.log(permissions);
 
-                        if(success != null && success != undefined)
+                        if(success != null && success != undefined){
                             success(permissions);
+                        }
+
 					}, function(){
                         console.log('authentication failed');
 

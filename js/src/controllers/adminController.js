@@ -10,7 +10,7 @@ function($scope, user, musicBoxSession, trackQueue){
     $scope.subview = $scope.subviews[0];
 
     user.musicBoxes.then(function(boxes){
-        boxSession.setCurrentDevice(boxes[0]);
+        $scope.boxSession.setCurrentDevice(boxes[0]);
     });
 
     var settingsChanged = false;

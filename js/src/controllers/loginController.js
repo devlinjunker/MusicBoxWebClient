@@ -9,10 +9,13 @@ function($scope, $http, $location, user){
 	$scope.submitLogin = function(){
 		user.login($scope.username, $scope.password,
 			function(success){
-				console.log('authenticated');
+				console.log('success logging in!')
+
 				$scope.$apply(function(){
 					$location.path('/musicbox/admin');
+					console.log($location.path());
 				});
+
 
 			},
 			function(failure){
