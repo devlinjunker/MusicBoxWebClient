@@ -23,15 +23,15 @@ musicBox.
         $routeProvider.
             when(routePrefix + '/musicbox/', {
                 controller: "queueController",
-                templateUrl: "template/queue.html",
+                templateUrl: routePrefix + "/musicbox/template/queue.html",
             }).
             when(routePrefix + '/musicbox/login', {
                 controller: "loginController",
-                templateUrl: "template/login.html",
+                templateUrl: routePrefix + "/musicbox/template/login.html",
             }).
             when(routePrefix + '/musicbox/admin', {
                 controller: "adminController",
-                templateUrl: "template/admin.html",
+                templateUrl: routePrefix + "/musicbox/template/admin.html",
                 resolve: function(){
                     alert('test');
                 },
