@@ -21,9 +21,9 @@ musicBox.
 
         // Set up route provider to handle page changes
         $routeProvider.
-            when(routePrefix + '/musicbox', {
+            when(routePrefix + '/musicbox/', {
                 controller: "queueController",
-                templateUrl: "musicbox/template/queue.html",
+                templateUrl: "template/queue.html",
             }).
             when(routePrefix + '/musicbox/login', {
                 controller: "loginController",
@@ -36,7 +36,7 @@ musicBox.
                     alert('test');
                 },
             }).
-            otherwise({redirectTo: routePrefix + "/musicbox"});
+            otherwise({redirectTo: routePrefix + "/musicbox/"});
 
         $locationProvider.html5Mode(true);
 	});
