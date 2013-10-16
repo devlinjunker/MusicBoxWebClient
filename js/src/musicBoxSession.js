@@ -37,6 +37,7 @@ function( socketSession, $q){
 
     this.setCurrentDevice = function(deviceDetails){
         this.currentDevice = deviceDetails;
+        this.subscribeDevice(deviceDetails.deviceUri);
     }
 
     // Changes the current device uri
