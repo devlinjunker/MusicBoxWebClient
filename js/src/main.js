@@ -17,6 +17,8 @@ musicBox.
 			}
 		);
 
+        console.log(routePrefix)
+
         // Set up route provider to handle page changes
         $routeProvider.
             when(routePrefix + '/musicbox', {
