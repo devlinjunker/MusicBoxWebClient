@@ -17,24 +17,26 @@ musicBox.
 			}
 		);
 
+        var routePrefix = "/~junkerd/projects";
+
         // Set up route provider to handle page changes
         $routeProvider.
-            when('/musicbox', {
+            when(routePrefix + '/musicbox', {
                 controller: "queueController",
                 templateUrl: "musicbox/template/queue.html",
             }).
-            when('/musicbox/login', {
+            when(routePrefix + '/musicbox/login', {
                 controller: "loginController",
                 templateUrl: "template/login.html",
             }).
-            when('/musicbox/admin', {
+            when(routePrefix + '/musicbox/admin', {
                 controller: "adminController",
                 templateUrl: "template/admin.html",
                 resolve: function(){
                     alert('test');
                 },
             }).
-            otherwise({redirectTo: "/~junkerd/projects/musicbox"});
+            otherwise({redirectTo: routePrefix + "/musicbox"});
 
         $locationProvider.html5Mode(true);
 	});
