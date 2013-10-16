@@ -34,7 +34,7 @@ musicBox.
                     alert('test');
                 },
             }).
-            otherwise({redirectTo: "/musicbox"});
+            otherwise({redirectTo: "/~junkerd/projects/musicbox"});
 
         $locationProvider.html5Mode(true);
 	});
