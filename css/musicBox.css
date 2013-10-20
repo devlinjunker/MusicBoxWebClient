@@ -1,8 +1,8 @@
-@media screen and (max-width: 700px) {
+@media screen and (max-width: 992px) {
   #device_list {
     width: 100%; }
     #device_list header {
-      display: none; }
+      display: inline; }
     #device_list li {
       display: none; }
       #device_list li.selected {
@@ -19,7 +19,7 @@
   border-right: 1px solid #aaaaaa;
   box-sizing: border-box;
   float: left; }
-  @media screen and (min-width: 700px) {
+  @media screen and (min-width: 992px) {
     #admin_controller #device_list {
       width: 20%; } }
   #admin_controller #device_list .device_dropdown {
@@ -47,7 +47,7 @@
 #admin_controller #device_view {
   box-sizing: border-box;
   float: right; }
-  @media screen and (min-width: 700px) {
+  @media screen and (min-width: 992px) {
     #admin_controller #device_view {
       width: 80%; } }
 #admin_controller section, #admin_controller aside {

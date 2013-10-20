@@ -33,7 +33,7 @@ $tabSelectorUnselected: #777777;
 
 #admin_controller{
     #device_list{
-        @media screen and (min-width:700px){
+        @media screen and (min-width:992px){
             width: 20%;
         }
         border-right: 1px solid $progressBarBorder;
@@ -81,7 +81,7 @@ $tabSelectorUnselected: #777777;
     }
 
     #device_view{
-        @media screen and (min-width:700px){
+        @media screen and (min-width:992px){
             width: 80%;
         }
 
