@@ -1,3 +1,5 @@
+@import "mobile.scss";
+
 $alertBoxBG: white;
 
 $bodyBG: grey;
@@ -31,7 +33,9 @@ $tabSelectorUnselected: #777777;
 
 #admin_controller{
     #device_list{
-        width: 20%;
+        @media screen and (min-width:700px){
+            width: 20%;
+        }
         border-right: 1px solid $progressBarBorder;
         box-sizing: border-box;
 
@@ -60,6 +64,10 @@ $tabSelectorUnselected: #777777;
                 border-top: 1px solid #555555;
                 background-color:$deviceControlBGHover;
             }
+
+            &.selected{
+                background-color: black;
+            }
         }
 
         #title{
@@ -73,7 +81,10 @@ $tabSelectorUnselected: #777777;
     }
 
     #device_view{
-        width: 80%;
+        @media screen and (min-width:700px){
+            width: 80%;
+        }
+
         box-sizing: border-box;
         float: right;
     }
@@ -125,6 +136,8 @@ body{
 .container{
     height: 100%;
     width: 960px;
+    max-width:100%;
+
     margin: auto;
 }
 
@@ -273,6 +286,7 @@ html{
 
 menu{
     margin: 0px;
+    padding-left: 0px;
 }
 
 // Everything but the top-ribbon
@@ -310,6 +324,8 @@ menu{
         display:inline;
         padding-left: 20px;
         padding-top: 5px;
+
+        font-size: 2em;
 
         a{
             color: $pageFooterHeaderFont;
@@ -386,4 +402,5 @@ menu{
         background-color:$deviceControlBGHover;
     }
 }
+
 

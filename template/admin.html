@@ -1,9 +1,9 @@
 <section id="admin_controller" class="content_view">
 
     <aside id='device_list'>
-        <strong id='title'>Device List</strong>
+        <header><strong>Device List</strong></header>
         <ul>
-            <li data-ng-repeat="box in user.musicBoxes | reverse" data-ng-click="selectBox(box);selectSubview('playlist')">
+            <li data-ng-repeat="box in user.musicBoxes | reverse" data-ng-class="{'selected': box == boxSession.currentDevice}" data-ng-click="selectBox(box);selectSubview('playlist')">
 
                 {{box.DeviceName}}
 
