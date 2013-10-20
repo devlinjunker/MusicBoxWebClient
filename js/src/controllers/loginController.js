@@ -12,7 +12,8 @@ function($scope, $http, $location, user){
 				console.log('success logging in!')
 
 				$scope.$apply(function(){
-					$location.path('/musicbox/admin');
+					console.log($location.path());
+					$location.path('admin');
 					console.log($location.path());
 				});
 
