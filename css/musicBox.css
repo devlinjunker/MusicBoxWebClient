@@ -1,4 +1,7 @@
 @media screen and (max-width: 992px) {
+  .container {
+    max-width: 100%; }
+
   #device_list {
     width: 100%; }
     #device_list header {
@@ -15,6 +18,58 @@
     -ms-transition: all 0.7s ease;
     -o-transition: all 0.7s ease;
     transition: all 0.7s ease; } }
+/*
+Sticky Footer Solution
+by Steve Hatcher
+http://stever.ca
+http://www.cssstickyfooter.com
+*/
+* {
+  margin: 0;
+  padding: 0; }
+
+/* must declare 0 margins on everything, also for main layout components use padding, not
+vertical margins (top and bottom) to add spacing, else those margins get added to total height
+and your footer gets pushed down a bit more, creating vertical scroll bars in the browser */
+html, body {
+  height: 100%; }
+
+#wrap {
+  min-height: 100%; }
+
+#main {
+  overflow: auto;
+  padding-bottom: 20px; }
+
+/* must be same height as the footer */
+#footer {
+  position: relative;
+  margin-top: -20px;
+  /* negative value of footer height */
+  height: 20px;
+  clear: both; }
+
+/*Opera Fix*/
+body:before {
+  /* thanks to Maleika (Kohoutec)*/
+  content: "";
+  height: 100%;
+  float: left;
+  width: 0;
+  margin-top: -32767px;
+  /* thank you Erik J - negate effect of float*/ }
+
+/* IMPORTANT
+
+You also need to include this conditional style in the <head> of your HTML file to feed this style to IE 6 and lower and 8 and higher.
+
+<!--[if !IE 7]>
+    <style type="text/css">
+        #wrap {display:table;height:100%}
+    </style>
+<![endif]-->
+
+*/
 #admin_controller #device_list {
   border-right: 1px solid #aaaaaa;
   box-sizing: border-box;
@@ -80,9 +135,10 @@ body {
 
 .container {
   height: 100%;
-  width: 960px;
-  max-width: 100%;
   margin: auto; }
+  @media screen and (min-width: 992px) {
+    .container {
+      width: 960px; } }
 
 #content_area {
   height: 80%; }
@@ -91,7 +147,7 @@ body {
     height: 100%;
     color: #999999; }
   #content_area #content_views {
-    height: 90%;
+    min-height: 350px;
     box-shadow: 3px 8px 10px;
     border: 2px solid #666666;
     border-top: none;
@@ -176,15 +232,14 @@ menu {
   padding-left: 0px; }
 
 #page_content {
-  height: 100%;
+  min-height: 100%;
   margin-bottom: 80px;
   opacity: .95; }
 
-#page_footer {
+#footer {
   background-color: #222222;
   color: white;
-  font-size: small;
-  margin-bottom: -50px; }
+  font-size: small; }
 
 #page_header {
   height: 40px;
