@@ -9,7 +9,8 @@ angular.module('webSocket', []).
 		var connectedCallbacks = [];
 
 
-
+		// Hides the ugliness of authenticating the socket behind a simple call
+		// Still need to get session Id though.
 		socket.authenticate = function(username, password, sessionId, success, fail){
 			console.log('authenticating..')
 
@@ -17,9 +18,11 @@ angular.module('webSocket', []).
             socket.onConnect(function(){
 				socket.session.authreq(username).then(function(challenge){
 
-                    var passKey = ab.deriveKey(password, JSON.parse(challenge).extra)
+                    var passKey = ab.deriveKey(password,
+                    							JSON.parse(challenge).extra)
 
-					var signature = socket.session.authsign(challenge, sessionId);
+					var signature = socket.session.authsign(challenge,
+																sessionId);
 
 					socket.session.auth(signature).then(function(permissions){
 						console.log('authenticated!');
@@ -80,25 +83,30 @@ angular.module('webSocket', []).
 			});
 		}
 
-		// Unsubscribes from the uri given, unhooks the callback that was connected
-		// to that Uri
+		// Unsubscribes from the uri given, unhooks the callback that was
+		// connected to that Uri
 		socket.unsubscribe = function(uri){
 			socket.onConnect(function(){
 				socket.session.unsubscribe(uri);
 			})
 		}
 
+
+		// TODO: Set flag to keep this going
+		// Ping Socket to keep Session Alive
 		socket.ping = function(){
 			if(socket.session != undefined){
 				socket.call("PING", []);
-			}
 
-			setTimeout(socket.ping, 29000);
+				setTimeout(socket.ping, 29000);
+			}
 		}
 
 		// Socket Connection Method. Starts the Websocket at the socketUri and
-		// port given. The success callback is called on a successful websocket
-		// connection. The failure callback is called on a failed connection.
+		// port given.
+		// Called at page load to start the websocket connection.
+		// Success callback is called on a successful websocket (start app)
+		// Failure callback is called on a failed connection. (fail to start)
 		this.connect = function(socketUri, port, success, failure){
 			ab.connect(
 				"ws://"+socketUri+":"+port,

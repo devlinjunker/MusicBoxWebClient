@@ -1,6 +1,11 @@
 @media screen and (max-width:992px){
+
+    h1{
+        font-size:1.5em;
+    }
+
     .container{
-        max-width:100%;
+        width:100%;
     }
 
     #device_list{
@@ -36,5 +41,9 @@
         -ms-transition: all 0.7s ease;
         -o-transition: all 0.7s ease;
         transition: all 0.7s ease;
+    }
+
+    html{
+        min-width:400px;
     }
 }

@@ -4,7 +4,8 @@ musicBox.
         delete $httpProvider.defaults.headers.common['X-Requested-With'];
 
         // URI and Port of Websocket Connection
-        var socketUri = "ClientBalencer-394863257.us-west-2.elb.amazonaws.com";
+        //var socketUri = "ClientBalencer-394863257.us-west-2.elb.amazonaws.com";
+        var socketUri = "ec2-54-201-63-215.us-west-2.compute.amazonaws.com";
         var socketPort = 8080;
 
         // Connect to the websocket

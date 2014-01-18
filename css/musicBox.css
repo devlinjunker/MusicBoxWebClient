@@ -1,6 +1,9 @@
 @media screen and (max-width: 992px) {
+  h1 {
+    font-size: 1.5em; }
+
   .container {
-    max-width: 100%; }
+    width: 100%; }
 
   #device_list {
     width: 100%; }
@@ -17,7 +20,10 @@
     -moz-transition: all 0.7s ease;
     -ms-transition: all 0.7s ease;
     -o-transition: all 0.7s ease;
-    transition: all 0.7s ease; } }
+    transition: all 0.7s ease; }
+
+  html {
+    min-width: 400px; } }
 /*
 Sticky Footer Solution
 by Steve Hatcher
@@ -253,8 +259,10 @@ menu {
     margin-top: 0px;
     display: inline;
     padding-left: 20px;
-    padding-top: 5px;
-    font-size: 2em; }
+    padding-top: 5px; }
+    @media screen and (min-width: 992px) {
+      #page_header h1 {
+        font-size: 2em; } }
     #page_header h1 a {
       color: white;
       text-decoration: none; }

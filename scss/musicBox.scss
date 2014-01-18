@@ -329,7 +329,9 @@ menu{
         padding-left: 20px;
         padding-top: 5px;
 
-        font-size: 2em;
+        @media screen and (min-width:992px){
+            font-size: 2em;
+        }
 
         a{
             color: $pageFooterHeaderFont;
