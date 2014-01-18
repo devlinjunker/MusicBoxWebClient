@@ -35,7 +35,7 @@ function($scope, musicBoxSession, user, trackQueue){
 	}
 
 	$scope.formatLength = function(length){
-		if(length == undefined){
+		if(length === undefined){
 			return "0:00";
 		}
 

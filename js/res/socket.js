@@ -28,14 +28,14 @@ angular.module('webSocket', []).
 						console.log('authenticated!');
                         console.log(permissions);
 
-                        if(success != null && success != undefined){
+                        if(success != null && success !== undefined){
                             success(permissions);
                         }
 
 					}, function(){
                         console.log('authentication failed');
 
-                        if(fail != null && fail != undefined)
+                        if(fail != null && fail !== undefined)
                             fail();
                     });
 				});
@@ -45,8 +45,8 @@ angular.module('webSocket', []).
 		// Calls the callback once the socket is connected, unless it is already
 		// connected, and it is called immediately
 		socket.onConnect = function(callback){
-			if(callback != null && callback != undefined){
-				if(socket.session != null && socket.session != undefined)
+			if(callback !== null && callback !== undefined){
+				if(socket.session !== null && socket.session !== undefined)
 				{
 					callback();
 				}
@@ -95,7 +95,7 @@ angular.module('webSocket', []).
 		// TODO: Set flag to keep this going
 		// Ping Socket to keep Session Alive
 		socket.ping = function(){
-			if(socket.session != undefined){
+			if(socket.session !== undefined){
 				socket.call("PING", []);
 
 				setTimeout(socket.ping, 29000);
@@ -120,11 +120,11 @@ angular.module('webSocket', []).
 
 					setTimeout(socket.ping, 29000);
 
-					if(success != null && success != undefined)
+					if(success !== null && success !== undefined)
 						success(session);
 				},
 				function(code, reason){
-					if(failure != null && failure != undefined)
+					if(failure !== null && failure !== undefined)
 						failure(code, reason);
 				}
 			)

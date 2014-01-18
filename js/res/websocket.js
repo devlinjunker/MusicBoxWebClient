@@ -7,7 +7,7 @@ websocket.
         socket.connectedCallbacks = [];
 
         socket.onConnect = function(callback){
-            if(socket.session != null && socket.session != undefined)
+            if(socket.session != null && socket.session !== undefined)
             {
                 callback();
             }
@@ -37,8 +37,8 @@ websocket.
 				socket.session.unsubscribe(uri);
 			})
 		}
-		
-		
+
+
         socket.publish = function(channelUri, command, excludeMe){
             socket.onConnect(function(){
                 socket.session.publish(channelUri, command, excludeMe);
@@ -50,7 +50,7 @@ websocket.
                 socket.session.call(rpcUri, args).then(success, failure);
             });
         }
-		
+
         this.connect = function(socketUri, port, success, failure){
             ab.connect(
                 "ws://"+socketUri+":"+port,
@@ -59,11 +59,11 @@ websocket.
 
                     socket.catchUp();
 
-                    if(success != null && success != undefined)
+                    if(success !== null && success !== undefined)
                         success(session);
                 },
                 function(code, reason){
-                    if(failure != null && failure != undefined)
+                    if(failure !== null && failure !== undefined)
                         failure(code, reason);
                 }
             )

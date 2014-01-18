@@ -54,7 +54,7 @@ function(socketSession, $q){
 	}
 
     user.getMusicBoxes = function(){
-        if(user.permissions != undefined){
+        if(user.permissions !== undefined){
 
             var ids = user.getMusicBoxIds();;
 
@@ -69,7 +69,7 @@ function(socketSession, $q){
     }
 
     user.getMusicBoxIds = function(){
-        if(user.permissions != undefined){
+        if(user.permissions !== undefined){
             var deferred = $q.defer();
 
             socketSession.call('http://www.musicbox.com/players', [],
@@ -89,7 +89,7 @@ function(socketSession, $q){
     }
 
     user.getBoxDetails = function(ids){
-        if(user.permissions != undefined){
+        if(user.permissions !== undefined){
 
         var deferred = $q.defer();
 

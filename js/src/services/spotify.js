@@ -13,7 +13,7 @@ musicBox.service('spotifyService', function($http){
             {
                 var results = new Array();
 
-                if(data.tracks != undefined)
+                if(data.tracks !== undefined)
                 {
                     for(var i = 0; i < 10; i++)
                     {
