@@ -8,9 +8,11 @@ musicBox.service('spotifyService', function($http){
 
         var pages = 1;
 
-        return $http.get(searchUri+"?q="+encodedQuery+"&page="+pages).
-            success(function(data, textStatus, jqXHR)
-            {
+        return $http({
+                method: 'GET',
+                url: searchUri+"?q="+encodedQuery+"&page="+pages
+            }).then(function($response){
+                var data = $response.data
                 var results = new Array();
 
                 if(data.tracks !== undefined)
@@ -19,7 +21,7 @@ musicBox.service('spotifyService', function($http){
                     {
                         if(i < data.tracks.length){
                             var track = data.tracks[i];
-                            //console.log(track.artists[0].name);
+                            //console.log(track);
                             results.push(
                                 {
                                     id: track["href"],

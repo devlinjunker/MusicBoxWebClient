@@ -10,8 +10,6 @@ function( socketSession, $q){
     this.isSubscribed = false;
 
 
-
-
     // Array to hold the registered callbacks for messages
     var callbacks = [];
 
@@ -33,17 +31,18 @@ function( socketSession, $q){
 
 
 
-
-
     this.setCurrentDevice = function(deviceDetails){
+        console.log('setting!')
         this.currentDevice = deviceDetails;
         this.subscribeDevice(deviceDetails.deviceUri);
     }
 
     // Changes the current device uri
     this.changeDevice = function(newDeviceDetails){
-        if(this.currentDevice !== undefined)
+        if(this.currentDevice !== undefined){
+            console.log(this.currentDevice)
             this.unsubscribeDevice(this.currentDevice.deviceUri);
+        }
 
         this.currentDevice = newDeviceDetails;
 
@@ -51,8 +50,6 @@ function( socketSession, $q){
             this.subscribeDevice(newDeviceDetails.deviceUri);
         //this.getStatusUpdate(newDeviceName);
     }
-
-
 
 
     // Unsubscribes from the device given in the parameters

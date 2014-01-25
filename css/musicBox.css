@@ -76,43 +76,49 @@ You also need to include this conditional style in the <head> of your HTML file 
 <![endif]-->
 
 */
-#admin_controller #device_list {
-  border-right: 1px solid #aaaaaa;
-  box-sizing: border-box;
-  float: left; }
+#admin_controller #device_list .device_dropdown {
+  float: right; }
+#admin_controller #device_list i:hover {
+  color: #777777; }
+#admin_controller #device_list #title {
+  display: block;
+  text-align: center; }
+#admin_controller #main_view {
+  padding: 7px;
+  box-sizing: border-box; }
   @media screen and (min-width: 992px) {
-    #admin_controller #device_list {
-      width: 20%; } }
-  #admin_controller #device_list .device_dropdown {
-    float: right; }
-  #admin_controller #device_list i:hover {
-    color: #777777; }
-  #admin_controller #device_list li {
+    #admin_controller #main_view {
+      width: 80%;
+      float: right; } }
+#admin_controller menu {
+  padding: 7px;
+  box-sizing: border-box; }
+  @media screen and (min-width: 992px) {
+    #admin_controller menu {
+      width: 20%;
+      float: left;
+      border-right: 1px solid #aaaaaa; }
+      #admin_controller menu menuitem {
+        margin-top: 10px;
+        display: block; } }
+  #admin_controller menu li, #admin_controller menu #home_menu {
     width: 100%; }
-    #admin_controller #device_list li .icon-collapse {
+    #admin_controller menu li i, #admin_controller menu #home_menu i {
+      margin-right: 5px;
+      margin-left: 3px; }
+    #admin_controller menu li .icon-collapse, #admin_controller menu #home_menu .icon-collapse {
       display: inline;
       float: right;
       padding: 2px; }
-    #admin_controller #device_list li:hover {
+    #admin_controller menu li:hover, #admin_controller menu #home_menu:hover {
       cursor: pointer;
       border-bottom: 1px solid #777777;
       border-top: 1px solid #555555;
       background-color: #333333; }
-    #admin_controller #device_list li.selected {
+    #admin_controller menu li.selected, #admin_controller menu #home_menu.selected {
       background-color: black; }
-  #admin_controller #device_list #title {
-    display: block;
-    text-align: center; }
-  #admin_controller #device_list ul {
+  #admin_controller menu ul {
     list-style-type: none; }
-#admin_controller #device_view {
-  box-sizing: border-box;
-  float: right; }
-  @media screen and (min-width: 992px) {
-    #admin_controller #device_view {
-      width: 80%; } }
-#admin_controller section, #admin_controller aside {
-  padding: 7px; }
 #admin_controller ul, #admin_controller ol {
   margin: 0px; }
 
@@ -134,8 +140,7 @@ body {
   margin: 0px; }
 
 .btn {
-  background-color: #dddddd;
-  box-shadow: 0 1px 2px white, 0 -1px 1px #666666, inset 0 -1px 1px rgba(0, 0, 0, 0.5), inset 0 1px 1px rgba(255, 255, 255, 0.8); }
+  box-shadow: 0 -1px 1px #666666, top external shadow inset 0 -1px -2px rgba(0, 0, 0, 0.5), inset 0 1px 1px rgba(255, 255, 255, 0.8); }
   .btn:hover {
     cursor: pointer; }
 
@@ -147,13 +152,14 @@ body {
       width: 960px; } }
 
 #content_area {
-  height: 80%; }
+  height: 80%;
+  min-height: 600px; }
   #content_area .content_view {
     clear: both;
     height: 100%;
     color: #999999; }
   #content_area #content_views {
-    min-height: 350px;
+    min-height: 600px;
     box-shadow: 3px 8px 10px;
     border: 2px solid #666666;
     border-top: none;
@@ -184,7 +190,7 @@ body {
     #device_quick_controls #controls_container .btn {
       padding: 15px;
       margin: 0px 10px;
-      border-radius: 20px;
+      border-radius: 17px;
       line-height: 16px; }
     #device_quick_controls #controls_container #volume_control {
       position: absolute;
@@ -314,3 +320,40 @@ menu {
   .song_info:hover {
     cursor: pointer;
     background-color: #333333; }
+
+#song_queue #add_song {
+  position: relative; }
+  #song_queue #add_song .btn {
+    padding: 0px 6px;
+    border-radius: 10px;
+    margin-left: 20px;
+    font-weight: bolder; }
+  #song_queue #add_song:hover {
+    color: #777777;
+    cursor: pointer; }
+#song_queue .song_search {
+  position: absolute;
+  width: 250px;
+  padding: 4px;
+  border-radius: 5px;
+  overflow: hidden;
+  font-size: 8pt;
+  background-color: #fff;
+  cursor: default;
+  z-index: 100; }
+  #song_queue .song_search .dropdown-menu {
+    position: initial;
+    min-width: 100%;
+    border-radius: 0px;
+    box-shadow: none;
+    background-color: default;
+    border: none;
+    cursor: pointer; }
+  #song_queue .song_search input {
+    padding: 2px 4px; }
+  #song_queue .song_search li {
+    padding-right: 10px; }
+#song_queue header {
+  margin: 10px 0px; }
+  #song_queue header h4 {
+    display: inline; }

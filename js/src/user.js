@@ -11,7 +11,7 @@ function(socketSession, $q){
     user.permissions = undefined;
 
     var musicBoxes = $q.defer();
-    user.musicBoxes = musicBoxes.promise;
+    user.musicBoxes = [];
 
     // User Authentication
 	user.login = function(username, password, success, fail){
@@ -61,11 +61,17 @@ function(socketSession, $q){
             ids.then(function(ids){
                 var boxes = user.getBoxDetails(ids);
 
+                boxes.then(function(boxes){
+                    user.musicBoxes = boxes;
+                })
+
                 musicBoxes.resolve(boxes);
             })
 
-            return musicBoxes.promise;
+            console.log(musicBoxes.promise)
         }
+
+        return musicBoxes.promise;
     }
 
     user.getMusicBoxIds = function(){

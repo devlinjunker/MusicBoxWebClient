@@ -1,7 +1,7 @@
 musicBox.controller(
     'adminController',
 function($scope, user, musicBoxSession, trackQueue){
-    $scope.subviews = ['playlist', 'settings'];
+    $scope.subviews = ['home', 'playlist', 'device', 'settings'];
 
     $scope.boxSession = musicBoxSession;
     $scope.user = user;
@@ -9,9 +9,9 @@ function($scope, user, musicBoxSession, trackQueue){
 
     $scope.subview = $scope.subviews[0];
 
-    user.musicBoxes.then(function(boxes){
-        $scope.boxSession.setCurrentDevice(boxes[0]);
-    });
+    // user.getMusicBoxes().then(function(boxes){
+    //     $scope.boxSession.setCurrentDevice(boxes[0]);
+    // });
 
     var settingsChanged = false;
 

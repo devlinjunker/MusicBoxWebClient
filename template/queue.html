@@ -1,5 +1,26 @@
 <section id="queue_controller" class="content_view">
-    <header></header>
+    <header>
+        <h4 style='margin-bottom: 10px'>
+            Song Queue
+        </h4>
+            <span id="add_song">
+                <span class='btn btn-small' ng-click="showAddSong()" ng-mouseleave="focusSongInput()">
+                    Add Song
+                </span>
+
+                <span class="song_search" ng-hide="addSongHidden">
+
+                 <input type='text'
+                    ng-blur="addSongHidden = true"
+                    placeholder="Search"
+                    class="typeahead"
+                    data-typeahead="track as track.TrackTitle for track in songSearch($viewValue)"
+                    ng-model="songToAdd"
+                    autocomplete="off"
+                    typeahead-on-select="addTrack()"/>
+                </span>
+            </span>
+    </header>
     <div id="queue_list">
         <!--div class="" data-ng-controller="queueSearchController">
             <input type="text" id="song_search_field" class="typeahead"  placeholder="Add" ng-model="selected" typeahead-on-select="addTrack()" typeahead="value as value.TrackTitle for value in findTracks($viewValue)" autocomplete="off"/>

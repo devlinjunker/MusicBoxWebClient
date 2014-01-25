@@ -1,18 +1,12 @@
 musicBox.controller(
 	'deviceController',
 function($scope, musicBoxSession, user, trackQueue){
-	$scope.deviceList = [
-		{DeviceName: 'Beatles', id: 'musicBox1', deviceUri: 'http://www.musicbox.com/christopher.vanderschuere@gmail.com/musicBox1'},
-		{DeviceName: 'Deadmau5', id: 'musicBox2'},
-	 	{DeviceName: 'AwolNation', id: 'musicBox3'},
-	 	{DeviceName: 'Coldplay', id: 'musicBox4'}
-	 ];
 
 	$scope.user = user;
 	$scope.boxSession = musicBoxSession;
 	$scope.trackQueue = trackQueue;
 
-	$scope.boxSession.currentDevice = $scope.deviceList[0];
+	//$scope.boxSession.currentDevice = $scope.deviceList[0];
 
 	$scope.playPauseTrack = function(){
 		if($scope.boxSession.currentDevice.Playing == 2){

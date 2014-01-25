@@ -34,14 +34,6 @@ $tabSelectorUnselected: #777777;
 
 #admin_controller{
     #device_list{
-        @media screen and (min-width:992px){
-            width: 20%;
-        }
-        border-right: 1px solid $progressBarBorder;
-        box-sizing: border-box;
-
-        float:left;
-
         .device_dropdown{
             float:right;
         }
@@ -50,8 +42,45 @@ $tabSelectorUnselected: #777777;
             color:$deviceControlHoverFont;
         }
 
-        li{
+        #title{
+            display: block;
+            text-align: center;
+        }
+    }
+
+    #main_view{
+        @media screen and (min-width:992px){
+            width: 80%;
+            float: right;
+        }
+
+        padding: 7px;
+        box-sizing: border-box;
+    }
+
+    menu{
+        @media screen and (min-width:992px){
+            width: 20%;
+            float: left;
+
+            border-right: 1px solid $progressBarBorder;
+
+            menuitem{
+                margin-top: 10px;
+                display: block;
+            }
+        }
+
+        padding: 7px;
+        box-sizing: border-box;
+
+        li, #home_menu{
             width:100%;
+
+            i{
+                margin-right: 5px;
+                margin-left: 3px;
+            }
 
             .icon-collapse{
                 display:inline;
@@ -71,32 +100,13 @@ $tabSelectorUnselected: #777777;
             }
         }
 
-        #title{
-            display: block;
-            text-align: center;
-        }
-
         ul{
             list-style-type: none;
         }
     }
 
-    #device_view{
-        @media screen and (min-width:992px){
-            width: 80%;
-        }
-
-        box-sizing: border-box;
-        float: right;
-    }
-
-    section, aside{
-        padding: 7px;
-    }
-
     ul, ol{
         margin: 0px;
-
     }
 }
 
@@ -122,12 +132,12 @@ body{
 }
 
 .btn{
-    background-color: $controlButtonBG;
-    box-shadow:
-        0 1px 2px #fff, /*bottom external highlight*/
-        0 -1px 1px #666, /*top external shadow*/
-        inset 0 -1px 1px rgba(0,0,0,0.5), /*bottom internal shadow*/
-        inset 0 1px 1px rgba(255,255,255,0.8);
+    //background-color: $controlButtonBG;
+     box-shadow:
+    //     0 0px 1px #fff; /*bottom external highlight*/
+         0 -1px 1px #666, top external shadow
+         inset 0 -1px -2px rgba(0,0,0,0.5), /*bottom internal shadow*/
+         inset 0 1px 1px rgba(255,255,255,0.8);
 
     &:hover{
         cursor: pointer;
@@ -148,6 +158,7 @@ body{
 // Main Area of Application that changes
 #content_area{
     height: 80%;
+    min-height: 600px;
 
     .content_view{
         clear: both;
@@ -158,7 +169,7 @@ body{
     }
 
     #content_views{
-        min-height: 350px;
+        min-height: 600px;
         box-shadow: 3px 8px 10px;
         border: 2px solid $deviceControlBorder;
         border-top: none;
@@ -205,7 +216,7 @@ body{
             padding: 15px;
             margin: 0px 10px;
 
-            border-radius: 20px;
+            border-radius: 17px;
             line-height:16px;
         }
 
@@ -406,6 +417,72 @@ menu{
     &:hover{
         cursor:pointer;
         background-color:$deviceControlBGHover;
+    }
+}
+
+#song_queue{
+    #add_song{
+            //float: right;
+            position: relative;
+
+            .btn{
+                padding: 0px 6px;
+                border-radius: 10px;
+                margin-left: 20px;
+                font-weight: bolder;
+            }
+
+            &:hover{
+                color: $deviceControlHoverFont;
+                cursor: pointer;
+            }
+        }
+
+        .song_search{
+            position: absolute;
+            width: 250px;
+
+            padding: 4px;
+            border-radius: 5px;
+
+            overflow: hidden;
+
+            font-size: 8pt;
+
+            background-color: #fff;
+
+            cursor: default;
+            z-index: 100;
+
+            .dropdown-menu{
+                position: initial;
+                min-width: 100%;
+
+                border-radius: 0px;
+
+                box-shadow: none;
+                background-color: default;
+
+                border: none;
+
+                cursor: pointer;
+            }
+
+            input{
+                padding: 2px 4px;
+            }
+
+            li{
+                padding-right: 10px;
+            }
+        }
+
+    header{
+        margin: 10px 0px;
+
+        h4{
+            display: inline;
+        }
     }
 }
 

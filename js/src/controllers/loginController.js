@@ -1,6 +1,6 @@
 musicBox.controller(
 	'loginController',
-function($scope, $http, $location, user){
+function($scope, $http, $location, user, musicBoxSession){
 	$scope.username = '';
 	$scope.password = '';
 
@@ -13,14 +13,15 @@ function($scope, $http, $location, user){
 
 				$scope.$apply(function(){
 					console.log($location.path());
+
 					$location.path('admin');
+
 					console.log($location.path());
 				});
 
-
 			},
 			function(failure){
-				console.log("failed")
+				console.log("login failed")
 			}
 		);
 	};
