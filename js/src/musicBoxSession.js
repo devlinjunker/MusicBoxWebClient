@@ -66,6 +66,24 @@ function( socketSession, $q){
     }
 
 
+    this.sendAddTrackMessage = function(track){
+        var message = {
+            "command": "addTrack",
+            "data" : [
+                {
+                    Title: track["Title"],
+                    ArtistName: track["ArtistName"],
+                    AlbumName: "",
+                    ArtworkURL: "",
+                    ProviderID: track["ProviderID"],
+                    Length: 0,
+                    "Date": ""
+                }
+            ]
+        }
+
+        this.socket.publish(this.currentDevice.deviceUri, message, false);
+    }
 
 
     // Sends the 'Skip Track' message to the current device
@@ -86,7 +104,7 @@ function( socketSession, $q){
         this.socket.publish(this.currentDevice.deviceUri, message, false);
     }
 
-    this.sendPauseTrackMessage = function(){
+    this.sendPauseTrackMessage = function(deviceUri){
         var message = {
             "command": "pauseTrack"
         }

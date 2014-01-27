@@ -6,9 +6,12 @@ function($scope, musicBoxSession, user, trackQueue){
 	$scope.boxSession = musicBoxSession;
 	$scope.trackQueue = trackQueue;
 
+	$scope.currentDevice = undefined;
+
 	//$scope.boxSession.currentDevice = $scope.deviceList[0];
 
 	$scope.playPauseTrack = function(){
+		console.log($scope.currentDevice);
 		if($scope.boxSession.currentDevice.Playing == 2){
 			$scope.boxSession.sendPauseTrackMessage();
 			$scope.boxSession.currentDevice.Playing = 1;
@@ -60,39 +63,35 @@ function($scope, musicBoxSession, user, trackQueue){
 		console.log('Message!');
 		console.log(event);
 
+		// if(topicUri == currentDevice){
+
+		// }
+
 		switch(event.command){
-			case "addTrack":
-				var trackInfo = event.data.track;
-				$scope.$apply(trackQueue.addTrack(trackInfo));
-				break;
-			case "nextTrack":
-				$scope.$apply(trackQueue.nextTrack());
-				break;
 			case "playTrack":
 				$scope.boxSession.currentDevice.Playing = true;
 				break;
 			case "pauseTrack":
 				$scope.boxSession.currentDevice.Playing = false;
 				break;
-			case "endOfTrack":
-				break;
 			// case "statusUpdate":
 				// $scope.boxSession.currentDevice.Playing = event.data.Playing;
 				// $scope.songPlaying = event.data.queue[0];
 				// break;
 			case "trackHistory":
-
 				break;
 			case "startedTrack":
-                $scope.$apply(function(){
-                    trackQueue.addTrack(event.data.track);
-                    trackQueue.nextTrack();
-                })
                 break;
+            case "addTrack":
+				break;
+			case "nextTrack":
+				break;
+			case "endOfTrack":
+				break;
 		}
 	}
 
 	// Initizialization
-	musicBoxSession.addCallback(handleMessages)
+	musicBoxSession.addCallback(handleMessages);
 
 });

@@ -76,7 +76,29 @@ function($scope, trackQueue, musicBoxSession, user, spotifyService){
         trackQueue.addTrack($scope.songToAdd);
         console.log($scope.songToAdd)
 
+        musicBoxSession.sendAddTrackMessage($scope.songToAdd);
+
         $scope.songToAdd = undefined;
         $scope.addSongHidden = true;
     }
+
+    function handleMessages(topicUri,event){
+        switch(event.command){
+            case "addTrack":
+                var trackInfo = event.data.track;
+                $scope.$apply(trackQueue.addTrack(trackInfo));
+                break;
+            case "nextTrack":
+                $scope.$apply(trackQueue.nextTrack());
+                break;
+            case "startedTrack":
+                $scope.$apply(function(){
+                    trackQueue.addTrack(event.data.track);
+                    trackQueue.nextTrack();
+                })
+                break;
+        }
+    }
+
+    musicBoxSession.addCallback(handleMessages);
 });

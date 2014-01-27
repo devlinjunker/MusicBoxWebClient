@@ -22,11 +22,13 @@ function(){
     this.addTrack = function(trackData){
         console.log('track added');
 
-        if(this.queue[0] != undefined && this.queue[0] == this.noSong){
+        if(this.queue[0] != undefined && this.queue[0] == this.noSong
+            && this.currentTrack != this.noSong){
             this.queue.shift();
+            this.queue.push(trackData);
         }
 
-        this.queue.push(trackData);
+
 
         console.log({ "queue" : this.queue, "history" : this.history});
     }
@@ -60,10 +62,14 @@ function(){
             return false;
     }
 
-    this.setHistory = function(songList){
-        console.log(songList[songList.length-1])
-        this.currentTrack = songList[songList.length-1];
+    this.setHistory = function(songList, playing){
         this.history = songList;
+
+        if(playing){
+            this.currentTrack = songList[songList.length-1];
+        }else{
+            this.currentTrack = this.noSong;
+        }
     }
 
     this.setQueue = function(songList){

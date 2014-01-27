@@ -17,13 +17,13 @@ function($scope, user, musicBoxSession, trackQueue){
 
     $scope.selectBox = function(box){
         $scope.boxSession.changeDevice(box);
+        $scope.currentDevice = box;
 
         musicBoxSession.getTrackHistory().then(
             function(list){
-                trackQueue.setHistory(list);
+                trackQueue.setHistory(list, $scope.boxSession.playing);
             }
         )
-
 
         trackQueue.setQueue([]);
     }

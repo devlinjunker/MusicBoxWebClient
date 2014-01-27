@@ -37,7 +37,12 @@
             <section id="device_quick_controls" class="clearfix" ng-hide='user.permissions == undefined'>
                 <menu id="controls_container">
                     <div class="detail">
-                        {{trackQueue.currentTrack.Title}} - {{trackQueue.currentTrack.ArtistName}}
+                        <span ng-hide="">
+                            {{trackQueue.currentTrack.Title}} - {{trackQueue.currentTrack.ArtistName}}
+                        </span>
+                        <span ng-hide="">
+                            Device not Connected
+                        </span>
                     </div>
 
                     <div id="song_progress_bar">
