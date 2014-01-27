@@ -26,6 +26,8 @@ function($scope, musicBoxSession, user, trackQueue){
 
 	$scope.skipTrack = function(){
 		musicBoxSession.sendSkipTrackMessage();
+
+		trackQueue.nextTrack();
 	}
 
 	$scope.formatLength = function(length){

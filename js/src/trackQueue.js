@@ -22,6 +22,10 @@ function(){
     this.addTrack = function(trackData){
         console.log('track added');
 
+        if(this.queue[0] != undefined && this.queue[0] == this.noSong){
+            this.queue.shift();
+        }
+
         this.queue.push(trackData);
 
         console.log({ "queue" : this.queue, "history" : this.history});
@@ -31,14 +35,17 @@ function(){
     // current track, unless the queue is now empty and sets the next track as
     // the noSong
     this.nextTrack = function(){
-        console.log('next track')
-
-        if(this.queue[0] != this.noSong){
+        if(this.queue[0] != undefined && this.queue[0] != this.noSong){
+            console.log('next track')
             var startedTrack = this.queue.shift();
 
             this.history.push(startedTrack);
 
             this.currentTrack = startedTrack;
+
+            if(this.queue.length == 0){
+                this.queue.push(this.noSong);
+            }
         }
 
         console.log({ "queue" : this.queue, "history" : this.history});
@@ -47,7 +54,7 @@ function(){
     // Method to check if the track queue has no tracks in it, returns true if
     // empty and false otherwise
     this.emptyQueue = function(){
-        if(this.currentTrack == this.noSong)
+        if(this.queue[0] == this.noSong)
             return true;
         else
             return false;
@@ -57,5 +64,9 @@ function(){
         console.log(songList[songList.length-1])
         this.currentTrack = songList[songList.length-1];
         this.history = songList;
+    }
+
+    this.setQueue = function(songList){
+        this.queue = songList;
     }
 });

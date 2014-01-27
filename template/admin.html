@@ -79,7 +79,7 @@
                          <input type='text'
                             placeholder="Search"
                             class="typeahead"
-                            data-typeahead="track as track.TrackTitle +' <em>by '+track.TrackArtist +'</em>' for track in songSearch($viewValue)"
+                            data-typeahead="track as track.Title +' <em>by '+track.ArtistName +'</em>' for track in songSearch($viewValue)"
                             ng-model="songToAdd"
                             autocomplete="off"
                             typeahead-on-select="addTrack()"/>
@@ -88,12 +88,12 @@
                 </header>
 
                 <section id="queue_list">
-                    <div id="no_song_alert" data-ng-hide="!isEmpty()">
+                    <div id="no_song_alert" data-ng-hide="trackQueue.queue[0] != undefined && trackQueue.queue[0] != trackQueue.noSong;">
                         There are currently no songs in the queue
                     </div>
 
-                    <div class="song_info" style="" data-ng-repeat="track in trackQueue.queue">
-                        <header class="song_title" style="">{{track.TrackTitle}}</header>
+                    <div class="song_info" style="" data-ng-repeat="track in trackQueue.queue" data-ng-hide="trackQueue.queue[0] == undefined || trackQueue.queue[0] == trackQueue.noSong;">
+                        <header class="song_title" style="">{{track.Title}} - {{track.ArtistName}}</header>
 
                         <section class="hidden song_extras clearfix">
                             <img class="song_img" src="{{track.ArtworkURL}}" style=""/>

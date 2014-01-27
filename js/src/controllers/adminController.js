@@ -23,6 +23,9 @@ function($scope, user, musicBoxSession, trackQueue){
                 trackQueue.setHistory(list);
             }
         )
+
+
+        trackQueue.setQueue([]);
     }
 
     $scope.selectSubview = function(viewName){

@@ -74,6 +74,7 @@ function($scope, trackQueue, musicBoxSession, user, spotifyService){
 
     $scope.addTrack = function(){
         trackQueue.addTrack($scope.songToAdd);
+        console.log($scope.songToAdd)
 
         $scope.songToAdd = undefined;
         $scope.addSongHidden = true;

@@ -24,10 +24,10 @@ musicBox.service('spotifyService', function($http){
                             //console.log(track);
                             results.push(
                                 {
-                                    id: track["href"],
-                                    TrackTitle: track["name"],
-                                    TrackArtist: track.artists[0].name,
-                                    TrackAlbum: track.album.name
+                                    ProviderID: track["href"],
+                                    Title: track["name"],
+                                    ArtistName: track.artists[0].name,
+                                    Album: track.album.name
                                 }
                             );
                         }
