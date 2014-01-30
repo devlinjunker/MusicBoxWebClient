@@ -69,10 +69,10 @@ function($scope, musicBoxSession, user, trackQueue){
 
 		switch(event.command){
 			case "playTrack":
-				$scope.boxSession.currentDevice.Playing = true;
+				$scope.boxSession.currentDevice.Playing = 2;
 				break;
 			case "pauseTrack":
-				$scope.boxSession.currentDevice.Playing = false;
+				$scope.boxSession.currentDevice.Playing = 1;
 				break;
 			// case "statusUpdate":
 				// $scope.boxSession.currentDevice.Playing = event.data.Playing;

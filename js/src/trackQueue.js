@@ -22,10 +22,14 @@ function(){
     this.addTrack = function(trackData){
         console.log('track added');
 
-        if(this.queue[0] != undefined && this.queue[0] == this.noSong
-            && this.currentTrack != this.noSong){
+        if(this.currentTrack == this.noSong){
+            this.history.push(trackData);
+            this.currentTrack = trackData;
+        }else if(this.queue[0] != undefined && this.queue[0] == this.noSong){
             this.queue.shift();
             this.queue.push(trackData);
+        }else{
+
         }
 
 

@@ -40,7 +40,6 @@ function($scope, trackQueue, musicBoxSession, user, spotifyService){
                 });
             });
         });
-
     });
 
     // Returns true if the trackQueue Service queue is empty, false otherwise
@@ -73,11 +72,11 @@ function($scope, trackQueue, musicBoxSession, user, spotifyService){
     }
 
     $scope.addTrack = function(){
-        trackQueue.addTrack($scope.songToAdd);
-        console.log($scope.songToAdd)
+        if(musicBoxSession.currentDevice.Playing != 0){
+            trackQueue.addTrack($scope.songToAdd);
 
-        musicBoxSession.sendAddTrackMessage($scope.songToAdd);
-
+            musicBoxSession.sendAddTrackMessage($scope.songToAdd);
+        }
         $scope.songToAdd = undefined;
         $scope.addSongHidden = true;
     }
