@@ -99,5 +99,5 @@ function($scope, trackQueue, musicBoxSession, user, spotifyService){
         }
     }
 
-    musicBoxSession.addCallback(handleMessages);
+    musicBoxSession.addCurrentDeviceCallback(handleMessages);
 });

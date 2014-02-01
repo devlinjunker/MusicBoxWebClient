@@ -34,14 +34,17 @@
                 You need to be running javascript to control the device!
             </noscript>
 
-            <section id="device_quick_controls" class="clearfix" ng-hide='user.permissions == undefined'>
+            <section id="device_quick_controls" class="clearfix">
                 <menu id="controls_container">
                     <div class="detail">
-                        <span ng-hide="">
+                        <span ng-hide="boxSession.getCurrentDevice() === undefined || boxSession.getCurrentDevice().Playing === 0">
                             {{trackQueue.currentTrack.Title}} - {{trackQueue.currentTrack.ArtistName}}
                         </span>
-                        <span ng-hide="">
+                        <span ng-hide="boxSession.getCurrentDevice().Playing != 0">
                             Device not Connected
+                        </span>
+                        <span ng-hide="boxSession.getCurrentDevice() !== undefined">
+                            Device not Found
                         </span>
                     </div>
 
@@ -51,15 +54,17 @@
                         <div id="progress_bar"></div>
                     </div>
 
-                    <menuitem id="song_play_pause" class="btn icon-large {{ (boxSession.currentDevice.Playing == 2) | playPauseIcon}}" ng-click="playPauseTrack()"></menuitem>
+                    <span ng-hide="user.permissions === undefined">
+                        <menuitem id="song_play_pause" class="btn icon-large {{ (boxSession.getCurrentDevice().Playing == 2) | playPauseIcon}}" ng-click="playPauseTrack()"></menuitem>
 
-                    <menuitem id="song_skip" class="btn icon-forward icon-large" ng-click="skipTrack()"></menuitem>
+                        <menuitem id="song_skip" class="btn icon-forward icon-large" ng-click="skipTrack()"></menuitem>
 
-                    <div id='volume_control'>
-                        <div id="volume_container">
-                        <i class='{{boxSession.currentDevice.Volume | volumeIcon}}'></i>
+                        <div id='volume_control'>
+                            <div id="volume_container">
+                            <i class='{{boxSession.currentDevice.Volume | volumeIcon}}'></i>
+                            </div>
                         </div>
-                    </div>
+                    </span>
                 </menu>
             </section>
 

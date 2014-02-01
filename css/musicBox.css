@@ -167,7 +167,6 @@ body {
     background-color: #444444; }
 
 #device_quick_controls {
-  min-height: 100px;
   border-left: 2px solid #666666;
   border-right: 2px solid #666666;
   border-bottom: 1px solid #aaaaaa;

@@ -1,6 +1,6 @@
 musicBox.factory(
     'user',
-function(socketSession, $q){
+function(socketSession, musicBoxSession, $q){
 	var loginUri = 'http://www.musicbox.com/user/startSession';
 
     var user = {};
@@ -53,6 +53,7 @@ function(socketSession, $q){
         });
 	}
 
+
     user.getMusicBoxes = function(){
         if(user.permissions !== undefined){
 
@@ -62,13 +63,23 @@ function(socketSession, $q){
                 var boxes = user.getBoxDetails(ids);
 
                 boxes.then(function(boxes){
+                    console.log('boxes');
+                    console.log(boxes);
+
+                    // When we recieve the user's devices, subscribe to all of them
+                    for(i in boxes){
+                        musicBoxSession.subscribeDevice(boxes[i].deviceUri);
+                    }
+
+                    musicBoxSession.addCallback(user.handleMessages);
+
                     user.musicBoxes = boxes;
                 })
 
                 musicBoxes.resolve(boxes);
             })
 
-            console.log(musicBoxes.promise)
+
         }
 
         return musicBoxes.promise;
@@ -120,8 +131,44 @@ function(socketSession, $q){
     }
 
     user.clearMusicBoxes = function(){
-        musicBoxes = $q.defer();
-        user.musicBoxes = musicBoxes.promise;
+        user.musicBoxes = [];
+    }
+
+    user.handleMessages = function(topic, event){
+        console.log('callback in user')
+        console.log(event)
+        for(i in musicBoxes){
+            if(musicBoxes[i].deviceUri == topic){
+                switch(event.command){
+                    case "boxConnected":
+                        musicBoxes[i].Playing = 1;
+                        break;
+                    case "boxDisconnected":
+                        musicBoxes[i].Playing = 0;
+                        break;
+                    case "startedTrack":
+                        musicBoxes[i].Playing = 2;
+                        break;
+                    case "playTrack":
+                        musicBoxes[i].Playing = 2;
+                        break;
+                    case "pauseTrack":
+                        musicBoxes[i].Playing = 1;
+                        break;
+                    case "nextTrack":
+
+                        break;
+
+                    case "trackHistory":
+                        break;
+                    case "startedTrack":
+                        break;
+                    case "addTrack":
+                    case "endOfTrack":
+                        break;
+                }
+            }
+        }
     }
 
 	return user;

@@ -9,21 +9,16 @@ function($scope, user, musicBoxSession, trackQueue){
 
     $scope.subview = $scope.subviews[0];
 
-    // user.getMusicBoxes().then(function(boxes){
-    //     $scope.boxSession.setCurrentDevice(boxes[0]);
-    // });
-
     var settingsChanged = false;
 
-    $scope.selectBox = function(box){
-        $scope.boxSession.changeDevice(box);
-        $scope.currentDevice = box;
 
-        musicBoxSession.getTrackHistory().then(
-            function(list){
-                trackQueue.setHistory(list, $scope.boxSession.playing);
-            }
-        )
+
+    $scope.selectBox = function(box){
+        musicBoxSession.setCurrentDevice(box);
+
+        musicBoxSession.getTrackHistory().then(function(list){
+            trackQueue.setHistory(list, musicBoxSession.getCurrentDevice().playing);
+        })
 
         trackQueue.setQueue([]);
     }
