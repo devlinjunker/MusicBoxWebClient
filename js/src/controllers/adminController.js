@@ -1,11 +1,10 @@
 musicBox.controller(
     'adminController',
-function($scope, user, musicBoxSession, trackQueue){
+function($scope, user, musicBoxSession){
     $scope.subviews = ['home', 'playlist', 'device', 'settings'];
 
     $scope.boxSession = musicBoxSession;
     $scope.user = user;
-    $scope.trackQueue = trackQueue;
 
     $scope.subview = $scope.subviews[0];
 
@@ -15,12 +14,6 @@ function($scope, user, musicBoxSession, trackQueue){
 
     $scope.selectBox = function(box){
         musicBoxSession.setCurrentDevice(box);
-
-        musicBoxSession.getTrackHistory().then(function(list){
-            trackQueue.setHistory(list, musicBoxSession.getCurrentDevice().playing);
-        })
-
-        trackQueue.setQueue([]);
     }
 
     $scope.selectSubview = function(viewName){
@@ -38,5 +31,11 @@ function($scope, user, musicBoxSession, trackQueue){
             }
         ];
     }
+
+    function handleMessages(topicUri, event){
+        $scope.$apply(function(){});
+    }
+
+    musicBoxSession.addCallback(handleMessages);
 
 });

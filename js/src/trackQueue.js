@@ -19,7 +19,7 @@ function(){
 
     // Adds the trackData to the queue array. Sets the current track if it is
     // the only track in the queue.
-    this.addTrack = function(trackData){
+    this.addTrack = function(trackData, playing){
         console.log('track added');
 
         if(this.currentTrack == this.noSong){

@@ -1,14 +1,14 @@
 musicBox.controller(
     'queueController',
-function($scope, trackQueue, musicBoxSession, user, spotifyService){
-    $scope.queue = trackQueue.queue;
-    $scope.history = trackQueue.history;
+function($scope, musicBoxSession, user, spotifyService, lastfmService){
+    $scope.boxSession = musicBoxSession;
+
 
     $scope.addSongHidden = true;
 
     $scope.songToAdd = undefined;
 
-    $scope.timout = undefined;
+    $scope.timeout = undefined;
 
     var textWidth = function(text, font) {
         var canvas = document.createElement("canvas");
@@ -31,21 +31,16 @@ function($scope, trackQueue, musicBoxSession, user, spotifyService){
 
                 var shiftedWidth = (width - containerWidth > 0) ? width - containerWidth : 0;
 
-                var shiftedWidth =   "-" + shiftedWidth + "px";
+                var shiftedWidthpx =   "-" + shiftedWidth + "px";
 
                 $(this).hover(function(){
-                    el.animate({"margin-left": shiftedWidth}, 3500);
+                    el.animate({"margin-left": shiftedWidthpx}, shiftedWidth*25);
                 }, function(){
                     el.stop(true).css("margin-left", "0px");
                 });
             });
         });
     });
-
-    // Returns true if the trackQueue Service queue is empty, false otherwise
-    $scope.isEmpty = function(){
-        return trackQueue.emptyQueue();
-    }
 
     $scope.showAddSong = function(){
         $scope.addSongHidden = false;
@@ -72,31 +67,34 @@ function($scope, trackQueue, musicBoxSession, user, spotifyService){
     }
 
     $scope.addTrack = function(){
-        if(musicBoxSession.currentDevice.Playing != 0){
-            trackQueue.addTrack($scope.songToAdd);
+        if(musicBoxSession.getCurrentDevice().Playing != 0){
+            var song = $scope.songToAdd;
 
-            musicBoxSession.sendAddTrackMessage($scope.songToAdd);
+            // First get album info for artwork
+            var album = lastfmService.getAlbumInfo(song.ArtistName, song.AlbumName);
+            album.then(function(album){
+
+                song.ArtworkURL = album.image[2]["#text"];
+
+                // Then get song Info for duration
+                var songInfo = lastfmService.getSongInfo(song.ArtistName, song.Title);
+                songInfo.then(function(songInfo){
+                    song.Length = songInfo.duration / 1000;
+
+
+                    musicBoxSession.getCurrentDevice().addTrack(song);
+
+                    musicBoxSession.sendAddTrackMessage(song);
+                })
+            });
         }
+
         $scope.songToAdd = undefined;
         $scope.addSongHidden = true;
     }
 
     function handleMessages(topicUri,event){
-        switch(event.command){
-            case "addTrack":
-                var trackInfo = event.data.track;
-                $scope.$apply(trackQueue.addTrack(trackInfo));
-                break;
-            case "nextTrack":
-                $scope.$apply(trackQueue.nextTrack());
-                break;
-            case "startedTrack":
-                $scope.$apply(function(){
-                    trackQueue.addTrack(event.data.track);
-                    trackQueue.nextTrack();
-                })
-                break;
-        }
+        $scope.$apply(function(){});
     }
 
     musicBoxSession.addCurrentDeviceCallback(handleMessages);

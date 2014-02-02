@@ -3,5 +3,9 @@ musicBox.controller(
 function($scope, musicBoxSession){
     $scope.boxSession = musicBoxSession;
 
-    $scope.themeList = musicBoxSession.getThemes();
+    $scope.themeList =
+
+    musicBoxSession.getThemes().then(function(themes){
+        $scope.themeList = themes;
+    })
 });

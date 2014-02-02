@@ -1,34 +1,24 @@
 musicBox.controller(
 	'deviceController',
-function($scope, musicBoxSession, user, trackQueue){
+function($scope, musicBoxSession, user){
 
 	$scope.user = user;
 	$scope.boxSession = musicBoxSession;
-	$scope.trackQueue = trackQueue;
-
-	$scope.currentDevice = undefined;
-
 
 	$scope.playPauseTrack = function(){
-		if($scope.boxSession.getCurrentDevice().Playing == 2){
+		if($scope.boxSession.getCurrentDevice().isPlaying()){
 			$scope.boxSession.sendPauseTrackMessage();
-			$scope.boxSession.getCurrentDevice().Playing = 1;
 		}
-		else if($scope.boxSession.getCurrentDevice().Playing == 1)
-		{
+		else if($scope.boxSession.getCurrentDevice().isPaused()){
 			$scope.boxSession.sendPlayTrackMessage();
-			$scope.boxSession.getCurrentDevice().Playing = 2;
 		}
-		else
-		{
+		else{
 			console.log('device disconnected');
 		}
 	}
 
 	$scope.skipTrack = function(){
 		musicBoxSession.sendSkipTrackMessage();
-
-		trackQueue.nextTrack();
 	}
 
 	$scope.formatLength = function(length){
@@ -58,46 +48,7 @@ function($scope, musicBoxSession, user, trackQueue){
 	}
 
 	function handleMessages(topicUri, event){
-		console.log('Message!');
-		console.log(event);
-
-		var command = event.command;
-
-		console.log("command: " + command)
-
-		$scope.$apply(function(){
-			switch(command){
-				case "boxConnected":
-					$scope.boxSession.getCurrentDevice().Playing = 1;
-					break;
-				case "boxDisconnected":
-					$scope.boxSession.getCurrentDevice().Playing = 0;
-					break;
-				case "playTrack":
-					$scope.boxSession.getCurrentDevice().Playing = 2;
-					break;
-				case "pauseTrack":
-					$scope.boxSession.getCurrentDevice().Playing = 1;
-					break;
-				case "startedTrack":
-					$scope.boxSession.getCurrentDevice().Playing = 2;
-	                break;
-
-
-				// case "statusUpdate":
-					// $scope.boxSession.currentDevice.Playing = event.data.Playing;
-					// $scope.songPlaying = event.data.queue[0];
-					// break;
-				case "trackHistory":
-					break;
-	            case "addTrack":
-					break;
-				case "nextTrack":
-					break;
-				case "endOfTrack":
-					break;
-			}
-		});
+		$scope.$apply(function(){});
 	}
 
 	// Initizialization

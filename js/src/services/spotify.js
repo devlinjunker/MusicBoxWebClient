@@ -21,13 +21,13 @@ musicBox.service('spotifyService', function($http){
                     {
                         if(i < data.tracks.length){
                             var track = data.tracks[i];
-                            //console.log(track);
+                            console.log(track);
                             results.push(
                                 {
                                     ProviderID: track["href"],
                                     Title: track["name"],
                                     ArtistName: track.artists[0].name,
-                                    Album: track.album.name
+                                    AlbumName: track.album.name
                                 }
                             );
                         }

@@ -37,10 +37,15 @@
             <section id="device_quick_controls" class="clearfix">
                 <menu id="controls_container">
                     <div class="detail">
-                        <span ng-hide="boxSession.getCurrentDevice() === undefined || boxSession.getCurrentDevice().Playing === 0">
-                            {{trackQueue.currentTrack.Title}} - {{trackQueue.currentTrack.ArtistName}}
+                        <span ng-hide="boxSession.getCurrentDevice() === undefined || boxSession.getCurrentDevice().currentSong === undefined || boxSession.getCurrentDevice().isOffline()">
+                            {{boxSession.getCurrentDevice().currentSong.Title}}
+                            -
+                            {{boxSession.getCurrentDevice().currentSong.ArtistName}}
                         </span>
-                        <span ng-hide="boxSession.getCurrentDevice().Playing != 0">
+                        <span ng-hide="boxSession.getCurrentDevice() === undefined || boxSession.currentDevice().isPlaying() || boxSession.getCurrentDevice().currentSong !== undefined">
+                            No Song Playing
+                        </span>
+                        <span ng-hide="!boxSession.getCurrentDevice().isOffline()">
                             Device not Connected
                         </span>
                         <span ng-hide="boxSession.getCurrentDevice() !== undefined">
@@ -50,12 +55,12 @@
 
                     <div id="song_progress_bar">
                         <span id="current_progress">0:00</span>
-                        <span id="song_length">{{formatLength(trackQueue.currentTrack.Length)}}</span>
+                        <span id="song_length">{{formatLength(boxSession.getCurrentDevice().history[boxSession.getCurrentDevice().history.length -1].Length)}}</span>
                         <div id="progress_bar"></div>
                     </div>
 
                     <span ng-hide="user.permissions === undefined">
-                        <menuitem id="song_play_pause" class="btn icon-large {{ (boxSession.getCurrentDevice().Playing == 2) | playPauseIcon}}" ng-click="playPauseTrack()"></menuitem>
+                        <menuitem id="song_play_pause" class="btn icon-large {{ (boxSession.getCurrentDevice().isPlaying()) | playPauseIcon}}" ng-click="playPauseTrack()"></menuitem>
 
                         <menuitem id="song_skip" class="btn icon-forward icon-large" ng-click="skipTrack()"></menuitem>
 
@@ -103,6 +108,8 @@
     <script src="js/src/appconfig.js"></script>
 
     <script src="js/src/user.js"></script>
+    <script src="js/src/device.js"></script>
+
     <script src="js/src/musicBoxSession.js"></script>
 
     <script src="js/src/controllers/loginController.js"></script>
@@ -113,8 +120,9 @@
     <script src="js/src/controllers/settingsController.js"></script>
 
     <script src="js/src/services/spotify.js"></script>
+    <script src="js/src/services/lastfm.js"></script>
     <script src="js/src/filters.js"></script>
-    <script src="js/src/trackQueue.js"></script>
+
     <script src="js/src/main.js"></script>
 </body>
 </html>

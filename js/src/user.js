@@ -1,6 +1,6 @@
 musicBox.factory(
     'user',
-function(socketSession, musicBoxSession, $q){
+function(socketSession, musicBoxSession, device, $q){
 	var loginUri = 'http://www.musicbox.com/user/startSession';
 
     var user = {};
@@ -13,7 +13,12 @@ function(socketSession, musicBoxSession, $q){
     var musicBoxes = $q.defer();
     user.musicBoxes = [];
 
-    // User Authentication
+    user.devices = [];
+
+    /*
+     * User authentication function
+     * TODO: STILL NEED TO ENCRYPT THE PASSWORD
+     */
 	user.login = function(username, password, success, fail){
         var args = {
 			username: username,
@@ -37,7 +42,7 @@ function(socketSession, musicBoxSession, $q){
 
                     user.permissions = permissions;
 
-                    user.getMusicBoxes();
+                    user.getDevices();
 
                     success();
 
@@ -53,7 +58,18 @@ function(socketSession, musicBoxSession, $q){
         });
 	}
 
+    user.getDevices = function(){
+        user.getMusicBoxes().then(function(boxes){
+            for(i in boxes){
+                user.devices.push( new device(boxes[i]) );
+            }
+        });
+    }
 
+    /*
+     * Get the Users Music Boxes and save them in the user object
+     * TODO: WRAP BOXES IN DEVICE OBJECT
+     */
     user.getMusicBoxes = function(){
         if(user.permissions !== undefined){
 
@@ -63,15 +79,12 @@ function(socketSession, musicBoxSession, $q){
                 var boxes = user.getBoxDetails(ids);
 
                 boxes.then(function(boxes){
-                    console.log('boxes');
-                    console.log(boxes);
-
                     // When we recieve the user's devices, subscribe to all of them
                     for(i in boxes){
                         musicBoxSession.subscribeDevice(boxes[i].deviceUri);
                     }
 
-                    musicBoxSession.addCallback(user.handleMessages);
+                    // TODO: Wrap the box in our to-be-made device object
 
                     user.musicBoxes = boxes;
                 })
@@ -85,6 +98,9 @@ function(socketSession, musicBoxSession, $q){
         return musicBoxes.promise;
     }
 
+    /*
+     * Helper function to request the Box Ids of the users boxes
+     */
     user.getMusicBoxIds = function(){
         if(user.permissions !== undefined){
             var deferred = $q.defer();
@@ -105,6 +121,9 @@ function(socketSession, musicBoxSession, $q){
         }
     }
 
+    /*
+     * Helper function to request the box details of the specified box IDs
+     */
     user.getBoxDetails = function(ids){
         if(user.permissions !== undefined){
 
@@ -130,46 +149,53 @@ function(socketSession, musicBoxSession, $q){
         }
     }
 
+    /*
+     * For logout, removes the devices from usable memory
+     */
     user.clearMusicBoxes = function(){
         user.musicBoxes = [];
     }
 
+    /*
+     * Handler to watch inactive sockets and keep boxes that aren't being viewed
+     * up to date
+     */
     user.handleMessages = function(topic, event){
-        console.log('callback in user')
-        console.log(event)
-        for(i in musicBoxes){
-            if(musicBoxes[i].deviceUri == topic){
+        for(i in user.devices){
+            if(user.devices[i].deviceUri == topic){
                 switch(event.command){
                     case "boxConnected":
-                        musicBoxes[i].Playing = 1;
+                        user.devices[i].state = 1;
                         break;
                     case "boxDisconnected":
-                        musicBoxes[i].Playing = 0;
+                        user.devices[i].state = 0;
                         break;
                     case "startedTrack":
-                        musicBoxes[i].Playing = 2;
+                        user.devices[i].addTrack(event.data.track);
+                        user.devices[i].nextTrack();
+                        user.devices[i].state = 2;
                         break;
                     case "playTrack":
-                        musicBoxes[i].Playing = 2;
+                        user.devices[i].state = 2;
                         break;
                     case "pauseTrack":
-                        musicBoxes[i].Playing = 1;
+                        user.devices[i].state = 1;
                         break;
                     case "nextTrack":
-
-                        break;
-
-                    case "trackHistory":
-                        break;
-                    case "startedTrack":
+                    case "endOfTrack":
+                        user.devices[i].nextTrack();
                         break;
                     case "addTrack":
-                    case "endOfTrack":
+                        for(i in event.data){
+                            user.devices[i].addTrack(event.data[i]);
+                        }
                         break;
                 }
             }
         }
     }
+
+    musicBoxSession.addCallback(user.handleMessages);
 
 	return user;
 });

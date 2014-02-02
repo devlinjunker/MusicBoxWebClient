@@ -8,11 +8,12 @@
     <menuitem id='device_list'>
         <header><strong>Devices:</strong></header>
         <ul>
-            <li data-ng-repeat="box in user.musicBoxes | reverse" data-ng-class="{'selected': box == boxSession.currentDevice && subview == 'device'}" data-ng-click="selectBox(box);selectSubview('device')">
+            <li data-ng-repeat="box in user.devices | reverse" data-ng-class="{'selected': box == boxSession.getCurrentDevice() && subview == 'device'}" data-ng-click="selectBox(box);selectSubview('device')">
 
-                <i class='icon-tablet'/>
-
-                {{box.DeviceName}}
+                <span data-ng-class="{ 'disabled': box.state == 0}">
+                    <i class='icon-tablet'/>
+                    {{box.DeviceName}}
+                </span>
 
                 <span class='device_dropdown dropdown' ng-controller='deviceDropdownController' ng-click='$event.stopPropagation();'>
                     <i class='icon-collapse dropdown-toggle'></i>
@@ -46,12 +47,12 @@
 
                 <!--hr style='margin-top:0px;'/-->
 
-                <div class='no_songs_alert' ng-hide='trackQueue.history.length != 0'>
+                <div class='no_songs_alert' ng-hide='boxSession.getCurrentDevice().history.length != 0'>
                     No Songs have been played on this device
                 </div>
 
                 <section id='history_list'>
-                    <div id='{{getTrackID(track)}}' class="song_info"  data-ng-repeat="track in trackQueue.history | reverse" ng-click='toggleTrackExtras(getTrackID(track))'>
+                    <div id='{{getTrackID(track)}}' class="song_info"  data-ng-repeat="track in boxSession.getCurrentDevice().history | reverse" ng-click='toggleTrackExtras(getTrackID(track))'>
                         <header class="song_title" style="">{{track.Title}} - {{track.ArtistName}}</header>
 
                         <section class='hidden song_extras clearfix'>
@@ -88,11 +89,11 @@
                 </header>
 
                 <section id="queue_list">
-                    <div id="no_song_alert" data-ng-hide="trackQueue.queue[0] != undefined && trackQueue.queue[0] != trackQueue.noSong;">
+                    <div id="no_song_alert" data-ng-hide="boxSession.getCurrentDevice().queue.length != 0">
                         There are currently no songs in the queue
                     </div>
 
-                    <div class="song_info" style="" data-ng-repeat="track in trackQueue.queue" data-ng-hide="trackQueue.queue[0] == undefined || trackQueue.queue[0] == trackQueue.noSong;">
+                    <div class="song_info" style="" data-ng-repeat="track in boxSession.getCurrentDevice().queue" data-ng-hide="boxSession.getCurrentDevice().queue.length === 0">
                         <header class="song_title" style="">{{track.Title}} - {{track.ArtistName}}</header>
 
                         <section class="hidden song_extras clearfix">
@@ -113,11 +114,11 @@
             <form ng-submit='saveDeviceSettings()'>
                 <label for='device_name'>
                     Name:
-                    <input disabled type='text' id='device_name' ng-model='boxSession.currentDevice.DeviceName'/>
+                    <input disabled type='text' id='device_name' ng-model='boxSession.getCurrentDevice().DeviceName'/>
                 </label>
                 <label for='theme_select'>
                     Theme:
-                    <select id='theme_select' ng-model='boxSession.currentDevice.Theme' ng-options='theme.ThemeID as theme.Name for theme in themeList'>
+                    <select id='theme_select' ng-model='boxSession.getCurrentDevice().Theme' ng-options='theme.ThemeID as theme.Name for theme in themeList'>
                     </select>
                 </label>
                 <input style='float: right;' class='btn' type='submit' value='Save'/>

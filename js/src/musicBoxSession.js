@@ -18,7 +18,9 @@ function(socketSession, $q){
     this.setCurrentDevice = function(deviceDetails){
         currentDevice = deviceDetails;
 
-        console.log(currentDevice);
+        this.getTrackHistory(currentDevice.ID).then(function(tracks){
+            currentDevice.setHistory(tracks);
+        })
     }
 
     /*
@@ -46,10 +48,7 @@ function(socketSession, $q){
      * a message is recieved on a subscribed channel
      */
     this.invokeCallbacks = function(topicUri, event){
-        console.log('message!');
-
-        console.log(currentDevice);
-        console.log(topicUri)
+        console.log(event)
         if(currentDevice !== undefined && topicUri === currentDevice.deviceUri){
             for(i in currentCallbacks){
                 currentCallbacks[i](topicUri, event);
@@ -98,11 +97,11 @@ function(socketSession, $q){
                 {
                     Title: track["Title"],
                     ArtistName: track["ArtistName"],
-                    AlbumName: "",
-                    ArtworkURL: "",
+                    AlbumName: track["AlbumName"],
+                    ArtworkURL: track["ArtworkURL"],
                     ProviderID: track["ProviderID"],
-                    Length: 0,
-                    "Date": ""
+                    Length: track["Length"],
+                    "Date": new Date().toISOString()
                 }
             ]
         }
@@ -155,7 +154,6 @@ function(socketSession, $q){
      */
     this.getTrackHistory = function(deviceId){
         var deferred = $q.defer();
-        var id = currentDevice.ID;
 
         if(deviceId !== undefined){
             id = deviceId
@@ -167,8 +165,6 @@ function(socketSession, $q){
 
         socket.call("http://www.musicbox.com/trackHistory", args,
             function(result){
-                console.log(result);
-
                 deferred.resolve(result);
             }
         )
