@@ -28,7 +28,6 @@ function(socketSession, musicBoxSession, device, $q){
         // call the startSession RPC to retrieve the sessionID
 		socketSession.call(loginUri, args, function(result){
 
-
             // set Session Id from RPC return
             user.sessionId = result.sessionID;
 
@@ -46,15 +45,17 @@ function(socketSession, musicBoxSession, device, $q){
 
                     success();
 
-                }, function(){
-                    fail();
+                    return;
+
+                }, function(message){
+                    fail(message.desc);
                 }
             );
 
 
-		}, function(){
-
-            console.log('login failed')
+		}, function(message){
+            console.log('fail')
+            fail(message.desc);
         });
 	}
 

@@ -1,7 +1,8 @@
-<section id="device_controller" class="content_view">
+<section id="login_controller" class="content_view">
     <div style='width:300px;margin:auto;text-align:center;padding-top:100px;'>
         <h5>Log In to View Your Devices</h5>
         <form ng-submit="submitLogin()">
+            <div id='login_error' data-ng-hide='errorMessage === undefined'>{{errorMessage}}</div>
             <label for='username'>
                 <span class='label_text' style='width:80px;text-align:right;display:inline-block;'>Username:</span>
                 <input type='text' name='username' id='username' style='width:200px;display:inline-block;' data-ng-model="username"/>

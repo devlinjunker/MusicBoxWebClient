@@ -32,11 +32,11 @@ angular.module('webSocket', []).
                             success(permissions);
                         }
 
-					}, function(){
+					}, function(message){
                         console.log('authentication failed');
 
                         if(fail != null && fail !== undefined)
-                            fail();
+                            fail(message);
                     });
 				});
 			});

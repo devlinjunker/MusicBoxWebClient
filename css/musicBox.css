@@ -214,31 +214,51 @@ body {
       #device_quick_controls #song_progress_bar span#song_length {
         float: right; }
 
-#queue_controller .song_info {
-  text-align: left;
-  padding: 10px 5px;
-  border-bottom: 1px solid #999999; }
-  #queue_controller .song_info .icon-remove {
-    float: right; }
-    #queue_controller .song_info .icon-remove:hover {
-      color: grey;
-      cursor: pointer; }
-  #queue_controller .song_info .song_img {
-    width: 30px;
-    height: 30px;
-    float: left;
-    margin: 5px; }
-  #queue_controller .song_info .song_title {
-    margin-top: 5px; }
-  #queue_controller .song_info .song_details {
-    margin-top: 0px;
-    font-size: 10px; }
+/*
+#queue_controller{
 
+    .song_info{
+        text-align: left;
+        padding: 10px 5px;
+        border-bottom: 1px solid $songInfoSeparator;
+
+        .icon-remove{
+            float: right;
+
+            &:hover{
+                color: grey;
+                cursor: pointer;
+            }
+        }
+
+        .song_img{
+            width:30px;
+            height:30px;
+            float:left;
+            margin: 5px;
+        }
+
+        .song_title{
+            margin-top:5px;
+        }
+
+        .song_details{
+            margin-top:0px;
+            font-size: 10px;
+        }
+    }
+}
+*/
 .hidden {
   display: none; }
 
 html {
   height: 100%; }
+
+#login_error {
+  color: red;
+  font-style: oblique;
+  margin-bottom: 5px; }
 
 menu {
   margin: 0px;

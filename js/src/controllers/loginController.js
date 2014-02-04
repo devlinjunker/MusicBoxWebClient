@@ -4,7 +4,7 @@ function($scope, $http, $location, user, musicBoxSession){
 	$scope.username = '';
 	$scope.password = '';
 
-	$scope.errorMessage = '';
+	$scope.errorMessage = undefined;
 
 	$scope.submitLogin = function(){
 		user.login($scope.username, $scope.password,
@@ -21,7 +21,10 @@ function($scope, $http, $location, user, musicBoxSession){
 
 			},
 			function(failure){
-				console.log("login failed")
+				$scope.$apply(function(){
+					$scope.errorMessage = failure;
+					console.log($scope.errorMessage)
+				})
 			}
 		);
 	};
