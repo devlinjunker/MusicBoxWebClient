@@ -25,17 +25,21 @@ function(musicBoxSession){
 
         this.currentSong = undefined;
 
-        // Adds the trackData to the queue array. Sets the current track if it is
-        // the only track in the queue.
+        /*
+         * Adds the trackData to the queue array. Sets the current track if it is
+         * the only track in the queue.
+         */
         this.addTrack = function(trackData, playing){
             console.log('track added');
 
             this.queue.push(trackData);
         }
 
-        // Removes the track at the top of the queue. Sets the next track as the
-        // current track, unless the queue is now empty and sets the next track as
-        // the noSong
+        /*
+         * Removes the track at the top of the queue. Sets the next track as the
+         * current track, unless the queue is now empty and sets the next track as
+         * the noSong
+         */
         this.nextTrack = function(){
             if(this.queue[0] !== undefined){
                 console.log('next track')
@@ -51,8 +55,10 @@ function(musicBoxSession){
             }
         }
 
-        // Method to check if the track queue has no tracks in it, returns true if
-        // empty and false otherwise
+        /*
+         * Method to check if the track queue has no tracks in it, returns true if
+         * empty and false otherwise
+         */
         this.queueIsEmpty = function(){
             if(this.queue[0] === undefined)
                 return true;
@@ -60,6 +66,9 @@ function(musicBoxSession){
                 return false;
         }
 
+        /*
+         * Returns true if the device is playing currently, false otherwise
+         */
         this.isPlaying = function(){
             if(this.state === 2){
                 return true;
@@ -68,6 +77,9 @@ function(musicBoxSession){
             }
         }
 
+        /*
+         * Returns true if the device is paused currently, false otherwise
+         */
         this.isPaused = function(){
             if(this.state === 1){
                 return true;
@@ -76,6 +88,9 @@ function(musicBoxSession){
             }
         }
 
+        /*
+         * Returns true if the device is offline currently, false otherwise
+         */
         this.isOffline = function(){
             if(this.state === 0){
                 return true;
@@ -84,17 +99,26 @@ function(musicBoxSession){
             }
         }
 
+        /*
+         * Sets the state of the device (between 0 and 2)
+         */
         this.setState = function(state){
             if(state >= 0 && state <= 2){
                 this.state = state;
             }
         }
 
+        /*
+         * Sets the song history, when the page first loads
+         */
         this.setHistory = function(songList){
             this.history = songList;
             this.currentSong = songList[songList.length -1];
         }
 
+        /*
+         * Sets the song queue, when the page first loads
+         */
         this.setQueue = function(songList){
             this.queue = songList;
         }

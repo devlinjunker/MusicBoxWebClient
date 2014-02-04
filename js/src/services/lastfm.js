@@ -8,7 +8,10 @@ musicBox.service('lastfmService', function($http){
     var getTopTracksUri = "http://ws.audioscrobbler.com/2.0/?method=chart.gettoptracks&format=json"
     var getSimilarTracksUri = "http://ws.audioscrobbler.com//2.0/?method=track.getsimilar&format=json";
 
-
+    /*
+     * Requests information on a specific track by an artist, retrieves a bunch
+     * of data specified here: http://www.last.fm/api/show/track.getInfo
+     */
     this.getSongInfo = function(artist, track){
         console.log("Retrieving Track Info from Last.fm: "+artist+", "+track);
 
@@ -21,6 +24,10 @@ musicBox.service('lastfmService', function($http){
             });
     }
 
+    /*
+     * Requests information on a specific album by an artist, retrieves a bunch
+     * of data specified here: http://www.last.fm/api/show/album.getInfo
+     */
     this.getAlbumInfo = function(artist, album){
         console.log("Retrieving Album Info from Last.fm: "+artist+", "+album);
 
@@ -32,6 +39,7 @@ musicBox.service('lastfmService', function($http){
                 return $response.data.album;
             });
     }
+
 
     this.getTopTracks = function(callback){
         $.get(getTopTracksUri,

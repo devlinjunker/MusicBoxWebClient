@@ -3,6 +3,9 @@ musicBox.service('spotifyService', function($http){
     var searchUri = "http://ws.spotify.com/search/1/track";
     var trackLookupUri = "http://ws.spotify.com/lookup/1/";
 
+    /*
+     * Searches spotify for tracks that match the query parameter
+     */
     this.search = function(query){
         var encodedQuery = encodeURIComponent(query);
 

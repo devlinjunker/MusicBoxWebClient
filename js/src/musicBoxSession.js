@@ -48,15 +48,17 @@ function(socketSession, $q){
      * a message is recieved on a subscribed channel
      */
     this.invokeCallbacks = function(topicUri, event){
+        console.log('incoming event')
         console.log(event)
+
+        for(i in callbacks){
+            callbacks[i](topicUri, event);
+        }
+
         if(currentDevice !== undefined && topicUri === currentDevice.deviceUri){
             for(i in currentCallbacks){
                 currentCallbacks[i](topicUri, event);
             }
-        }
-
-        for(i in callbacks){
-            callbacks[i](topicUri, event);
         }
     }
 

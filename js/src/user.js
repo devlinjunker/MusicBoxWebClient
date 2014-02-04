@@ -157,8 +157,7 @@ function(socketSession, musicBoxSession, device, $q){
     }
 
     /*
-     * Handler to watch inactive sockets and keep boxes that aren't being viewed
-     * up to date
+     * Handler to watch inactive sockets and keep boxes up to date
      */
     user.handleMessages = function(topic, event){
         for(i in user.devices){
