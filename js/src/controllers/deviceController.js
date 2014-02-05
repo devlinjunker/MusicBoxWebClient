@@ -1,7 +1,8 @@
 musicBox.controller(
 	'deviceController',
-function($scope, musicBoxSession, user){
+function($scope, $location, musicBoxSession, user){
 
+	$scope.$location = $location;
 	$scope.user = user;
 	$scope.boxSession = musicBoxSession;
 
