@@ -18,9 +18,11 @@ function(socketSession, $q){
     this.setCurrentDevice = function(deviceDetails){
         currentDevice = deviceDetails;
 
-        this.getTrackHistory(currentDevice.ID).then(function(tracks){
-            currentDevice.setHistory(tracks);
-        })
+        if(deviceDetails !== undefined){
+            this.getTrackHistory(currentDevice.ID).then(function(tracks){
+                currentDevice.setHistory(tracks);
+            });
+        }
     }
 
     /*

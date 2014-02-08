@@ -1,6 +1,11 @@
 musicBox.controller(
     'adminController',
 function($scope, $location, user, musicBoxSession){
+
+    if(user.permissions === undefined){
+        $location.path("/");
+    }
+
     $scope.boxSession = musicBoxSession;
     $scope.user = user;
 

@@ -59,6 +59,18 @@ function(socketSession, musicBoxSession, device, $q){
         });
 	}
 
+    user.logout = function(){
+        socketSession.deauthenticate();
+
+        user.username = undefined;
+        user.password = undefined;
+        user.sessionId = undefined;
+        user.permissions = undefined;
+        user.clearMusicBoxes();
+
+        musicBoxSession.currentDevice == undefined;
+    }
+
     user.getDevices = function(){
         user.getMusicBoxes().then(function(boxes){
             for(i in boxes){
@@ -70,7 +82,6 @@ function(socketSession, musicBoxSession, device, $q){
 
     /*
      * Get the Users Music Boxes and save them in the user object
-     * TODO: WRAP BOXES IN DEVICE OBJECT
      */
     user.getMusicBoxes = function(){
         if(user.permissions !== undefined){
@@ -85,8 +96,6 @@ function(socketSession, musicBoxSession, device, $q){
                     for(i in boxes){
                         musicBoxSession.subscribeDevice(boxes[i].deviceUri);
                     }
-
-                    // TODO: Wrap the box in our to-be-made device object
 
                     user.musicBoxes = boxes;
                 })
@@ -155,6 +164,7 @@ function(socketSession, musicBoxSession, device, $q){
      * For logout, removes the devices from usable memory
      */
     user.clearMusicBoxes = function(){
+        user.devices = [];
         user.musicBoxes = [];
     }
 

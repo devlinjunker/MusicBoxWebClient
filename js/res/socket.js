@@ -8,6 +8,8 @@ angular.module('webSocket', []).
 		var socket = {};
 		var connectedCallbacks = [];
 
+		var socketUri = undefined;
+		var socketPort = undefined;
 
 		// Hides the ugliness of authenticating the socket behind a simple call
 		// Still need to get session Id though.
@@ -102,14 +104,45 @@ angular.module('webSocket', []).
 			}
 		}
 
+		socket.deauthenticate = function(){
+			socket.session.close();
+
+			if(socketUri !== undefined && socketPort !== undefined){
+				ab.connect(
+					"ws://"+socketUri+":"+socketPort,
+					function(session){
+						socket.session = session;
+
+						for(i in connectedCallbacks)
+						{
+							connectedCallbacks[i]();
+						}
+
+						connectedCallbacks = [];
+
+
+						if(success !== null && success !== undefined)
+							success(session);
+					},
+					function(code, reason){
+						if(failure !== null && failure !== undefined)
+							failure(code, reason);
+					}
+				);
+			}
+		}
+
 		// Socket Connection Method. Starts the Websocket at the socketUri and
 		// port given.
 		// Called at page load to start the websocket connection.
 		// Success callback is called on a successful websocket (start app)
 		// Failure callback is called on a failed connection. (fail to start)
-		this.connect = function(socketUri, port, success, failure){
+		this.connect = function(uri, port, success, failure){
+			socketUri = uri;
+			socketPort = port;
+
 			ab.connect(
-				"ws://"+socketUri+":"+port,
+				"ws://"+uri+":"+port,
 				function(session){
 					socket.session = session;
 
@@ -117,6 +150,8 @@ angular.module('webSocket', []).
 					{
 						connectedCallbacks[i]();
 					}
+
+					connectedCallbacks = [];
 
 					setTimeout(socket.ping, 29000);
 

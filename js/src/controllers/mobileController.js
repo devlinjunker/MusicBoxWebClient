@@ -9,11 +9,19 @@ function($scope, $location, musicBoxSession, user){
 
     $scope.menuHidden = true;
 
-    $scope.$watch('isMobile', function(){
+    $scope.$watch('window.matchMedia', function(){
+        $scope.isMobile = window.matchMedia && window.matchMedia('(max-width: 992px)').matches || screen.width <= 960;
+
+        console.log('test')
+
         if(!$scope.isMobile){
             $location.path("admin");
         }
     })
+
+    if(user.permissions === undefined){
+        $location.path("/");
+    }
 
     // var menu = $.jPanelMenu({
     //     menu: "#mobile_menu",

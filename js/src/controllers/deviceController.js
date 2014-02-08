@@ -10,7 +10,7 @@ function($scope, $location, musicBoxSession, user){
 	// 	$location.path("m")
 	// }
 
-
+	$scope.$location = $location;
 	$scope.user = user;
 	$scope.boxSession = musicBoxSession;
 
