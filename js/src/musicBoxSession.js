@@ -145,6 +145,16 @@ function(socketSession, $q){
         socket.publish(currentDevice.deviceUri, message, false);
     }
 
+    this.sendChangeStationMessage = function(deviceUri, stationId){
+        var message = {
+            "command": "updateTheme",
+            "data":{
+                "ThemeID": stationId
+            }
+        }
+
+        socket.publish(deviceUri, message, false);
+    }
 
     /*
      * RPC Calls (Returns Deferred Promises)

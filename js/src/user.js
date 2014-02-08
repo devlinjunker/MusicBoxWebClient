@@ -10,8 +10,8 @@ function(socketSession, musicBoxSession, device, $q){
     user.sessionId = undefined;
     user.permissions = undefined;
 
-    var musicBoxes = $q.defer();
-    user.musicBoxes = [];
+    user.musicBoxes = $q.defer();
+
 
     user.devices = [];
 
@@ -62,6 +62,7 @@ function(socketSession, musicBoxSession, device, $q){
     user.getDevices = function(){
         user.getMusicBoxes().then(function(boxes){
             for(i in boxes){
+                console.log(boxes[i])
                 user.devices.push( new device(boxes[i]) );
             }
         });
@@ -90,13 +91,13 @@ function(socketSession, musicBoxSession, device, $q){
                     user.musicBoxes = boxes;
                 })
 
-                musicBoxes.resolve(boxes);
+                user.musicBoxes.resolve(boxes);
             })
 
 
         }
 
-        return musicBoxes.promise;
+        return user.musicBoxes.promise;
     }
 
     /*

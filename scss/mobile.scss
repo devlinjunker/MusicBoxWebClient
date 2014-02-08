@@ -8,6 +8,18 @@
         width:100%;
     }
 
+    #content_area{
+        box-sizing: border-box;
+        height: 100%;
+
+        padding-bottom: 10px;
+
+        #content_views{
+            overflow: scroll;
+            height: 100%;
+        }
+    }
+
     #device_list{
 
         // position:absolute;
@@ -43,7 +55,227 @@
         transition: all 0.7s ease;
     }
 
-    html{
-        min-width:400px;
+    #device_quick_controls{
+        position: absolute;
+        bottom: 0px;
+        width: 100%;
+
+        #controls_container{
+            padding: 0px;
+        }
+
+        #current_progress, .detail, #song_length{
+            display: none;
+        }
+
+        #song_progress_bar{
+            min-height: 0px;
+        }
+    }
+
+    #footer{
+        display: none;
+    }
+
+    .top_nav{
+        position: absolute;
+        top: 0px;
+
+        padding: 10px 5px 10px 10px;
+
+        color: white;
+        //font-size: 15pt;
+
+        cursor: pointer;
+
+        &#left_nav{
+             left: 0px;
+        }
+
+        &#right_nav{
+            right: 0px;
+
+            span{
+                display: inline-block;
+
+                max-width: 35px;
+                font-size: 10px;
+
+                font-size: 9px;
+                line-height: 1;
+                text-align: right;
+            }
+
+            i{
+                display: inline-block;
+                margin: auto;
+            }
+        }
+    }
+
+
+    @keyframes show_menu{
+        from {left:-80%;}
+        to {left:0%;}
+    }
+
+    @-webkit-keyframes show_menu{/* Safari and Chrome */
+        from {left:-80%;}
+        to {left:0%;}
+    }
+
+
+    #mobile_device_view{
+        box-sizing: border-box;
+        padding-top: 5px;
+
+        text-align: center;
+
+        img{
+            box-sizing: border-box;
+            padding: 5px 20px 20px 20px;
+            max-height: 100%;
+        }
+
+        p{
+            margin: 3px;
+
+            #title{
+                font-weight: bold;
+            }
+
+            #artist{
+                font-style: italic;
+            }
+        }
+    }
+
+    #mobile_menu{
+        opacity: 100%;
+        z-index: 2;
+        position: absolute;
+        top: 0px;
+        left: -80%;
+
+        width: 80%;
+        height: 100%;
+
+        background-color: white;
+
+        &.visible{
+            animation: show_menu 1s;
+            -webkit-animation: show_menu 1s;
+
+            left: 0%
+        }
+
+        div{
+            font-weight: bold;
+
+            padding: 4px;
+
+            border-bottom: 1px solid black;
+        }
+
+        header{
+            padding: 5px;
+            border-bottom: 1px solid;
+        }
+
+        #menu_closer{
+            position: absolute;
+            right: 0px;
+
+            padding: 2px;
+
+            cursor: pointer;
+        }
+
+         menuitem{
+            display: block;
+            width: 100%;
+
+            padding: 10px;
+
+            border-bottom: 1px solid black;
+
+            cursor: pointer;
+        }
+    }
+
+    #page_content{
+        height: 100%;
+    }
+
+    #page_header{
+        h1{
+            text-align: center;
+            display: block;
+            padding-top: 0px;
+        }
+
+        i{
+            float: left;
+
+            margin-top: 15px;
+        }
+    }
+
+    #station_list{
+
+        header{
+            position: absolute;
+            width: 100%;
+            box-sizing: border-box;
+            height: 30px;
+
+            padding: 5px 10px;
+            border-bottom: 1px solid #999999;
+
+            font-weight: bold;
+            font-size: 14px;
+
+            background-color: #444444;
+        }
+
+        .icons{
+            float: right;
+        }
+
+        li{
+            padding: 10px 15px;
+            border-bottom: 1px solid #999999;
+
+            .icon-chevron-right{
+                display: none;
+            }
+
+            &:hover{
+                cursor: pointer;
+
+                background: #444444; /* Old browsers */
+                background: -moz-linear-gradient(left,  #444444 0%, #555555 73%, #666666 100%); /* FF3.6+ */
+                background: -webkit-gradient(linear, left top, right top, color-stop(0%,#444444), color-stop(63%,#666666), color-stop(100%,#777777)); /* Chrome,Safari4+ */
+                background: -webkit-linear-gradient(left,  #444444 0%,#555555 73%,#666666 100%); /* Chrome10+,Safari5.1+ */
+                background: -o-linear-gradient(left,  #444444 0%,#555555 73%,#666666 100%); /* Opera 11.10+ */
+                background: -ms-linear-gradient(left,  #444444 0%,#555555 73%,#666666 100%); /* IE10+ */
+                background: linear-gradient(to right,  #444444 0%,#555555 73%,#666666 100%); /* W3C */
+                filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#444444', endColorstr='#666666',GradientType=1 ); /* IE6-9 */
+
+                .icon-chevron-right{
+                    display: inline;
+                }
+
+                .icon-volume-up{
+                    display: none;
+                }
+            }
+        }
+
+        ul{
+            margin-left: 0px;
+            padding-top: 30px;
+            list-style: none;
+        }
     }
 }

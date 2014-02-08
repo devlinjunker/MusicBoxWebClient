@@ -1,0 +1,59 @@
+<menu id="mobile_menu" ng-class="{'visible': !menuHidden, 'hidden': menuHidden}">
+    <span id="menu_closer" ng-click="toggleMenu()">
+        <i class="icon-remove"></i>
+    </span>
+    <header id="current_info">
+        <span><em>Current Device:</em> {{boxSession.getCurrentDevice().DeviceName}}</span>
+    </header>
+
+    <menuitem>Home</menuitem>
+
+    <div ng-hide="user.devices[0] === undefined">My Devices</div>
+    <menuitem ng-repeat="device in user.devices" ng-click="boxSession.setCurrentDevice(device); toggleMenu()">{{device.DeviceName}}</menuitem>
+
+    <menuitem ng-click="goToLogin()">Login</menuitem>
+
+</menu>
+<section id="mobile_controller" class="content_view">
+    <nav id="left_nav" class="top_nav">
+        <i id="mobile_menu_trigger" class="icon-list icon-large"
+            ng-hide="subview !== 'stations'" ng-click="toggleMenu()"></i>
+        <i class="icon-arrow-left icon-large"
+            ng-hide="subview === 'stations'" ng-click="setSubview('stations')"></i>
+    </nav>
+
+    <nav id="right_nav" class="top_nav"
+        ng-hide="boxSession.getCurrentDevice() === undefined || boxSession.getCurrentDevice().state !== 2 ||
+                subview === 'device'"
+        ng-click="setSubview('device')">
+        <span>Now Playing</span>
+        <i class="icon-chevron-right icon-large"></i>
+    </nav>
+
+    <section id="mobile_view" ng-switch="subview">
+        <section id="station_list" ng-switch-when="stations">
+            <header>Select Station: {{boxSession.getCurrentDevice().Theme}}</header>
+            <ul>
+                <li data-ng-repeat="station in boxSession.getCurrentDevice().themeList" data-ng-click="selectStation(station.ThemeID)">
+                    {{station.Name}}
+                    <span class="icons">
+                        <i class="icon-chevron-right"></i>
+                        <i class="icon-volume-up" data-ng-hide="boxSession.getCurrentDevice().ThemeID !== station.ThemeID"></i>
+                    </span>
+                </li>
+            </ul>
+        </section>
+        <section id='mobile_device_view' ng-switch-when="device">
+            <div id='current_song'>
+                <p>
+                    <span id="title">{{boxSession.getCurrentDevice().currentSong.Title}}</span>
+                </p>
+                <p>
+                    by <span id="artist">{{boxSession.getCurrentDevice().currentSong.ArtistName}}</span>
+                </p>
+                <img ng-src="{{boxSession.getCurrentDevice().currentSong.ArtworkURL}}"/>
+            </div>
+        </sections>
+    </section>
+    <footer></footer>
+</section>

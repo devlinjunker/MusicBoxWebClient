@@ -162,8 +162,10 @@ body{
 
 // Main Area of Application that changes
 #content_area{
-    height: 80%;
-    min-height: 600px;
+    @media screen and (min-width:992px){
+        height: 80%;
+        min-height: 600px;
+    }
 
     .content_view{
         clear: both;
@@ -174,11 +176,17 @@ body{
     }
 
     #content_views{
-        min-height: 600px;
+        @media screen and (min-width:992px){
+            overflow:hidden;
+            min-height: 600px;
+
+            border: 2px solid $deviceControlBorder;
+            border-bottom: 1px solid $deviceControlBorder;
+        }
+
         box-shadow: 3px 8px 10px;
-        border: 2px solid $deviceControlBorder;
+
         border-top: none;
-        border-bottom: 1px solid $deviceControlBorder;
         background-color: $deviceControlBG;
         //padding-bottom: 50px;
     }
@@ -186,9 +194,10 @@ body{
 
 // Top of page controls
 #device_quick_controls{
-
-    border-left: 2px solid $deviceControlBorder;
-    border-right: 2px solid $deviceControlBorder;
+    @media screen and (min-width:992px){
+        border-left: 2px solid $deviceControlBorder;
+        border-right: 2px solid $deviceControlBorder;
+    }
     border-bottom: 1px solid $progressBarBorder;
 
     box-shadow: 3px 10px 10px;
@@ -209,7 +218,9 @@ body{
     }
 
     #controls_container{
-        padding: 10px 18px 5px 18px;
+        @media screen and (min-width:992px){
+            padding: 10px 18px 5px 18px;
+        }
         margin: auto;
         margin-bottom: 5px;
 
@@ -237,7 +248,9 @@ body{
     }
 
     #song_progress_bar{
-        min-height: 20px;
+        @media screen and (min-width:992px){
+            min-height: 20px;
+        }
 
         #progress_bar{
             background-color: $progressBarBG;
@@ -258,6 +271,14 @@ body{
             }
         }
     }
+}
+
+// Footer containing copyright
+#footer{
+    background-color: $pageFooterHeaderBG;
+    color: $pageFooterHeaderFont;
+    font-size: small;
+    //margin-bottom:-50px;
 }
 
 /*
@@ -317,42 +338,44 @@ menu{
 
 // Everything but the top-ribbon
 #page_content{
-    min-height: 100%;
-    margin-bottom:80px;
-    opacity: .95;
+    padding-top: 40px;
+    box-sizing: border-box;
+
+    @media screen and (min-width:992px){
+        margin-bottom:80px;
+        opacity: .95;
+    }
+
     .container{
         //background-color: #BBBBBB;
     }
 }
 
-// Footer containing copyright
-#footer{
-    background-color: $pageFooterHeaderBG;
-    color: $pageFooterHeaderFont;
-    font-size: small;
-    //margin-bottom:-50px;
-}
-
 // Header with Logo and Quick Menu
 #page_header{
+    position: absolute;
+    top: 0px;
+
+    width: 100%;
     height: 40px;
+
     background-color: $pageFooterHeaderBG;
     color: $pageFooterHeaderFont;
+
     vertical-align: middle;
-    box-shadow: 1px 3px 5px black;
+    //box-shadow: 1px 3px 5px black;
 
     .container{
-        box-shadow: 0px 5px 3px 0px #000000;
+        //box-shadow: 0px 5px 3px 0px #000000;
     }
 
     h1{
         margin-top: 0px;
-        display:inline;
-        padding-left: 20px;
-        padding-top: 5px;
 
         @media screen and (min-width:992px){
             font-size: 2em;
+            display:inline;
+            padding-top: 5px;
         }
 
         a{

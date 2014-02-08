@@ -1,36 +1,36 @@
 <section id="admin_controller" class="content_view">
 
     <menu>
-    <menuitem>
-        <div id='home_menu' data-ng-click="selectSubview('home')" data-ng-class="{'selected': subview == 'home'}"><i class='icon-home'/>Home</div>
-    </menuitem>
+        <menuitem>
+            <div id='home_menu' data-ng-click="selectSubview('home')" data-ng-class="{'selected': subview == 'home'}"><i class='icon-home'/>Home</div>
+        </menuitem>
 
-    <menuitem id='device_list'>
-        <header><strong>Devices:</strong></header>
-        <ul>
-            <li data-ng-repeat="box in user.devices | reverse" data-ng-class="{'selected': box == boxSession.getCurrentDevice() && subview == 'device'}" data-ng-click="selectBox(box);selectSubview('device')">
+        <menuitem id='device_list'>
+            <header><strong>Devices:</strong></header>
+            <ul>
+                <li data-ng-repeat="box in user.devices | reverse" data-ng-class="{'selected': box == boxSession.getCurrentDevice() && subview == 'device'}" data-ng-click="selectBox(box);selectSubview('device')">
 
-                <span data-ng-class="{ 'disabled': box.state == 0}">
-                    <i class='icon-tablet'/>
-                    {{box.DeviceName}}
-                </span>
+                    <span data-ng-class="{ 'disabled': box.state == 0}">
+                        <i class='icon-tablet'/>
+                        {{box.DeviceName}}
+                    </span>
 
-                <span class='device_dropdown dropdown' ng-controller='deviceDropdownController' ng-click='$event.stopPropagation();'>
-                    <i class='icon-collapse dropdown-toggle'></i>
-                    <ul class='dropdown-menu'>
-                        <li ng-repeat='view in views' ng-click='selectBox(box);selectSubview(view.viewName);'>{{view.name}}</li>
-                    </ul>
-                </span>
-            </li>
-        </ul>
-    </menuitem>
+                    <span class='device_dropdown dropdown' ng-controller='deviceDropdownController' ng-click='$event.stopPropagation();'>
+                        <i class='icon-collapse dropdown-toggle'></i>
+                        <ul class='dropdown-menu'>
+                            <li ng-repeat='view in views' ng-click='selectBox(box);selectSubview(view.viewName);'>{{view.name}}</li>
+                        </ul>
+                    </span>
+                </li>
+            </ul>
+        </menuitem>
 
-    <menuitem id='playlist_list'>
-        <header><strong>Playlists:</strong></header>
-        <ul>
-            <li data-ng-class="{'selected': subview == 'playlist'}" data-ng-click="selectSubview('playlist')"><i class='icon-music'/> Playlist</li>
-        </ul>
-    </menuitem>
+        <menuitem id='playlist_list'>
+            <header><strong>Playlists:</strong></header>
+            <ul>
+                <li data-ng-class="{'selected': subview == 'playlist'}" data-ng-click="selectSubview('playlist')"><i class='icon-music'/> Playlist</li>
+            </ul>
+        </menuitem>
     </menu>
 
     <section id='main_view' ng-switch='subview'>

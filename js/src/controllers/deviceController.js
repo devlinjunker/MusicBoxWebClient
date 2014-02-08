@@ -1,6 +1,15 @@
 musicBox.controller(
 	'deviceController',
-function($scope, musicBoxSession, user){
+function($scope, $location, musicBoxSession, user){
+	$scope.nearbyDevices = [];
+
+	$scope.isMobile = window.matchMedia && window.matchMedia('(max-width: 992px)').matches || screen.width <= 960;
+	//$scope.isMobile = true;
+	// if($scope.isMobile){
+
+	// 	$location.path("m")
+	// }
+
 
 	$scope.user = user;
 	$scope.boxSession = musicBoxSession;

@@ -1,6 +1,7 @@
 musicBox.controller(
 	'loginController',
 function($scope, $http, $location, user, musicBoxSession){
+
 	$scope.username = '';
 	$scope.password = '';
 

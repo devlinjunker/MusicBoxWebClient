@@ -11,17 +11,18 @@
         <!-- Application Style -->
     <link rel="stylesheet" type="text/css" href="css/musicBox.css"/>
 
-    <meta name="viewport" content="width=400, initial-scale=1.0" />
+    <meta name="viewport" content="width=320px, initial-scale=1.0" />
 
 </head>
 
 
 <body id="home" style="font-family: arial;" data-ng-controller='deviceController'>
-
     <header id="page_header">
         <div class="container">
-            <h1><a href="#home">Project Music Box</a></h1>
-            <menu>
+            <h1>
+                Project Music Box
+            </h1>
+            <menu ng-hide="isMobile">
                 <menuitem ng-hide='user.permissions != undefined'><a ng-href='#login'>Log In</a></menuitem>
                 <menuitem ng-hide='user.permissions == undefined'><a ng-href='#admin'>Account</a></menuitem>
             </menu>
@@ -59,7 +60,7 @@
                         <div id="progress_bar"></div>
                     </div>
 
-                    <span ng-hide="user.permissions === undefined">
+                    <span ng-hide="user.permissions === undefined || isMobile">
                         <menuitem id="song_play_pause" class="btn icon-large {{ (boxSession.getCurrentDevice().isPlaying()) | playPauseIcon}}" ng-click="playPauseTrack()"></menuitem>
 
                         <menuitem id="song_skip" class="btn icon-forward icon-large" ng-click="skipTrack()"></menuitem>
@@ -74,7 +75,7 @@
             </section>
 
             <section id="content_area">
-                <div style='overflow:hidden;' id="content_views" data-ng-view>
+                <div id="content_views" data-ng-view>
                 </div>
             </section>
         </div>
@@ -85,7 +86,6 @@
             Copyright 2013 All Rights Reserved.
         </div>
     </footer>
-
 
     <!-- External Libraries -->
         <!-- jQuery -->
@@ -114,6 +114,7 @@
 
     <script src="js/src/controllers/loginController.js"></script>
     <script src="js/src/controllers/deviceController.js"></script>
+    <script src="js/src/controllers/mobileController.js"></script>
     <script src="js/src/controllers/queueController.js"></script>
     <script src="js/src/controllers/queueSearchController.js"></script>
     <script src="js/src/controllers/adminController.js"></script>

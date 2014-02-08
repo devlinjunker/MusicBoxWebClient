@@ -1,15 +1,21 @@
 musicBox.controller(
     'adminController',
-function($scope, user, musicBoxSession){
-    $scope.subviews = ['home', 'playlist', 'device', 'settings'];
-
+function($scope, $location, user, musicBoxSession){
     $scope.boxSession = musicBoxSession;
     $scope.user = user;
 
+    $scope.subviews = ['home', 'playlist', 'device', 'settings'];
     $scope.subview = $scope.subviews[0];
 
     var settingsChanged = false;
 
+    if($scope.isMobile){
+
+        user.musicBoxes.promise.then(function(boxes){
+            $scope.boxSession.setCurrentDevice(user.devices[0]);
+        })
+        $location.path("m")
+    }
 
 
     $scope.selectBox = function(box){

@@ -34,9 +34,10 @@ musicBox.
             when(routePrefix + 'admin', {
                 controller: "adminController",
                 templateUrl: "template/admin.html",
-                resolve: function(){
-                    alert('test');
-                },
+            }).
+            when(routePrefix + 'm', {
+                controller: "mobileController",
+                templateUrl: "template/mobile.html",
             }).
             otherwise({redirectTo: routePrefix + "home"});
 

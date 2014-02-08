@@ -5,6 +5,14 @@
   .container {
     width: 100%; }
 
+  #content_area {
+    box-sizing: border-box;
+    height: 100%;
+    padding-bottom: 10px; }
+    #content_area #content_views {
+      overflow: scroll;
+      height: 100%; }
+
   #device_list {
     width: 100%; }
     #device_list header {
@@ -22,8 +30,157 @@
     -o-transition: all 0.7s ease;
     transition: all 0.7s ease; }
 
-  html {
-    min-width: 400px; } }
+  #device_quick_controls {
+    position: absolute;
+    bottom: 0px;
+    width: 100%; }
+    #device_quick_controls #controls_container {
+      padding: 0px; }
+    #device_quick_controls #current_progress, #device_quick_controls .detail, #device_quick_controls #song_length {
+      display: none; }
+    #device_quick_controls #song_progress_bar {
+      min-height: 0px; }
+
+  #footer {
+    display: none; }
+
+  .top_nav {
+    position: absolute;
+    top: 0px;
+    padding: 10px 5px 10px 10px;
+    color: white;
+    cursor: pointer; }
+    .top_nav#left_nav {
+      left: 0px; }
+    .top_nav#right_nav {
+      right: 0px; }
+      .top_nav#right_nav span {
+        display: inline-block;
+        max-width: 35px;
+        font-size: 10px;
+        font-size: 9px;
+        line-height: 1;
+        text-align: right; }
+      .top_nav#right_nav i {
+        display: inline-block;
+        margin: auto; }
+
+  @keyframes show_menu {
+    from {
+      left: -80%; }
+
+    to {
+      left: 0%; } }
+
+  @-webkit-keyframes show_menu {
+    /* Safari and Chrome */
+    from {
+      left: -80%; }
+
+    to {
+      left: 0%; } }
+
+  #mobile_device_view {
+    box-sizing: border-box;
+    padding-top: 5px;
+    text-align: center; }
+    #mobile_device_view img {
+      box-sizing: border-box;
+      padding: 5px 20px 20px 20px;
+      max-height: 100%; }
+    #mobile_device_view p {
+      margin: 3px; }
+      #mobile_device_view p #title {
+        font-weight: bold; }
+      #mobile_device_view p #artist {
+        font-style: italic; }
+
+  #mobile_menu {
+    opacity: 100%;
+    z-index: 2;
+    position: absolute;
+    top: 0px;
+    left: -80%;
+    width: 80%;
+    height: 100%;
+    background-color: white; }
+    #mobile_menu.visible {
+      animation: show_menu 1s;
+      -webkit-animation: show_menu 1s;
+      left: 0%; }
+    #mobile_menu div {
+      font-weight: bold;
+      padding: 4px;
+      border-bottom: 1px solid black; }
+    #mobile_menu header {
+      padding: 5px;
+      border-bottom: 1px solid; }
+    #mobile_menu #menu_closer {
+      position: absolute;
+      right: 0px;
+      padding: 2px;
+      cursor: pointer; }
+    #mobile_menu menuitem {
+      display: block;
+      width: 100%;
+      padding: 10px;
+      border-bottom: 1px solid black;
+      cursor: pointer; }
+
+  #page_content {
+    height: 100%; }
+
+  #page_header h1 {
+    text-align: center;
+    display: block;
+    padding-top: 0px; }
+  #page_header i {
+    float: left;
+    margin-top: 15px; }
+
+  #station_list header {
+    position: absolute;
+    width: 100%;
+    box-sizing: border-box;
+    height: 30px;
+    padding: 5px 10px;
+    border-bottom: 1px solid #999999;
+    font-weight: bold;
+    font-size: 14px;
+    background-color: #444444; }
+  #station_list .icons {
+    float: right; }
+  #station_list li {
+    padding: 10px 15px;
+    border-bottom: 1px solid #999999; }
+    #station_list li .icon-chevron-right {
+      display: none; }
+    #station_list li:hover {
+      cursor: pointer;
+      background: #444444;
+      /* Old browsers */
+      background: -moz-linear-gradient(left, #444444 0%, #555555 73%, #666666 100%);
+      /* FF3.6+ */
+      background: -webkit-gradient(linear, left top, right top, color-stop(0%, #444444), color-stop(63%, #666666), color-stop(100%, #777777));
+      /* Chrome,Safari4+ */
+      background: -webkit-linear-gradient(left, #444444 0%, #555555 73%, #666666 100%);
+      /* Chrome10+,Safari5.1+ */
+      background: -o-linear-gradient(left, #444444 0%, #555555 73%, #666666 100%);
+      /* Opera 11.10+ */
+      background: -ms-linear-gradient(left, #444444 0%, #555555 73%, #666666 100%);
+      /* IE10+ */
+      background: linear-gradient(to right, #444444 0%, #555555 73%, #666666 100%);
+      /* W3C */
+      filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#444444', endColorstr='#666666',GradientType=1 );
+      /* IE6-9 */ }
+      #station_list li:hover .icon-chevron-right {
+        display: inline; }
+      #station_list li:hover .icon-volume-up {
+        display: none; }
+  #station_list ul {
+    margin-left: 0px;
+    padding-top: 30px;
+    list-style: none; } }
 /*
 Sticky Footer Solution
 by Steve Hatcher
@@ -153,29 +310,35 @@ body {
     .container {
       width: 960px; } }
 
-#content_area {
-  height: 80%;
-  min-height: 600px; }
-  #content_area .content_view {
-    clear: both;
-    height: 100%;
-    color: #999999; }
-  #content_area #content_views {
-    min-height: 600px;
-    box-shadow: 3px 8px 10px;
-    border: 2px solid #666666;
-    border-top: none;
-    border-bottom: 1px solid #666666;
-    background-color: #444444; }
+@media screen and (min-width: 992px) {
+  #content_area {
+    height: 80%;
+    min-height: 600px; } }
+#content_area .content_view {
+  clear: both;
+  height: 100%;
+  color: #999999; }
+#content_area #content_views {
+  box-shadow: 3px 8px 10px;
+  border-top: none;
+  background-color: #444444; }
+  @media screen and (min-width: 992px) {
+    #content_area #content_views {
+      overflow: hidden;
+      min-height: 600px;
+      border: 2px solid #666666;
+      border-bottom: 1px solid #666666; } }
 
 #device_quick_controls {
-  border-left: 2px solid #666666;
-  border-right: 2px solid #666666;
   border-bottom: 1px solid #aaaaaa;
   box-shadow: 3px 10px 10px;
   font-weight: bold;
   text-align: center;
   background-color: #444444; }
+  @media screen and (min-width: 992px) {
+    #device_quick_controls {
+      border-left: 2px solid #666666;
+      border-right: 2px solid #666666; } }
   #device_quick_controls .detail {
     font-size: 10pt;
     overflow: hidden;
@@ -183,11 +346,13 @@ body {
   #device_quick_controls #device_info {
     font-weight: bold; }
   #device_quick_controls #controls_container {
-    padding: 10px 18px 5px 18px;
     margin: auto;
     margin-bottom: 5px;
     font-weight: normal;
     color: #999999; }
+    @media screen and (min-width: 992px) {
+      #device_quick_controls #controls_container {
+        padding: 10px 18px 5px 18px; } }
     #device_quick_controls #controls_container .btn {
       padding: 15px;
       margin: 0px 10px;
@@ -200,19 +365,25 @@ body {
       height: 20px;
       margin: 15px;
       text-align: left; }
-  #device_quick_controls #song_progress_bar {
-    min-height: 20px; }
-    #device_quick_controls #song_progress_bar #progress_bar {
-      background-color: #dddddd;
-      height: 1px;
-      border: 1px solid #aaaaaa; }
-    #device_quick_controls #song_progress_bar span {
-      font-size: small;
-      padding-top: 5px; }
-      #device_quick_controls #song_progress_bar span#current_progress {
-        float: left; }
-      #device_quick_controls #song_progress_bar span#song_length {
-        float: right; }
+  @media screen and (min-width: 992px) {
+    #device_quick_controls #song_progress_bar {
+      min-height: 20px; } }
+  #device_quick_controls #song_progress_bar #progress_bar {
+    background-color: #dddddd;
+    height: 1px;
+    border: 1px solid #aaaaaa; }
+  #device_quick_controls #song_progress_bar span {
+    font-size: small;
+    padding-top: 5px; }
+    #device_quick_controls #song_progress_bar span#current_progress {
+      float: left; }
+    #device_quick_controls #song_progress_bar span#song_length {
+      float: right; }
+
+#footer {
+  background-color: #222222;
+  color: white;
+  font-size: small; }
 
 /*
 #queue_controller{
@@ -265,31 +436,28 @@ menu {
   padding-left: 0px; }
 
 #page_content {
-  min-height: 100%;
-  margin-bottom: 80px;
-  opacity: .95; }
-
-#footer {
-  background-color: #222222;
-  color: white;
-  font-size: small; }
+  padding-top: 40px;
+  box-sizing: border-box; }
+  @media screen and (min-width: 992px) {
+    #page_content {
+      margin-bottom: 80px;
+      opacity: .95; } }
 
 #page_header {
+  position: absolute;
+  top: 0px;
+  width: 100%;
   height: 40px;
   background-color: #222222;
   color: white;
-  vertical-align: middle;
-  box-shadow: 1px 3px 5px black; }
-  #page_header .container {
-    box-shadow: 0px 5px 3px 0px black; }
+  vertical-align: middle; }
   #page_header h1 {
-    margin-top: 0px;
-    display: inline;
-    padding-left: 20px;
-    padding-top: 5px; }
+    margin-top: 0px; }
     @media screen and (min-width: 992px) {
       #page_header h1 {
-        font-size: 2em; } }
+        font-size: 2em;
+        display: inline;
+        padding-top: 5px; } }
     #page_header h1 a {
       color: white;
       text-decoration: none; }

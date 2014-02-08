@@ -5,7 +5,6 @@ musicBox.factory(
 function(musicBoxSession){
 
     return function(device){
-
         this.DeviceName = device.DeviceName;
         this.ID = device.ID;
 
@@ -14,12 +13,14 @@ function(musicBoxSession){
         this.state = device.Playing;
 
         this.Location = device.Location;
-        this.Theme = device.Theme;
+        this.ThemeID = device.ThemeID;
         this.ThemeFull = device.ThemeFull;
         this.User = device.User;
 
         this.queue = [];
         this.history = [];
+
+        this.themeList = [];
 
         musicBoxSession.getTrackHistory(this.ID).then(this.setHistory);
 
@@ -122,6 +123,25 @@ function(musicBoxSession){
         this.setQueue = function(songList){
             this.queue = songList;
         }
+
+        this.getStations = function(){
+            var themeList = this.themeList;
+            musicBoxSession.getThemes().then(function(themes){
+                for(var i in themes){
+                    themeList.push(themes[i]);
+                }
+            })
+        }
+
+        this.setStation = function(stationId){
+            if(this.ThemeID !== stationId){
+                this.ThemeID = stationId;
+
+                musicBoxSession.sendChangeStationMessage(this.deviceUri, stationId);
+            }
+        }
+
+        this.getStations();
     }
 });
 
