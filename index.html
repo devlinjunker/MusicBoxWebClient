@@ -69,9 +69,13 @@
                     </div>
 
                     <div id="song_controls" ng-hide="user.permissions === undefined">
-                        <i id="song_play_pause" class="{{(boxSession.getCurrentDevice().isPlaying()) | playPauseIcon}} icon-2x" ng-click="playPauseTrack()"></i>
+                        <span id="song_play_pause" ng-click="playPauseTrack()">
+                            <i class="{{(boxSession.getCurrentDevice().isPlaying()) | playPauseIcon}} icon-2x" ></i>
+                        </span>
 
-                        <i id="song_skip" class=" icon-forward icon-2x" ng-click="skipTrack()"></i>
+                        <span id="song_skip" ng-click="skipTrack()">
+                            <i class=" icon-forward icon-2x" ></i>
+                        </span>
                     </div>
 
                     <div id='volume_control'>

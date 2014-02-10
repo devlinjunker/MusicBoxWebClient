@@ -101,14 +101,21 @@
             float: right;
 
             #song_play_pause, #song_skip{
-                height:30px;
-                width: 20px;
+                display:inline-block;
+                height: 30px;
+                width: 30px;
                 margin-right: 10px;
 
                 cursor: pointer;
 
                 &:hover{
                     color: #BBBBBB;
+                }
+
+                i{
+                    display: block;
+                    margin:auto;
+                    margin-top: 10px;
                 }
             }
         }

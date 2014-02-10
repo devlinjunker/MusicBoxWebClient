@@ -60,12 +60,17 @@
       padding: 10px;
       float: right; }
       #device_quick_controls #song_controls #song_play_pause, #device_quick_controls #song_controls #song_skip {
+        display: inline-block;
         height: 30px;
-        width: 20px;
+        width: 30px;
         margin-right: 10px;
         cursor: pointer; }
         #device_quick_controls #song_controls #song_play_pause:hover, #device_quick_controls #song_controls #song_skip:hover {
           color: #BBBBBB; }
+        #device_quick_controls #song_controls #song_play_pause i, #device_quick_controls #song_controls #song_skip i {
+          display: block;
+          margin: auto;
+          margin-top: 10px; }
     #device_quick_controls #song_progress_bar {
       position: absolute;
       bottom: 0px;
