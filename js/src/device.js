@@ -42,17 +42,21 @@ function(musicBoxSession){
          * the noSong
          */
         this.nextTrack = function(){
-            if(this.queue[0] !== undefined){
-                console.log('next track')
+            if(this.ThemeFull.Type == 0){
+                if(this.queue[0] !== undefined){
+                    console.log('next track')
 
-                var startedTrack = this.queue.shift();
+                    var startedTrack = this.queue.shift();
 
-                this.currentSong = startedTrack;
+                    this.currentSong = startedTrack;
 
-                this.history.push(startedTrack);
+                    this.history.push(startedTrack);
+                }else{
+                    this.currentSong == undefined;
+                    this.state = 1;
+                }
             }else{
-                this.currentSong == undefined;
-                this.state = 1;
+
             }
         }
 
@@ -126,8 +130,12 @@ function(musicBoxSession){
 
         this.getStations = function(){
             var themeList = this.themeList;
+            var ThemeID = this.ThemeID;
             musicBoxSession.getThemes().then(function(themes){
                 for(var i in themes){
+                    if(themes[i].ThemeID === ThemeID){
+                        this.ThemeFull = themes[i];
+                    }
                     themeList.push(themes[i]);
                 }
             })

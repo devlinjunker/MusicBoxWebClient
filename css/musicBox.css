@@ -13,13 +13,6 @@
       overflow: scroll;
       height: 100%; }
 
-  #current_artwork {
-    position: fixed;
-    bottom: 7px;
-    left: 7px;
-    width: 36px;
-    height: 36px; }
-
   #device_list {
     width: 100%; }
     #device_list header {
@@ -54,14 +47,22 @@
       height: 100%;
       max-width: 100%;
       box-sizing: border-box;
-      padding: 10px 100px 10px 50px; }
+      padding: 7px 100px 10px 50px; }
+      #device_quick_controls #song_detail #current_artwork {
+        position: fixed;
+        bottom: 7px;
+        left: 7px;
+        width: 36px;
+        height: 36px; }
       #device_quick_controls #song_detail div {
         overflow: hidden; }
     #device_quick_controls #song_controls {
-      padding: 15px;
+      padding: 10px;
       float: right; }
       #device_quick_controls #song_controls #song_play_pause, #device_quick_controls #song_controls #song_skip {
-        margin-right: 20px;
+        height: 30px;
+        width: 20px;
+        margin-right: 10px;
         cursor: pointer; }
         #device_quick_controls #song_controls #song_play_pause:hover, #device_quick_controls #song_controls #song_skip:hover {
           color: #BBBBBB; }

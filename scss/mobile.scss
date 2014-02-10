@@ -20,14 +20,6 @@
         }
     }
 
-    #current_artwork{
-        position: fixed;
-        bottom: 7px;
-        left: 7px;
-        width: 36px;
-        height: 36px;
-    }
-
     #device_list{
 
         // position:absolute;
@@ -89,7 +81,15 @@
             max-width: 100%;
 
             box-sizing: border-box;
-            padding: 10px 100px 10px 50px;
+            padding: 7px 100px 10px 50px;
+
+                #current_artwork{
+                    position: fixed;
+                    bottom: 7px;
+                    left: 7px;
+                    width: 36px;
+                    height: 36px;
+                }
 
             div{
                 overflow: hidden;
@@ -97,11 +97,13 @@
         }
 
         #song_controls{
-            padding: 15px;
+            padding: 10px;
             float: right;
 
             #song_play_pause, #song_skip{
-                margin-right: 20px;
+                height:30px;
+                width: 20px;
+                margin-right: 10px;
 
                 cursor: pointer;
 
