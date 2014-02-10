@@ -4,7 +4,7 @@ function($scope, $location, musicBoxSession, user){
     $scope.user = user;
     $scope.boxSession = musicBoxSession;
 
-    $scope.subviews = ['home', 'stations', 'device', 'settings'];
+    $scope.subviews = ['home', 'stations', 'current', 'settings'];
     $scope.subview = $scope.subviews[1];
 
     $scope.menuHidden = true;
@@ -28,7 +28,7 @@ function($scope, $location, musicBoxSession, user){
     $scope.selectStation = function(stationId){
         musicBoxSession.getCurrentDevice().setStation(stationId);
 
-        $scope.subview = 'current';
+        $scope.setSubview('current');
     }
 
     $scope.setSubview = function(subview){

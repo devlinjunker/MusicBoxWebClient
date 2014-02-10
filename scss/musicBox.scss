@@ -88,10 +88,6 @@ $tabSelectorUnselected: #777777;
                 padding: 2px;
             }
 
-            span.disabled{
-                opacity: 0.4;
-            }
-
             &:hover{
                 cursor: pointer;
                 border-bottom: 1px solid #777777;
@@ -136,7 +132,7 @@ body{
     margin: 0px;
 }
 
-.btn{
+.btn-inverse{
     //background-color: $controlButtonBG;
      box-shadow:
     //     0 0px 1px #fff; /*bottom external highlight*/
@@ -197,17 +193,18 @@ body{
     @media screen and (min-width:992px){
         border-left: 2px solid $deviceControlBorder;
         border-right: 2px solid $deviceControlBorder;
+
+        text-align:center;
+
+        background-color: $deviceControlBG;
     }
     border-bottom: 1px solid $progressBarBorder;
 
     box-shadow: 3px 10px 10px;
 
     font-weight: bold;
-    text-align:center;
 
-    background-color: $deviceControlBG;
-
-    .detail{
+    #song_detail{
         font-size: 10pt;
         overflow: hidden;
         white-space: nowrap;
@@ -218,33 +215,39 @@ body{
     }
 
     #controls_container{
-        @media screen and (min-width:992px){
-            padding: 10px 18px 5px 18px;
-        }
         margin: auto;
-        margin-bottom: 5px;
 
         font-weight: normal;
         color: $deviceControlFont;
 
-        .btn{
-            padding: 15px;
-            margin: 0px 10px;
+        @media screen and (min-width:992px){
+            padding: 10px 18px 5px 18px;
+            margin-bottom: 5px;
 
-            border-radius: 17px;
-            line-height:16px;
+            .btn-inverse{
+                padding: 15px;
+                margin: 0px 10px;
+
+                border-radius: 17px;
+                line-height:16px;
+            }
+
+            #volume_control{
+                position: absolute;
+                display: inline-block;
+                width: 100px;;
+                height: 20px;
+
+                margin: 15px;
+
+                text-align: left;
+            }
         }
 
         #volume_control{
-            position: absolute;
-            display: inline-block;
-            width: 100px;;
-            height: 20px;
-
-            margin: 15px;
-
-            text-align: left;
+            display: none;
         }
+
     }
 
     #song_progress_bar{
@@ -271,6 +274,10 @@ body{
             }
         }
     }
+}
+
+.disabled{
+    opacity: 0.4;
 }
 
 // Footer containing copyright

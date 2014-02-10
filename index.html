@@ -40,21 +40,26 @@
 
             <section id="device_quick_controls" class="clearfix">
                 <menu id="controls_container">
-                    <div class="detail">
-                        <span ng-hide="boxSession.getCurrentDevice() === undefined || boxSession.getCurrentDevice().currentSong === undefined || boxSession.getCurrentDevice().isOffline()">
+                    <div id="song_detail">
+                        <div ng-hide="boxSession.getCurrentDevice() === undefined || boxSession.getCurrentDevice().currentSong === undefined || boxSession.getCurrentDevice().isOffline()">
+                            <img id="current_artwork" src="{{boxSession.getCurrentDevice().currentSong.ArtworkURL}}" ng-hide="!isMobile"/>
+
                             {{boxSession.getCurrentDevice().currentSong.Title}}
-                            -
+                            <em> by </em>
                             {{boxSession.getCurrentDevice().currentSong.ArtistName}}
-                        </span>
-                        <span ng-hide="boxSession.getCurrentDevice() === undefined || boxSession.currentDevice().isPlaying() || boxSession.getCurrentDevice().currentSong !== undefined">
+                            <div>
+                                <strong>on </strong>{{boxSession.getCurrentDevice().DeviceName}}
+                            </div>
+                        </div>
+                        <div ng-hide="boxSession.getCurrentDevice() === undefined || boxSession.currentDevice().isPlaying() || boxSession.getCurrentDevice().currentSong !== undefined">
                             No Song Playing
-                        </span>
-                        <span ng-hide="!boxSession.getCurrentDevice().isOffline()">
+                        </div>
+                        <div ng-hide="!boxSession.getCurrentDevice().isOffline()">
                             Device not Connected
-                        </span>
-                        <span ng-hide="boxSession.getCurrentDevice() !== undefined">
+                        </div>
+                        <div ng-hide="boxSession.getCurrentDevice() !== undefined">
                             Device not Found
-                        </span>
+                        </div>
                     </div>
 
                     <div id="song_progress_bar">
@@ -63,17 +68,17 @@
                         <div id="progress_bar"></div>
                     </div>
 
-                    <span ng-hide="user.permissions === undefined || isMobile">
-                        <menuitem id="song_play_pause" class="btn icon-large {{ (boxSession.getCurrentDevice().isPlaying()) | playPauseIcon}}" ng-click="playPauseTrack()"></menuitem>
+                    <div id="song_controls" ng-hide="user.permissions === undefined">
+                        <i id="song_play_pause" class="{{(boxSession.getCurrentDevice().isPlaying()) | playPauseIcon}} icon-2x" ng-click="playPauseTrack()"></i>
 
-                        <menuitem id="song_skip" class="btn icon-forward icon-large" ng-click="skipTrack()"></menuitem>
+                        <i id="song_skip" class=" icon-forward icon-2x" ng-click="skipTrack()"></i>
+                    </div>
 
-                        <div id='volume_control'>
-                            <div id="volume_container">
-                            <i class='{{boxSession.currentDevice.Volume | volumeIcon}}'></i>
-                            </div>
+                    <div id='volume_control'>
+                        <div id="volume_container">
+                        <i class='{{boxSession.currentDevice.Volume | volumeIcon}}'></i>
                         </div>
-                    </span>
+                    </div>
                 </menu>
             </section>
 

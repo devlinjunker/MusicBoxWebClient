@@ -8,10 +8,17 @@
   #content_area {
     box-sizing: border-box;
     height: 100%;
-    padding-bottom: 10px; }
+    padding-bottom: 50px; }
     #content_area #content_views {
       overflow: scroll;
       height: 100%; }
+
+  #current_artwork {
+    position: fixed;
+    bottom: 7px;
+    left: 7px;
+    width: 36px;
+    height: 36px; }
 
   #device_list {
     width: 100%; }
@@ -33,12 +40,34 @@
   #device_quick_controls {
     position: absolute;
     bottom: 0px;
-    width: 100%; }
+    width: 100%;
+    height: 49px;
+    background-color: black; }
     #device_quick_controls #controls_container {
-      padding: 0px; }
-    #device_quick_controls #current_progress, #device_quick_controls .detail, #device_quick_controls #song_length {
+      padding: 0px;
+      height: 100%;
+      vertical-align: middle; }
+    #device_quick_controls #current_progress, #device_quick_controls #song_length {
       display: none; }
+    #device_quick_controls #song_detail {
+      position: absolute;
+      height: 100%;
+      max-width: 100%;
+      box-sizing: border-box;
+      padding: 10px 100px 10px 50px; }
+      #device_quick_controls #song_detail div {
+        overflow: hidden; }
+    #device_quick_controls #song_controls {
+      padding: 15px;
+      float: right; }
+      #device_quick_controls #song_controls #song_play_pause, #device_quick_controls #song_controls #song_skip {
+        margin-right: 20px;
+        cursor: pointer; }
+        #device_quick_controls #song_controls #song_play_pause:hover, #device_quick_controls #song_controls #song_skip:hover {
+          color: #BBBBBB; }
     #device_quick_controls #song_progress_bar {
+      position: absolute;
+      bottom: 0px;
       min-height: 0px; }
 
   #footer {
@@ -123,6 +152,7 @@
     #mobile_menu menuitem {
       display: block;
       width: 100%;
+      box-sizing: border-box;
       padding: 10px;
       border-bottom: 1px solid black;
       cursor: pointer; }
@@ -267,8 +297,6 @@ You also need to include this conditional style in the <head> of your HTML file 
       display: inline;
       float: right;
       padding: 2px; }
-    #admin_controller menu li span.disabled, #admin_controller menu #home_menu span.disabled {
-      opacity: 0.4; }
     #admin_controller menu li:hover, #admin_controller menu #home_menu:hover {
       cursor: pointer;
       border-bottom: 1px solid #777777;
@@ -298,9 +326,9 @@ body {
   background-image: url("images/space-dust-twitter-background.jpg");
   margin: 0px; }
 
-.btn {
+.btn-inverse {
   box-shadow: 0 -1px 1px #666666, top external shadow inset 0 -1px -2px rgba(0, 0, 0, 0.5), inset 0 1px 1px rgba(255, 255, 255, 0.8); }
-  .btn:hover {
+  .btn-inverse:hover {
     cursor: pointer; }
 
 .container {
@@ -332,14 +360,14 @@ body {
 #device_quick_controls {
   border-bottom: 1px solid #aaaaaa;
   box-shadow: 3px 10px 10px;
-  font-weight: bold;
-  text-align: center;
-  background-color: #444444; }
+  font-weight: bold; }
   @media screen and (min-width: 992px) {
     #device_quick_controls {
       border-left: 2px solid #666666;
-      border-right: 2px solid #666666; } }
-  #device_quick_controls .detail {
+      border-right: 2px solid #666666;
+      text-align: center;
+      background-color: #444444; } }
+  #device_quick_controls #song_detail {
     font-size: 10pt;
     overflow: hidden;
     white-space: nowrap; }
@@ -347,24 +375,26 @@ body {
     font-weight: bold; }
   #device_quick_controls #controls_container {
     margin: auto;
-    margin-bottom: 5px;
     font-weight: normal;
     color: #999999; }
     @media screen and (min-width: 992px) {
       #device_quick_controls #controls_container {
-        padding: 10px 18px 5px 18px; } }
-    #device_quick_controls #controls_container .btn {
-      padding: 15px;
-      margin: 0px 10px;
-      border-radius: 17px;
-      line-height: 16px; }
+        padding: 10px 18px 5px 18px;
+        margin-bottom: 5px; }
+        #device_quick_controls #controls_container .btn-inverse {
+          padding: 15px;
+          margin: 0px 10px;
+          border-radius: 17px;
+          line-height: 16px; }
+        #device_quick_controls #controls_container #volume_control {
+          position: absolute;
+          display: inline-block;
+          width: 100px;
+          height: 20px;
+          margin: 15px;
+          text-align: left; } }
     #device_quick_controls #controls_container #volume_control {
-      position: absolute;
-      display: inline-block;
-      width: 100px;
-      height: 20px;
-      margin: 15px;
-      text-align: left; }
+      display: none; }
   @media screen and (min-width: 992px) {
     #device_quick_controls #song_progress_bar {
       min-height: 20px; } }
@@ -379,6 +409,9 @@ body {
       float: left; }
     #device_quick_controls #song_progress_bar span#song_length {
       float: right; }
+
+.disabled {
+  opacity: 0.4; }
 
 #footer {
   background-color: #222222;
