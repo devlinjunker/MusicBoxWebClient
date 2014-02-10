@@ -5,7 +5,7 @@ function($scope, $http, $location, user, musicBoxSession){
 	$scope.errorMessage = undefined;
 
 	$scope.submitLogin = function(){
-		var username = $("#login_controller input[name=username]").val();
+		var username = $("#login_controller input[name=username]").val().toLowerCase();
 		var password = $("#login_controller input[name=password]").val();
 
 		user.login(username, password,
