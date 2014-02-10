@@ -97,8 +97,12 @@
         }
 
         #song_controls{
+            position: absolute;
+            bottom: 0px;
+            right: 0px;
+
             padding: 10px;
-            float: right;
+
 
             #song_play_pause, #song_skip{
                 display:inline-block;

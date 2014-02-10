@@ -57,8 +57,10 @@
       #device_quick_controls #song_detail div {
         overflow: hidden; }
     #device_quick_controls #song_controls {
-      padding: 10px;
-      float: right; }
+      position: absolute;
+      bottom: 0px;
+      right: 0px;
+      padding: 10px; }
       #device_quick_controls #song_controls #song_play_pause, #device_quick_controls #song_controls #song_skip {
         display: inline-block;
         height: 30px;
