@@ -65,14 +65,7 @@
         display: inline-block;
         height: 30px;
         width: 30px;
-        margin-right: 10px;
-        cursor: pointer; }
-        #device_quick_controls #song_controls #song_play_pause:hover, #device_quick_controls #song_controls #song_skip:hover {
-          color: #BBBBBB; }
-        #device_quick_controls #song_controls #song_play_pause i, #device_quick_controls #song_controls #song_skip i {
-          display: block;
-          margin: auto;
-          margin-top: 10px; }
+        margin-right: 10px; }
     #device_quick_controls #song_progress_bar {
       position: absolute;
       bottom: 0px;
@@ -175,6 +168,8 @@
   #page_header i {
     float: left;
     margin-top: 15px; }
+  #page_header #standard_menu {
+    display: none; }
 
   #station_list header {
     position: absolute;
@@ -272,6 +267,7 @@ You also need to include this conditional style in the <head> of your HTML file 
 
 */
 #admin_controller #device_list .device_dropdown {
+  display: none;
   float: right; }
 #admin_controller #device_list i:hover {
   color: #777777; }
@@ -314,6 +310,15 @@ You also need to include this conditional style in the <head> of your HTML file 
       background-color: black; }
   #admin_controller menu ul {
     list-style-type: none; }
+#admin_controller #settings_menu {
+  float: right;
+  padding: 10px;
+  cursor: pointer; }
+  #admin_controller #settings_menu:hover {
+    color: #BBBBBB; }
+#admin_controller #song_history {
+  overflow-y: hidden;
+  margin: 10px; }
 #admin_controller ul, #admin_controller ol {
   margin: 0px; }
 
@@ -401,6 +406,14 @@ body {
           height: 20px;
           margin: 15px;
           text-align: left; } }
+    #device_quick_controls #controls_container #song_play_pause, #device_quick_controls #controls_container #song_skip {
+      display: inline-block;
+      height: 30px;
+      width: 30px;
+      margin-right: 10px;
+      cursor: pointer; }
+      #device_quick_controls #controls_container #song_play_pause:hover, #device_quick_controls #controls_container #song_skip:hover {
+        color: #BBBBBB; }
     #device_quick_controls #controls_container #volume_control {
       display: none; }
   @media screen and (min-width: 992px) {
@@ -417,6 +430,14 @@ body {
       float: left; }
     #device_quick_controls #song_progress_bar span#song_length {
       float: right; }
+  #device_quick_controls #song_play_pause, #device_quick_controls #song_skip {
+    cursor: pointer; }
+    #device_quick_controls #song_play_pause:hover, #device_quick_controls #song_skip:hover {
+      color: #BBBBBB; }
+    #device_quick_controls #song_play_pause i, #device_quick_controls #song_skip i {
+      display: block;
+      margin: auto;
+      margin-top: 10px; }
 
 .disabled {
   opacity: 0.4; }
@@ -551,39 +572,41 @@ menu {
     cursor: pointer;
     background-color: #333333; }
 
-#song_queue #add_song {
-  position: relative; }
-  #song_queue #add_song .btn {
-    padding: 0px 6px;
-    border-radius: 10px;
-    margin-left: 20px;
-    font-weight: bolder; }
-  #song_queue #add_song:hover {
-    color: #777777;
-    cursor: pointer; }
-#song_queue .song_search {
-  position: absolute;
-  width: 250px;
-  padding: 4px;
-  border-radius: 5px;
-  overflow: hidden;
-  font-size: 8pt;
-  background-color: #fff;
-  cursor: default;
-  z-index: 100; }
-  #song_queue .song_search .dropdown-menu {
-    position: initial;
-    min-width: 100%;
-    border-radius: 0px;
-    box-shadow: none;
-    background-color: default;
-    border: none;
-    cursor: pointer; }
-  #song_queue .song_search input {
-    padding: 2px 4px; }
-  #song_queue .song_search li {
-    padding-right: 10px; }
-#song_queue header {
-  margin: 10px 0px; }
-  #song_queue header h4 {
-    display: inline; }
+#song_queue {
+  display: none; }
+  #song_queue #add_song {
+    position: relative; }
+    #song_queue #add_song .btn {
+      padding: 0px 6px;
+      border-radius: 10px;
+      margin-left: 20px;
+      font-weight: bolder; }
+    #song_queue #add_song:hover {
+      color: #777777;
+      cursor: pointer; }
+  #song_queue .song_search {
+    position: absolute;
+    width: 250px;
+    padding: 4px;
+    border-radius: 5px;
+    overflow: hidden;
+    font-size: 8pt;
+    background-color: #fff;
+    cursor: default;
+    z-index: 100; }
+    #song_queue .song_search .dropdown-menu {
+      position: initial;
+      min-width: 100%;
+      border-radius: 0px;
+      box-shadow: none;
+      background-color: default;
+      border: none;
+      cursor: pointer; }
+    #song_queue .song_search input {
+      padding: 2px 4px; }
+    #song_queue .song_search li {
+      padding-right: 10px; }
+  #song_queue header {
+    margin: 10px 0px; }
+    #song_queue header h4 {
+      display: inline; }

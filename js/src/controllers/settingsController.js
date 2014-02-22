@@ -3,14 +3,18 @@ musicBox.controller(
 function($scope, musicBoxSession){
     $scope.boxSession = musicBoxSession;
 
-    $scope.subviews = ['home', 'stations', 'device', 'settings'];
-    $scope.subview = $scope.subviews[1];
-
-    $scope.themeList =
+    $scope.themeId;
+    $scope.themeList = [];
 
     musicBoxSession.getThemes().then(function(themes){
         $scope.themeList = themes;
-
-        $scope.subview = 'device';
     })
+
+    $scope.saveDeviceSettings = function(){
+
+        musicBoxSession.getCurrentDevice().setStation($scope.themeId);
+
+        $scope.selectSubview('device');
+    }
+
 });

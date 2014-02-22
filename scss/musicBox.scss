@@ -35,6 +35,7 @@ $tabSelectorUnselected: #777777;
 #admin_controller{
     #device_list{
         .device_dropdown{
+            display: none;
             float:right;
         }
 
@@ -104,6 +105,22 @@ $tabSelectorUnselected: #777777;
         ul{
             list-style-type: none;
         }
+    }
+
+    #settings_menu{
+        float: right;
+        padding: 10px;
+
+        cursor: pointer;
+
+        &:hover{
+            color: #BBBBBB;
+        }
+    }
+
+    #song_history{
+        overflow-y:hidden;
+        margin: 10px;
     }
 
     ul, ol{
@@ -244,6 +261,19 @@ body{
             }
         }
 
+        #song_play_pause, #song_skip{
+            display:inline-block;
+            height: 30px;
+            width: 30px;
+            margin-right: 10px;
+
+            cursor: pointer;
+
+            &:hover{
+                color: #BBBBBB;
+            }
+        }
+
         #volume_control{
             display: none;
         }
@@ -272,6 +302,20 @@ body{
             &#song_length{
                 float: right;
             }
+        }
+    }
+
+    #song_play_pause, #song_skip{
+        cursor: pointer;
+
+        &:hover{
+            color: #BBBBBB;
+        }
+
+        i{
+            display: block;
+            margin:auto;
+            margin-top: 10px;
         }
     }
 }
@@ -462,6 +506,7 @@ menu{
 }
 
 #song_queue{
+    display: none;
     #add_song{
             //float: right;
             position: relative;

@@ -39,7 +39,10 @@
         </div>
 
         <div ng-switch-when='device' ng-controller='queueController'>
-            <section id='song_history' style="max-height:200px; overflow-y:hidden;">
+            <span id="settings_menu" ng-click="selectSubview('settings')">
+                <i class="icon-gear icon-large"></i>
+            </span>
+            <section id='song_history' >
 
                 <h4>
                     Song History
@@ -52,7 +55,7 @@
                 </div>
 
                 <section id='history_list'>
-                    <div id='{{getTrackID(track)}}' class="song_info"  data-ng-repeat="track in boxSession.getCurrentDevice().history | reverse" ng-click='toggleTrackExtras(getTrackID(track))'>
+                    <div id='{{getTrackID(track)}}' class="song_info"  data-ng-repeat="track in boxSession.getCurrentDevice().history.slice(boxSession.getCurrentDevice.history.length - 35, boxSession.getCurrentDevice.history.length) | reverse" ng-click='toggleTrackExtras(getTrackID(track))'>
                         <header class="song_title" style="">{{track.Title}} - {{track.ArtistName}}</header>
 
                         <section class='hidden song_extras clearfix'>
@@ -118,7 +121,7 @@
                 </label>
                 <label for='theme_select'>
                     Theme:
-                    <select id='theme_select' ng-model='boxSession.getCurrentDevice().Theme' ng-options='theme.ThemeID as theme.Name for theme in themeList'>
+                    <select id='theme_select' ng-model='boxSession.getCurrentDevice().ThemeFull' ng-options='theme.ThemeID as theme.Name for theme in themeList'>
                     </select>
                 </label>
                 <input style='float: right;' class='btn' type='submit' value='Save'/>

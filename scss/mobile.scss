@@ -109,18 +109,6 @@
                 height: 30px;
                 width: 30px;
                 margin-right: 10px;
-
-                cursor: pointer;
-
-                &:hover{
-                    color: #BBBBBB;
-                }
-
-                i{
-                    display: block;
-                    margin:auto;
-                    margin-top: 10px;
-                }
             }
         }
 
@@ -278,6 +266,10 @@
             float: left;
 
             margin-top: 15px;
+        }
+
+        #standard_menu{
+            display: none;
         }
     }
 

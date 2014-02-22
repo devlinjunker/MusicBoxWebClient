@@ -24,7 +24,7 @@
             <h1>
                 Project Music Box
             </h1>
-            <menu ng-hide="isMobile">
+            <menu id="standard_menu">
                 <menuitem ng-hide='user.permissions != undefined'><a ng-href='#login'>Log In</a></menuitem>
                 <menuitem ng-hide='user.permissions == undefined'><a ng-href='#admin'>Account</a></menuitem>
                 <menuitem ng-hide='user.permissions == undefined'><a ng-click="user.logout(); $location.path('/');">Log Out</a></menuitem>
