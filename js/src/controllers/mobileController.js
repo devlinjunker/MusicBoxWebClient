@@ -1,6 +1,6 @@
 musicBox.controller(
     'mobileController',
-function($scope, $location, musicBoxSession, user){
+function($scope, $rootScope, $location, musicBoxSession, user){
     $scope.user = user;
     $scope.boxSession = musicBoxSession;
 
@@ -21,8 +21,13 @@ function($scope, $location, musicBoxSession, user){
 
     // menu.on();
 
-    $scope.goToLogin = function(){
+    $scope.login = function(){
         $location.path("login");
+    }
+
+    $scope.logout = function(){
+        user.logout();
+        $scope.setSubview('home');
     }
 
     $scope.selectStation = function(stationId){
@@ -38,4 +43,10 @@ function($scope, $location, musicBoxSession, user){
     $scope.toggleMenu = function(){
         $scope.menuHidden = !$scope.menuHidden;
     }
+
+    $scope.changeCurrentClickFunction(function(){
+        if(musicBoxSession.getCurrentDevice().isPlaying()){
+            $scope.setSubview('current');
+        }
+    })
 });

@@ -11,7 +11,8 @@
     <div ng-hide="user.devices[0] === undefined">My Devices</div>
     <menuitem ng-repeat="device in user.devices" ng-click="boxSession.setCurrentDevice(device); toggleMenu()"   ng-class="{'disabled': device.state === 0}">{{device.DeviceName}}</menuitem>
 
-    <menuitem ng-click="goToLogin()">Login</menuitem>
+    <menuitem ng-click="login()" ng-hide="user.permissions !== undefined">Login</menuitem>
+    <menuitem ng-click="logout()" ng-hide="user.permissions === undefined">Logout</menuitem>
 
 </menu>
 

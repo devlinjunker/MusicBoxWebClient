@@ -14,6 +14,17 @@ function(socketSession, musicBoxSession, device, $q, $cookies){
 
     user.devices = [];
 
+    user.tryLogin = function(){
+        if($cookies.username !== undefined && $cookies.sessionID !== undefined){
+           user.authenticate($cookies.username, $cookies.sessionID, function(){
+                user.username = $cookies.username;
+                user.sessionId = $cookies.sessionId;
+           },function(){
+                console.log('reconnect with sessionId failed');
+           });
+        }
+    }
+
     /*
      * User authentication function
      * TODO: STILL NEED TO ENCRYPT THE PASSWORD
@@ -27,16 +38,16 @@ function(socketSession, musicBoxSession, device, $q, $cookies){
         // call the startSession RPC to retrieve the sessionID
 		socketSession.call(loginUri, args, function(result){
 
+            // set Session Id from RPC return
             if(result.sessionID !== undefined){
                 $cookies.username = username;
                 $cookies.sessionID = result.sessionID;
             }
-            // set Session Id from RPC return
-   //         user.sessionId = result.sessionID;
-
 
             // Then authenticate with sessionId
-            user.authenticate(username, result.sessionID);
+            user.authenticate(username, result.sessionID, success, function(){
+                console.log('fail authenticate');
+            });
 
 
 		}, function(message){
@@ -45,7 +56,7 @@ function(socketSession, musicBoxSession, device, $q, $cookies){
         });
 	}
 
-    user.authenticate = function(username, sessionID){
+    user.authenticate = function(username, sessionID, success, fail){
         socketSession.authenticate(username, sessionID,
             function(permissions){
 
@@ -216,10 +227,7 @@ function(socketSession, musicBoxSession, device, $q, $cookies){
     }
 
     musicBoxSession.addCallback(user.handleMessages);
-
-    if($cookies.username !== undefined && $cookies.sessionID !== undefined){
-        user.authenticate($cookies.username, $cookies.sessionID);
-    }
+    user.tryLogin();
 
 	return user;
 });

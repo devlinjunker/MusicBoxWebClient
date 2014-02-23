@@ -56,6 +56,14 @@ function($scope, $location, musicBoxSession, user){
 		}
 	}
 
+	$scope.currentClicked = function(){
+		$scope.currentClickFunction();
+	}
+
+	$scope.changeCurrentClickFunction = function(func){
+		$scope.currentClickFunction = func;
+	}
+
 	function handleMessages(topicUri, event){
 		$scope.$apply(function(){});
 	}

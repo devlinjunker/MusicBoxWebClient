@@ -40,7 +40,7 @@
 
             <section id="device_quick_controls" class="clearfix">
                 <menu id="controls_container">
-                    <div id="song_detail">
+                    <div id="song_detail" ng-click="currentClicked()">
                         <div ng-hide="boxSession.getCurrentDevice() === undefined || boxSession.getCurrentDevice().currentSong === undefined || boxSession.getCurrentDevice().isOffline()">
                             <img id="current_artwork" src="{{boxSession.getCurrentDevice().currentSong.ArtworkURL}}" ng-hide="!isMobile"/>
 

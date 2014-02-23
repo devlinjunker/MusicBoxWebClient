@@ -14,6 +14,7 @@ musicBox.
 				console.log('connected');
 			},
 			function(code, reason){
+                console.log('test')
 				console.log(code +": "+reason);
 			}
 		);
