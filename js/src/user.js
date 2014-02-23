@@ -12,7 +12,6 @@ function(socketSession, musicBoxSession, device, $q, $cookies){
 
     user.musicBoxes = $q.defer();
 
-
     user.devices = [];
 
     /*
@@ -29,32 +28,15 @@ function(socketSession, musicBoxSession, device, $q, $cookies){
 		socketSession.call(loginUri, args, function(result){
 
             if(result.sessionID !== undefined){
-                socketSession.setUsername(username);
-                socketSession.setSessionID(result.sessionID);
+                $cookies.username = username;
+                $cookies.sessionID = result.sessionID;
             }
             // set Session Id from RPC return
    //         user.sessionId = result.sessionID;
 
 
             // Then authenticate with sessionId
-            socketSession.authenticate(username, result.sessionID,
-                function(permissions){
-
-                    user.username = username;
-                    user.password = password;
-
-                    user.permissions = permissions;
-
-                    user.getDevices();
-
-                    success();
-
-                    return;
-
-                }, function(message){
-                    fail(message.desc);
-                }
-            );
+            user.authenticate(username, result.sessionID);
 
 
 		}, function(message){
@@ -63,13 +45,36 @@ function(socketSession, musicBoxSession, device, $q, $cookies){
         });
 	}
 
+    user.authenticate = function(username, sessionID){
+        socketSession.authenticate(username, sessionID,
+            function(permissions){
+
+                user.username = username;
+
+                user.permissions = permissions;
+
+                user.getDevices();
+
+                success();
+
+                return;
+
+            }, function(message){
+                fail(message.desc);
+            }
+        );
+    }
+
     user.logout = function(){
         socketSession.deauthenticate();
 
+        $cookies.username = undefined;
+        $cookies.sessionId = undefined;
+
         user.username = undefined;
-        user.password = undefined;
         user.sessionId = undefined;
         user.permissions = undefined;
+
         user.clearMusicBoxes();
 
         musicBoxSession.currentDevice == undefined;
@@ -211,6 +216,10 @@ function(socketSession, musicBoxSession, device, $q, $cookies){
     }
 
     musicBoxSession.addCallback(user.handleMessages);
+
+    if($cookies.username !== undefined && $cookies.sessionID !== undefined){
+        user.authenticate($cookies.username, $cookies.sessionID);
+    }
 
 	return user;
 });

@@ -30,7 +30,7 @@ angular.module('webSocket', []).
 			// Start Authenticating the socket with the sessionID
             socket.onConnect(function(){
 				socket.session.authreq(username).then(function(challenge){
-
+					console.log(sessionId);
                     //var passKey = ab.deriveKey(password,
                     //							JSON.parse(challenge).extra)
 
