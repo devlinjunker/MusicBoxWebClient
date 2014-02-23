@@ -11,17 +11,28 @@ angular.module('webSocket', []).
 		var socketUri = undefined;
 		var socketPort = undefined;
 
+		var username;
+		var sessionID = undefined;
+
+		socket.setUsername = function(name){
+			username = name;
+		}
+
+		socket.setSessionID = function(id){
+			sessionID = id;
+		}
+
 		// Hides the ugliness of authenticating the socket behind a simple call
 		// Still need to get session Id though.
-		socket.authenticate = function(username, password, sessionId, success, fail){
+		socket.authenticate = function(username, sessionId, success, fail){
 			console.log('authenticating..')
 
 			// Start Authenticating the socket with the sessionID
             socket.onConnect(function(){
 				socket.session.authreq(username).then(function(challenge){
 
-                    var passKey = ab.deriveKey(password,
-                    							JSON.parse(challenge).extra)
+                    //var passKey = ab.deriveKey(password,
+                    //							JSON.parse(challenge).extra)
 
 					var signature = socket.session.authsign(challenge,
 																sessionId);
@@ -121,12 +132,12 @@ angular.module('webSocket', []).
 						connectedCallbacks = [];
 
 
-						if(success !== null && success !== undefined)
-							success(session);
+						// if(success !== null && success !== undefined)
+						// 	success(session);
 					},
 					function(code, reason){
-						if(failure !== null && failure !== undefined)
-							failure(code, reason);
+						// if(failure !== null && failure !== undefined)
+						// 	failure(code, reason);
 					}
 				);
 			}

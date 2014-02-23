@@ -110,8 +110,8 @@
             </section>
         </div>
 
-        <div ng-switch-when='settings' ng-controller='settingsController'>
-            <h4 style='margin-bottom:10px'>Device Settings</h4>
+        <div ng-switch-when='settings' ng-controller='settingsController' id="settings_container">
+            <h4>Device Settings</h4>
             <!--hr style='margin-top:0px;'/-->
 
             <form ng-submit='saveDeviceSettings()'>
@@ -121,10 +121,11 @@
                 </label>
                 <label for='theme_select'>
                     Theme:
-                    <select id='theme_select' ng-model='boxSession.getCurrentDevice().ThemeFull' ng-options='theme.ThemeID as theme.Name for theme in themeList'>
+                    <select id='theme_select' ng-model='themeId' ng-options='theme.ThemeID as theme.Name for theme in themeList'>
                     </select>
                 </label>
-                <input style='float: right;' class='btn' type='submit' value='Save'/>
+                <input class='btn' type='submit' value='Save'></input>
+                <button class='btn' ng-click="cancelSettingsChange();">Cancel</button>
             </form>
         </div>
     </section>

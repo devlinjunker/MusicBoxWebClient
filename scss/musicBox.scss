@@ -118,6 +118,17 @@ $tabSelectorUnselected: #777777;
         }
     }
 
+    #settings_container{
+        .btn{
+            float: right;
+            margin-left: 20px;
+        }
+
+        h4{
+            margin-bottom:10px;
+        }
+    }
+
     #song_history{
         overflow-y:hidden;
         margin: 10px;
@@ -389,7 +400,7 @@ menu{
 
 // Everything but the top-ribbon
 #page_content{
-    padding-top: 40px;
+    margin-top: 40px;
     box-sizing: border-box;
 
     @media screen and (min-width:992px){

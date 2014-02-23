@@ -316,6 +316,11 @@ You also need to include this conditional style in the <head> of your HTML file 
   cursor: pointer; }
   #admin_controller #settings_menu:hover {
     color: #BBBBBB; }
+#admin_controller #settings_container .btn {
+  float: right;
+  margin-left: 20px; }
+#admin_controller #settings_container h4 {
+  margin-bottom: 10px; }
 #admin_controller #song_history {
   overflow-y: hidden;
   margin: 10px; }
@@ -498,7 +503,7 @@ menu {
   padding-left: 0px; }
 
 #page_content {
-  padding-top: 40px;
+  margin-top: 40px;
   box-sizing: border-box; }
   @media screen and (min-width: 992px) {
     #page_content {

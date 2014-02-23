@@ -1,13 +1,13 @@
 musicBox.factory(
     'user',
-function(socketSession, musicBoxSession, device, $q){
+function(socketSession, musicBoxSession, device, $q, $cookies){
 	var loginUri = 'http://www.musicbox.com/user/startSession';
 
     var user = {};
 
 	user.username = undefined;
     user.password = undefined;
-    user.sessionId = undefined;
+//    user.sessionId = undefined;
     user.permissions = undefined;
 
     user.musicBoxes = $q.defer();
@@ -28,12 +28,16 @@ function(socketSession, musicBoxSession, device, $q){
         // call the startSession RPC to retrieve the sessionID
 		socketSession.call(loginUri, args, function(result){
 
+            if(result.sessionID !== undefined){
+                socketSession.setUsername(username);
+                socketSession.setSessionID(result.sessionID);
+            }
             // set Session Id from RPC return
-            user.sessionId = result.sessionID;
+   //         user.sessionId = result.sessionID;
 
 
             // Then authenticate with sessionId
-            socketSession.authenticate(username, password, user.sessionId,
+            socketSession.authenticate(username, result.sessionID,
                 function(permissions){
 
                     user.username = username;
@@ -165,7 +169,7 @@ function(socketSession, musicBoxSession, device, $q){
      */
     user.clearMusicBoxes = function(){
         user.devices = [];
-        user.musicBoxes = [];
+        user.musicBoxes = $q.defer();
     }
 
     /*
