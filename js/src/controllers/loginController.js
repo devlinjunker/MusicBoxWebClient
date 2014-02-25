@@ -6,8 +6,6 @@ function($scope, $http, $location, user, musicBoxSession){
 
 	$scope.errorMessage = undefined;
 
-	user.tryLogin();
-
 	$scope.$watch('user.permissions',function(){
 		if(user.permissions !== undefined){
 			$location.path('admin');
