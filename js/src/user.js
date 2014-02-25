@@ -15,10 +15,10 @@ function(socketSession, musicBoxSession, device, $q, $cookies, $window){
     user.devices = [];
 
     user.tryLogin = function(){
-        if($cookies.username !== undefined && $window.localStorage.sessionID !== undefined){
-           user.authenticate($cookies.username, $window.localStorage.sessionID, function(){
+        if($cookies.username !== undefined && $window.localStorage.getItem('sessionID') !== undefined){
+           user.authenticate($cookies.username, $window.localStorage.getItem('sessionID'), function(){
                 user.username = $cookies.username;
-                user.sessionId = $window.localStorage.sessionId;
+                user.sessionId = $window.localStorage.getItem('sessionID');
            },function(){
                 console.log('reconnect with sessionId failed');
            });
@@ -41,7 +41,7 @@ function(socketSession, musicBoxSession, device, $q, $cookies, $window){
             // set Session Id from RPC return
             if(result.sessionID !== undefined){
                 $cookies.username = username;
-                $window.localStorage.sessionID = result.sessionID;
+                $window.localStorage.setItem('sessionID', result.sessionID);
             }
 
             // Then authenticate with sessionId
@@ -80,7 +80,7 @@ function(socketSession, musicBoxSession, device, $q, $cookies, $window){
         socketSession.deauthenticate();
 
         $cookies.username = undefined;
-        $window.localStorage.sessionID = undefined;
+        $window.localStorage.clear();
 
         user.username = undefined;
         user.sessionId = undefined;
