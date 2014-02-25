@@ -6,8 +6,7 @@ function(socketSession, musicBoxSession, device, $q, $cookies, $window){
     var user = {};
 
 	user.username = undefined;
-    user.password = undefined;
-//    user.sessionId = undefined;
+
     user.permissions = undefined;
 
     user.musicBoxes = $q.defer();
@@ -15,13 +14,59 @@ function(socketSession, musicBoxSession, device, $q, $cookies, $window){
     user.devices = [];
 
     user.tryLogin = function(){
-        if($cookies.username !== undefined && $window.localStorage.getItem('sessionID') !== undefined){
-           user.authenticate($cookies.username, $window.localStorage.getItem('sessionID'), function(){
-                user.username = $cookies.username;
-                user.sessionId = $window.localStorage.getItem('sessionID');
+        console.log(user.getStoredUsername())
+        if(user.getStoredUsername() !== undefined && user.getStoredUsername() !== null &&
+            user.getStoredSessionID() !== undefined && user.getStoredSessionID() !== null ){
+           user.authenticate(user.getStoredUsername(), user.getStoredSessionID(), function(){
+                console.log('reconnected')
            },function(){
                 console.log('reconnect with sessionId failed');
            });
+        }
+    }
+
+    user.getStoredUsername = function(){
+        if($window.localStorage && $window.localStorage.getItem('username') !== undefined){
+            return $window.localStorage.getItem('username');
+        }else if($cookies.username !== undefined){
+            return $cookies.username;
+        }else{
+            return undefined;
+        }
+    }
+
+    user.getStoredSessionID = function(){
+        if($window.localStorage && $window.localStorage.getItem('sessionID') !== undefined){
+            return $window.localStorage.getItem('sessionID');
+        }else if($cookies.sessionID !== undefined){
+            return $cookies.sessionID;
+        }else{
+            return undefined;
+        }
+    }
+
+    user.setStoredUsername = function(username){
+        if($window.localStorage !== undefined){
+            $window.localStorage.setItem('username', username);
+        }else{
+            $cookies.username = username;
+        }
+    }
+
+    user.setStoredSessionID = function(id){
+        if($window.localStorage !== undefined){
+            $window.localStorage.setItem('sessionID', id);
+        }else{
+            $cookies.sessionID = id;
+        }
+    }
+
+    user.clearStoredUsernameAndID = function(){
+        if($window.localStorage){
+            $window.localStorage.clear();
+        }else{
+            $cookies.username = undefined;
+            $cookies.sessionID = undefined;
         }
     }
 
@@ -40,8 +85,8 @@ function(socketSession, musicBoxSession, device, $q, $cookies, $window){
 
             // set Session Id from RPC return
             if(result.sessionID !== undefined){
-                $cookies.username = username;
-                $window.localStorage.setItem('sessionID', result.sessionID);
+                user.setStoredUsername(username);
+                user.setStoredSessionID(result.sessionID);
             }
 
             // Then authenticate with sessionId
@@ -79,8 +124,7 @@ function(socketSession, musicBoxSession, device, $q, $cookies, $window){
     user.logout = function(){
         socketSession.deauthenticate();
 
-        $cookies.username = undefined;
-        $window.localStorage.clear();
+        user.clearStoredUsernameAndID()
 
         user.username = undefined;
         user.sessionId = undefined;
