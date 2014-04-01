@@ -21,6 +21,10 @@ function($scope, $rootScope, $location, musicBoxSession, user){
 
     // menu.on();
 
+	$scope.home = function(){
+		$scope.setSubview('home');
+	}
+
     $scope.login = function(){
         $location.path("login");
     }

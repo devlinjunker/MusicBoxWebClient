@@ -74,6 +74,11 @@
   #footer {
     display: none; }
 
+  #front_page #song_search input {
+    width: 100%; }
+  #front_page #song_search ul {
+    max-width: 100%; }
+
   .top_nav {
     position: absolute;
     top: 0px;

@@ -1,0 +1,9 @@
+ <input type='text'
+    placeholder="Search"
+    class="typeahead"
+    data-typeahead="track as 
+		track.Title + '<em> by ' + track.ArtistName + '</em>' 
+		for track in songSearch($viewValue)"
+    ng-model="songToAdd"
+    autocomplete="off"
+    typeahead-on-select="addTrack()"/>

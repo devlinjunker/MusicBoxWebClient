@@ -24,9 +24,9 @@ musicBox.
         // Set up route provider to handle page changes
         $routeProvider.
             when(routePrefix + 'home', {
-                // controller: "queueController",
-                // templateUrl: "template/queue.html",
-                redirectTo: "login"
+                controller: "frontController",
+                templateUrl: "template/front.html",
+                //redirectTo: "login"
             }).
             when(routePrefix + 'login', {
                 controller: "loginController",

@@ -8,6 +8,12 @@ function($scope, $http, $location, user, musicBoxSession){
 
 	$scope.$watch('user.permissions',function(){
 		if(user.permissions !== undefined){
+			console.log($scope)
+
+			var path = "admin";
+			if($scope.$parent.isMobile){
+				path = "m"
+			}
 			$location.path('admin');
 		}
 	});

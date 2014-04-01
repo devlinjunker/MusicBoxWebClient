@@ -6,7 +6,7 @@
         <span><em>Current Device:</em> {{boxSession.getCurrentDevice().DeviceName}}</span>
     </header>
 
-    <menuitem>Home</menuitem>
+    <menuitem ng-click="home()">Home</menuitem>
 
     <div ng-hide="user.devices[0] === undefined">My Devices</div>
     <menuitem ng-repeat="device in user.devices" ng-click="boxSession.setCurrentDevice(device); toggleMenu()"   ng-class="{'disabled': device.state === 0}">{{device.DeviceName}}</menuitem>
@@ -18,9 +18,9 @@
 
  <nav id="left_nav" class="top_nav">
     <i id="mobile_menu_trigger" class="icon-list icon-large"
-        ng-hide="subview !== 'stations'" ng-click="toggleMenu()"></i>
+        ng-hide="subview !== 'stations' && subview !== 'home'" ng-click="toggleMenu()"></i>
     <i class="icon-arrow-left icon-large"
-        ng-hide="subview === 'stations'" ng-click="setSubview('stations')"></i>
+        ng-hide="subview === 'stations' || subview === 'home'" ng-click="setSubview('stations')"></i>
 </nav>
 
 <nav id="right_nav" class="top_nav"
@@ -46,7 +46,12 @@
                 </li>
             </ul>
         </section>
-        <section id='mobile_device_view' ng-switch-when="current">
+        
+		<section id='front_page' ng-switch-when="home">
+			<div ng-include="'template/front.html'"/>
+        </sections>
+		
+		<section id='mobile_device_view' ng-switch-when="current">
             <div id='current_song'>
                 <p>
                     <span id="title">{{boxSession.getCurrentDevice().currentSong.Title}}</span>
@@ -58,4 +63,5 @@
             </div>
         </sections>
     </section>
+	
 </section>

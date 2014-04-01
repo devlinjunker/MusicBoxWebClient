@@ -4,15 +4,12 @@ function($scope, $location, musicBoxSession, user){
 	$scope.nearbyDevices = [];
 
 	$scope.isMobile = window.matchMedia && window.matchMedia('(max-width: 992px)').matches || screen.width <= 960;
-	//$scope.isMobile = true;
-	// if($scope.isMobile){
-
-	// 	$location.path("m")
-	// }
 
 	$scope.$location = $location;
 	$scope.user = user;
 	$scope.boxSession = musicBoxSession;
+
+	$scope.hideQuickControls = false;
 
 	$scope.playPauseTrack = function(){
 		if($scope.boxSession.getCurrentDevice().isPlaying()){

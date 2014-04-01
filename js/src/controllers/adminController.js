@@ -15,7 +15,7 @@ function($scope, $location, user, musicBoxSession){
     var settingsChanged = false;
 
     if($scope.isMobile){
-
+		console.log(user.musicBoxes)
         user.musicBoxes.promise.then(function(boxes){
             $scope.boxSession.setCurrentDevice(user.devices[0]);
         })

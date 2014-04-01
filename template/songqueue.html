@@ -1,0 +1,22 @@
+<div id="no_song_alert"
+	data-ng-hide="boxSession.getCurrentDevice().queue.length != 0">
+    There are currently no songs in the queue
+</div>
+
+
+<div class="song_info" style="" 
+	data-ng-repeat="track in boxSession.getCurrentDevice().queue"
+	data-ng-hide="boxSession.getCurrentDevice().queue.length === 0"
+	>
+
+	<header class="song_title" style="">
+		{{track.Title}} - {{track.ArtistName}}
+	</header>
+
+    <section class="hidden song_extras clearfix">
+        <img class="song_img" src="{{track.ArtworkURL}}" style=""/>
+        <p class="song_details" style="">
+            Song Details
+        </p>
+    </section>
+</div>

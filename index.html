@@ -4,30 +4,45 @@
 	<title>Project Music Box</title>
 
     <!-- Stylesheets -->
-        <!-- Font Awesome For Icons -->
+    <!-- Font Awesome For Icons -->
     <link rel="stylesheet" type="text/css" href="css/font-awesome.css"/>
-        <!-- Bootstrap -->
-    <link rel="stylesheet" type="text/css" href="css/bootstrap/bootstrap.min.css"/>
-        <!-- Application Style -->
+    
+    <!-- Bootstrap -->
+    <link rel="stylesheet" type="text/css" 
+		href="css/bootstrap/bootstrap.min.css"/>
+    
+	<!-- Application Style -->
     <link rel="stylesheet" type="text/css" href="css/musicBox.css"/>
 
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
     <meta name="apple-mobile-web-app-title" content="MusicBox"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+    <meta name="viewport" content="width=device-width, 
+									initial-scale=1.0, 
+									maximum-scale=1.0, 
+									minimum-scale=1.0, 
+									user-scalable=no" />
 </head>
 
 
-<body id="home" style="font-family: arial;" data-ng-controller='deviceController'>
+<body id="home" style="font-family: arial;" ng-controller='deviceController'>
     <header id="page_header">
         <div class="container">
             <h1>
                 Project Music Box
             </h1>
-            <menu id="standard_menu">
-                <menuitem ng-hide='user.permissions != undefined'><a ng-href='#login'>Log In</a></menuitem>
-                <!--menuitem ng-hide='user.permissions == undefined'><a ng-href='#admin'>Account</a></menuitem-->
-                <menuitem ng-hide='user.permissions == undefined'><a ng-click="user.logout(); $location.path('/');">Log Out</a></menuitem>
+            
+			<menu id="standard_menu">
+                <menuitem ng-hide='user.permissions != undefined'>
+					<a ng-href='#login'>Log In</a>
+				</menuitem>
+                <!--menuitem ng-hide='user.permissions == undefined'>
+					<a ng-href='#admin'>Account</a>
+				</menuitem-->
+                <menuitem ng-hide='user.permissions == undefined'>
+					<a ng-click="user.logout(); 
+								$location.path('/');">Log Out</a>
+				</menuitem>
             </menu>
         </div>
     </header>
@@ -35,18 +50,19 @@
     <div id="page_content">
         <div class="container">
             <noscript>
-                You need to be running javascript to control the device!
+                You need to be running javascript to use a Music Box!
             </noscript>
 
-            <section id="device_quick_controls" class="clearfix">
+            <section id="device_quick_controls" class="clearfix" 
+				data-ng-hide="hideQuickControls">
                 <menu id="controls_container">
                     <div id="song_detail" ng-click="currentClicked()">
-                        <div ng-hide="boxSession.getCurrentDevice() === undefined || boxSession.getCurrentDevice().currentSong === undefined || boxSession.getCurrentDevice().isOffline()">
+                        <div ng-hide="boxSession.getCurrentDevice() ==  undefined || boxSession.getCurrentDevice().currentSong === undefined || boxSession.getCurrentDevice().isOffline()">
                             <img id="current_artwork" src="{{boxSession.getCurrentDevice().currentSong.ArtworkURL}}" ng-hide="!isMobile"/>
-
-                            {{boxSession.getCurrentDevice().currentSong.Title}}
+                            
+							{{boxSession.getCurrentDevice().currentSong.Title}}
                             <em> by </em>
-                            {{boxSession.getCurrentDevice().currentSong.ArtistName}}
+							{{boxSession.getCurrentDevice().currentSong.ArtistName}}
                             <div>
                                 <strong>on </strong>{{boxSession.getCurrentDevice().DeviceName}}
                             </div>
@@ -125,7 +141,8 @@
     <script src="js/src/device.js"></script>
 
     <script src="js/src/musicBoxSession.js"></script>
-
+	
+	<script src="js/src/controllers/frontController.js"></script>
     <script src="js/src/controllers/loginController.js"></script>
     <script src="js/src/controllers/deviceController.js"></script>
     <script src="js/src/controllers/mobileController.js"></script>

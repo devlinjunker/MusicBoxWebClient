@@ -161,7 +161,7 @@ function(socketSession, musicBoxSession, device, $q, $cookies, $window){
                         musicBoxSession.subscribeDevice(boxes[i].deviceUri);
                     }
 
-                    user.musicBoxes = boxes;
+                    //user.musicBoxes = boxes;
                 })
 
                 user.musicBoxes.resolve(boxes);

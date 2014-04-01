@@ -124,6 +124,17 @@
         display: none;
     }
 
+	#front_page{
+		#song_search{
+			input{
+				width: 100%;
+			}
+			ul{
+				max-width: 100%;
+			}
+		}
+	}
+
     .top_nav{
         position: absolute;
         top: 0px;
