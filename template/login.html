@@ -1,5 +1,10 @@
 <section id="login_controller" class="content_view">
-    <div style='width:300px;margin:auto;text-align:center;padding-top:100px;'>
+	 <nav id="left_nav" class="top_nav mobile_only">
+	    <i class="icon-arrow-left icon-large"
+	         ng-click="$location.path('#/home');"></i>
+	</nav>
+	
+	<div style='width:300px;margin:auto;text-align:center;padding-top:100px;'>
         <h5>Log In to View Your Devices</h5>
         <form ng-submit="submitLogin()">
             <div id='login_error' data-ng-hide='errorMessage === undefined'>{{errorMessage}}</div>

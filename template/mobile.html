@@ -9,59 +9,42 @@
     <menuitem ng-click="home()">Home</menuitem>
 
     <div ng-hide="user.devices[0] === undefined">My Devices</div>
-    <menuitem ng-repeat="device in user.devices" ng-click="boxSession.setCurrentDevice(device); toggleMenu()"   ng-class="{'disabled': device.state === 0}">{{device.DeviceName}}</menuitem>
+    
+	<menuitem ng-repeat="device in user.devices" ng-click="selectDevice(device)" ng-class="{'disabled': device.state === 0}">{{device.DeviceName}}</menuitem>
 
-    <menuitem ng-click="login()" ng-hide="user.permissions !== undefined">Login</menuitem>
-    <menuitem ng-click="logout()" ng-hide="user.permissions === undefined">Logout</menuitem>
-
+    <menuitem ng-hide="user.permissions !== undefined" ng-click="login()">Login</menuitem>
+	
+    <menuitem ng-hide="user.permissions === undefined" ng-click="logout()">Logout</menuitem>
 </menu>
 
  <nav id="left_nav" class="top_nav">
     <i id="mobile_menu_trigger" class="icon-list icon-large"
-        ng-hide="subview !== 'stations' && subview !== 'home'" ng-click="toggleMenu()"></i>
-    <i class="icon-arrow-left icon-large"
-        ng-hide="subview === 'stations' || subview === 'home'" ng-click="setSubview('stations')"></i>
+         ng-click="toggleMenu()" ng-hide="subview === 'stations'"></i>
+	<i class="icon-arrow-left icon-large" ng-hide="subview !== 'stations'" ng-click="selectDevice(boxSession.getCurrentDevice())"/>
 </nav>
 
 <nav id="right_nav" class="top_nav"
     ng-hide="boxSession.getCurrentDevice() === undefined || boxSession.getCurrentDevice().state !== 2 ||
-            subview === 'current'"
-    ng-click="setSubview('current')">
-    <span>Now Playing</span>
+            subview !== 'current'"
+    ng-click="viewStationList()">
+    <span>Station List</span>
     <i class="icon-chevron-right icon-large"></i>
 </nav>
 
 
 <section id="mobile_controller" class="content_view">
-    <section id="mobile_view" ng-switch="subview">
-        <section id="station_list" ng-switch-when="stations">
-            <header>Select Station: {{boxSession.getCurrentDevice().Theme}}</header>
-            <ul>
-                <li data-ng-repeat="station in boxSession.getCurrentDevice().themeList" data-ng-click="selectStation(station.ThemeID)">
-                    {{station.Name}}
-                    <span class="icons">
-                        <i class="icon-chevron-right"></i>
-                        <i class="icon-volume-up" data-ng-hide="boxSession.getCurrentDevice().ThemeID !== station.ThemeID"></i>
-                    </span>
-                </li>
-            </ul>
+	<section id="mobile_view" ng-switch="subview">   
+	    <section id="station_list" ng-switch-when="stations">
+            <div ng-include="'template/stationlist.html'"/>
         </section>
         
-		<section id='front_page' ng-switch-when="home">
-			<div ng-include="'template/front.html'"/>
-        </sections>
+		<section ng-switch-when="home">
+			<div ng-include="'template/onlinedevices.html'"/>
+        </section>
 		
-		<section id='mobile_device_view' ng-switch-when="current">
-            <div id='current_song'>
-                <p>
-                    <span id="title">{{boxSession.getCurrentDevice().currentSong.Title}}</span>
-                </p>
-                <p>
-                    by <span id="artist">{{boxSession.getCurrentDevice().currentSong.ArtistName}}</span>
-                </p>
-                <img ng-src="{{boxSession.getCurrentDevice().currentSong.ArtworkURL}}"/>
-            </div>
-        </sections>
+		<section id='mobile_device_view' ng-switch-when="current">			
+			<div ng-include="'template/currentdevice.html'"></div>
+        </section>
     </section>
 	
 </section>

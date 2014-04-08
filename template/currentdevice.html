@@ -1,0 +1,37 @@
+<section id="current_device">
+	<div ng-hide="!boxSession.getCurrentDevice().isOffline()">
+		This Device is Offline
+	</div>
+	
+	<div ng-hide="boxSession.getCurrentDevice().isOffline()">
+		<section id="now_playing" style="padding:10px;" >
+			<div id="song_details" style="margin:auto; width: 250px; text-align: center;">
+		        {{boxSession.getCurrentDevice().currentSong.Title}}
+		        <em> by </em>       
+				{{boxSession.getCurrentDevice().currentSong.ArtistName}}
+			</div>
+			<img style="height: 250px; width:250px; margin:auto; display:block; padding: 10px;" src="http://crispme.com/wp-content/uploads/Danger-Doom.jpg" data-ng-src="{{boxSession.getCurrentDevice().currentSong.ArtworkURL}}"></img>
+			<div id="controls" ng-hide="user.permissions == undefined">
+				<div id="prev-btn">
+					<i class='icon-angle-left icon-2x'></i>
+				</div>
+				
+				<div id="play-pause-btn" ng-click="playPauseTrack()">
+                	<i class="{{(boxSession.getCurrentDevice().isPlaying()) | playPauseIcon}} icon-2x" ></i>
+				</div>
+				
+				<div id="next-btn">
+					<i class='icon-angle-right icon-4x'></i>
+				</div>
+			</div>
+		</section>
+
+		<section ng-include="'template/songsearch.html'" id='song_search' style='padding: 0px 50px;'></section>
+
+
+		<section id="queue">
+			<header>Upcoming Songs</header>
+			<div ng-include="'template/songqueue.html'">
+		</section>
+	</div>
+</section>

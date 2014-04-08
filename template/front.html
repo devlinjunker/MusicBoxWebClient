@@ -1,32 +1,17 @@
 <section id="front_page" class="content_view">
+	 <nav id="left_nav" class="top_nav">
+		<i class="icon-arrow-left icon-large" ng-hide="!isMobile || boxSession.getCurrentDevice() == undefined" ng-click="boxSession.setCurrentDevice(undefined)"/>
+	</nav>
+	
 	<div data-ng-hide="boxSession.getCurrentDevice() != undefined">
-		<div style="padding: 100px;">
-			<p>There is no device near you right now. </p>
-			
-			<p>You can <a href='#/login'>log in</a> to control a private device, or <a>sign up</a> to register your new device now</p>
+		<div class="alert">	
+			<p>You can <a href='#/login'>log in</a> to control a private device, or <a>sign up</a> to register your new device</p>
 			</div>
 	</div>
+	
+	<div ng-include="'template/onlinedevices.html'" ng-hide="boxSession.getCurrentDevice() != undefined"/>
 
-	<div data-ng-hide="boxSession.getCurrentDevice() == undefined">
-		<section id="now_playing" style="padding:10px;">
-			<div id="song_details" style="margin:auto; width: 250px; text-align: center;">
-                {{boxSession.getCurrentDevice().currentSong.Title}}
-                <em> by </em>       
-				{{boxSession.getCurrentDevice().currentSong.ArtistName}}
-			</div>
-			<img style="height: 250px; width:250px; margin:auto; display:block; padding: 10px;" src="http://crispme.com/wp-content/uploads/Danger-Doom.jpg" ng-src="{{boxSession.getCurrentDevice().currentSong.ArtworkURL}}"></img>
-			<div id="controls" ng-hide="user.permissions == undefined">
-				<div id="prev-btn"><i class='icon-previous'></i></div>
-				<div id="next-btn"><i class='icon-next'></i></div>
-			</div>
-		</section>
+	<div ng-include="'template/currentdevice.html'" data-ng-hide="boxSession.getCurrentDevice() == undefined || boxSession.getCurrentDevice().isOffline()" >
 		
-		<section ng-include="'template/songsearch.html'" id='song_search' style='padding: 0px 50px;'></section>
-		
-		
-		<section id="queue">
-			<header>Upcoming Songs</header>
-			<div ng-include="'template/songqueue.html'">
-		</section>
 	</div>
 </section>

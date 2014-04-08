@@ -1,0 +1,22 @@
+<!--
+	Requirements
+	------------
+	Scope Variables:
+		boxSession 	=> musicBoxSession.js
+	Functions:
+		selectStation(String ThemeID)
+ -->
+
+<section id="station_list">
+	<header>Select Station: {{boxSession.getCurrentDevice().Theme}}
+	</header>
+	<ul>
+	    <li data-ng-repeat="station in boxSession.getCurrentDevice().themeList" data-ng-click="selectStation(station.ThemeID)">
+	        {{station.Name}}
+	        <span class="icons">
+	            <i class="icon-chevron-right"></i>
+	            <i class="icon-volume-up" data-ng-hide="boxSession.getCurrentDevice().ThemeID !== station.ThemeID"></i>
+	        </span>
+	    </li>
+	</ul>
+</section>

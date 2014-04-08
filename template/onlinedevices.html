@@ -1,0 +1,52 @@
+<!--
+	Requirements
+	------------
+	Scope Variables:
+		boxSession 	=> musicBoxSession.js
+		user 		=> user.js
+	Functions:
+		selectDevice(Device d)
+ -->
+<div id="online_device_list">
+	
+	<div data-ng-hide="!boxSession.hasOnlineDevice(user.devices) ||
+						boxSession.getCurrentDevice() == undefined || 
+						!boxSession.getCurrentDevice().isOffline() ">
+		<div class ="alert alert-error">
+			<p><em>{{boxSession.getCurrentDevice().DeviceName}}</em> is offline right now</p>
+			<p 
+			ng-hide="!boxSession.hasOnlineDevice(boxSession.nearbyDevices) 
+			&& !boxSession.hasOnlineDevice(user.devices)">
+				Select a device from the list of online devices below:
+			</p>
+		</div>
+	</div>
+	
+	<div data-ng-hide="user.permissions == undefined || boxSession.hasOnlineDevice(user.devices)">
+		<div class="alert alert-error">
+			<p>You have no online devices right now. Select a nearby device from the list below to request a song</p>
+		</div>
+	</div>
+	
+	<div id="my_devices" data-ng-hide="user.permissions == undefined || user.devices.length == 0 || !boxSession.hasOnlineDevice(user.devices);">
+		<header>My Devices:</header>
+		<ul>
+			<li ng-repeat="device in user.devices" ng-hide="device.isOffline()" data-ng-click="selectDevice(device)">
+			{{device.DeviceName}}
+			</li>
+		</ul>
+	</div>
+	
+	<div id="nearby_devices">
+		<header>Select a Music Box Nearby:</header>
+		<div data-ng-hide="boxSession.hasOnlineDevice(boxSession.nearbyDevices)">
+			<p>There are no online devices near you right now.</p>
+		</div>
+		<ul>
+			<li ng-repeat="device in boxSession.nearbyDevices" data-ng-hide="device.isOffline() || user.ownsDevice(device)" data-ng-click="selectDevice(device)">
+			{{device.DeviceName}}
+			</li>
+		</ul>
+		</div>
+	</div>
+</div>
