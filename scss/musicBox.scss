@@ -343,6 +343,12 @@ body{
     //margin-bottom:-50px;
 }
 
+#front_page{
+	.alert{
+		text-align: center;
+	}
+}
+
 /*
 #queue_controller{
 
@@ -398,9 +404,15 @@ menu{
     padding-left: 0px;
 }
 
+.mobile_only{
+    @media screen and (min-width:992px){
+     	display: none;
+    }
+}
+
 // Everything but the top-ribbon
 #page_content{
-    margin-top: 40px;
+    padding-top: 40px;
     box-sizing: border-box;
 
     @media screen and (min-width:992px){
@@ -582,5 +594,27 @@ menu{
         }
     }
 }
+
+#volume_controls{
+	#btn{
+		margin: 10px;
+	}
+	
+	#volume_container{
+		margin:10px;
+	}
+	
+	#volume_bar{
+		#volume_ind{
+			background-color:white;
+			height: 2px;
+		}
+
+		height: 2px;
+		min-width: 100px;
+	}
+}
+
+
 
 

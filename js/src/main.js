@@ -11,15 +11,15 @@ musicBox.
         // Connect to the websocket
 		socketSessionProvider.connect(socketUri, socketPort,
 			function(session){
-				console.log('connected');
+				//console.log('connected');
 			},
 			function(code, reason){
-                console.log('test')
+                
 				console.log(code +": "+reason);
 			}
 		);
 
-        console.log(routePrefix)
+        //console.log(routePrefix)
 
         // Set up route provider to handle page changes
         $routeProvider.

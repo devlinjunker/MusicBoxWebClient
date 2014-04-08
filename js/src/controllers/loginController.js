@@ -6,6 +6,10 @@ function($scope, $http, $location, user, musicBoxSession){
 
 	$scope.errorMessage = undefined;
 
+	if(musicBoxSession.getCurrentDevice() == undefined){
+		$scope.$parent.hideQuickControls = true;
+	}
+
 	$scope.$watch('user.permissions',function(){
 		if(user.permissions !== undefined){
 			console.log($scope)

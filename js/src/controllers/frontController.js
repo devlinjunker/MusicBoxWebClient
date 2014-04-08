@@ -3,13 +3,40 @@ musicBox.controller(
 function($scope, $location, musicBoxSession, user, spotifyService, lastfmService){
     $scope.boxSession = musicBoxSession;
 
-//	$scope.boxSession.setCurrentDevice({ID:"test"});
+	$scope.user = user;
 
-	$scope.$parent.hideQuickControls = true;
+	$scope.nearbyDevices = musicBoxSession.nearbyDevices;
 
+	if(musicBoxSession.getCurrentDevice() == undefined){
+		musicBoxSession.getNearbyDevices().then(function(boxes){
+			musicBoxSession.nearbyDevices = boxes;
+
+			var activeDevice = undefined;
+			
+			if(user.devices.length == 0){
+				for(i in boxes){
+					if(boxes[i].isPlaying()){
+						//activeDevice = boxes[i];
+						break;
+					}
+				}
+				
+			}else{
+				activeDevice = user.getFirstActiveBox();
+			}
+			musicBoxSession.setCurrentDevice(activeDevice);
+		});
+	}
+
+	if(user.permissions == undefined){
+		user.tryLogin().then(function(){
+			$location.path("admin")	
+		}, function(){
+			$scope.$parent.hideQuickControls = true;
+		});
+	}
+	
     $scope.songToAdd = undefined;
-
-    $scope.timeout = undefined;
 
     var textWidth = function(text, font) {
         var canvas = document.createElement("canvas");
@@ -43,25 +70,9 @@ function($scope, $location, musicBoxSession, user, spotifyService, lastfmService
         });
     });
 
-    $scope.showAddSong = function(){
-        $scope.addSongHidden = false;
-
-        setTimeout(function(){
-            $('.song_search').children('input').first().focus();
-        }, 200)
-    }
-
-    $scope.delayHideSongSearch = function(){
-        $scope.timeout = setTimeout(function(){
-            $scope.$apply(function(){
-                $scope.addSongHidden = true;
-            });
-        }, 500);
-    }
-
-    $scope.clearHideSongSearch = function(){
-        clearTimeout($scope.timeout);
-    }
+	$scope.selectDevice = function(device){
+		musicBoxSession.setCurrentDevice(device);
+	}
 
     $scope.songSearch = function(value){
        return spotifyService.search(value);

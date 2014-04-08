@@ -1,14 +1,15 @@
 @media screen and (max-width: 992px) {
-  h1 {
-    font-size: 1.5em; }
+  .alert {
+    text-align: center; }
+    .alert p {
+      margin: auto; }
 
   .container {
     width: 100%; }
 
   #content_area {
     box-sizing: border-box;
-    height: 100%;
-    padding-bottom: 50px; }
+    height: 100%; }
     #content_area #content_views {
       overflow: scroll;
       height: 100%; }
@@ -31,7 +32,7 @@
     transition: all 0.7s ease; }
 
   #device_quick_controls {
-    position: absolute;
+    position: fixed;
     bottom: 0px;
     width: 100%;
     height: 49px;
@@ -74,10 +75,26 @@
   #footer {
     display: none; }
 
-  #front_page #song_search input {
+  #current_device #song_search input {
     width: 100%; }
-  #front_page #song_search ul {
+  #current_device #song_search ul {
     max-width: 100%; }
+  #current_device #controls {
+    display: none; }
+  #current_device #prev-btn {
+    display: none; }
+  #current_device #play-pause-btn {
+    position: relative;
+    top: -130px;
+    color: white; }
+  #current_device #next-btn {
+    float: right;
+    position: relative;
+    top: -150px;
+    padding-right: 20px; }
+
+  h1 {
+    font-size: 1.5em; }
 
   .top_nav {
     position: absolute;
@@ -129,6 +146,8 @@
         font-weight: bold; }
       #mobile_device_view p #artist {
         font-style: italic; }
+    #mobile_device_view #current_device {
+      margin-bottom: 50px; }
 
   #mobile_menu {
     opacity: 100%;
@@ -188,12 +207,21 @@
     background-color: #444444; }
   #station_list .icons {
     float: right; }
-  #station_list li {
+  #station_list li .icon-chevron-right {
+    display: none; }
+  #station_list li:hover .icon-chevron-right {
+    display: inline; }
+  #station_list li:hover .icon-volume-up {
+    display: none; }
+  #station_list ul {
+    padding-top: 30px; }
+
+  li {
     padding: 10px 15px;
     border-bottom: 1px solid #999999; }
-    #station_list li .icon-chevron-right {
+    li .icon-chevron-right {
       display: none; }
-    #station_list li:hover {
+    li:hover {
       cursor: pointer;
       background: #444444;
       /* Old browsers */
@@ -211,14 +239,14 @@
       /* W3C */
       filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#444444', endColorstr='#666666',GradientType=1 );
       /* IE6-9 */ }
-      #station_list li:hover .icon-chevron-right {
-        display: inline; }
-      #station_list li:hover .icon-volume-up {
-        display: none; }
-  #station_list ul {
+
+  ul {
     margin-left: 0px;
-    padding-top: 30px;
-    list-style: none; } }
+    padding-top: 0px;
+    list-style: none; }
+
+  #volume_controls {
+    padding: 15px; } }
 /*
 Sticky Footer Solution
 by Steve Hatcher
@@ -457,6 +485,9 @@ body {
   color: white;
   font-size: small; }
 
+#front_page .alert {
+  text-align: center; }
+
 /*
 #queue_controller{
 
@@ -507,8 +538,12 @@ menu {
   margin: 0px;
   padding-left: 0px; }
 
+@media screen and (min-width: 992px) {
+  .mobile_only {
+    display: none; } }
+
 #page_content {
-  margin-top: 40px;
+  padding-top: 40px;
   box-sizing: border-box; }
   @media screen and (min-width: 992px) {
     #page_content {
@@ -620,3 +655,14 @@ menu {
     margin: 10px 0px; }
     #song_queue header h4 {
       display: inline; }
+
+#volume_controls #btn {
+  margin: 10px; }
+#volume_controls #volume_container {
+  margin: 10px; }
+#volume_controls #volume_bar {
+  height: 2px;
+  min-width: 100px; }
+  #volume_controls #volume_bar #volume_ind {
+    background-color: white;
+    height: 2px; }

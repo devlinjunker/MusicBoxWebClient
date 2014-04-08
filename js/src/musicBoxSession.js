@@ -2,7 +2,7 @@
 
 musicBox.service(
     'musicBoxSession',
-function(socketSession, $q){
+function(socketSession, $q, device){
 
     var socket = socketSession;
 
@@ -10,6 +10,8 @@ function(socketSession, $q){
 
     var callbacks = [];
     var currentCallbacks = [];
+
+	var nearbyDevices = [];
 
     /*
      * Sets the device that the user is focusing on, so the interface can be
@@ -69,7 +71,6 @@ function(socketSession, $q){
      * message is recieved
      */
     this.addCallback = function(callback){
-        console.log('callback added')
         callbacks.push(callback)
     }
 
@@ -78,7 +79,6 @@ function(socketSession, $q){
      * called only when a message is recieved on the current Device channel
      */
     this.addCurrentDeviceCallback = function(callback){
-        console.log('current callback added');
         currentCallbacks.push(callback);
     }
 
@@ -205,8 +205,85 @@ function(socketSession, $q){
     }
 
     // To be used later to get devices to display on home page
-    this.getDevices = function(){
+    this.getNearbyDevices = function(){
+        var deferred = $q.defer()
 
+        socket.call("http://www.musicbox.com/getNearbyDevices", [],
+            function(result){
+                console.log('nearby:')
+                console.log(result);
+
+                var boxes = [];
+                for(i in result){
+                    var box = result[i].box;
+                    box.deviceUri = result[i].uri;
+					
+					boxes.push(new device(box));
+					
+					//this.subscribeDevice(box.deviceUri);
+                }
+				
+				nearbyDevices = boxes;
+
+                deferred.resolve(boxes);
+            }
+        );
+
+        return deferred.promise;
     }
+	
+	/*
+	 * Takes an array of devices and returns true if one of them is online, 
+	 * otherwise it returns false
+	 */
+	this.hasOnlineDevice = function(devices){
+		var ret = false;
 
+		if(devices != undefined && devices.length != undefined){
+			for(i in devices){
+				if(!devices[i].isOffline()){
+					ret = true;
+				}
+			}
+		}
+		
+		return ret;
+	}
+
+
+
+	var handleMessages = function(topic, event){
+        for(i in nearbyDevices){
+            if(nearbyDevices[i].deviceUri == topic){
+                switch(event.command){
+                    case "boxConnected":
+                        nearbyDevices[i].state = 1;
+                        break;
+                    case "boxDisconnected":
+                        nearbyDevices[i].state = 0;
+                        break;
+                    case "startedTrack":
+                        nearbyDevices[i].addTrack(event.data.track);
+                        nearbyDevices[i].nextTrack();
+                        nearbyDevices[i].state = 2;
+                        break;
+                    case "playTrack":
+                        nearbyDevices[i].state = 2;
+                        break;
+                    case "pauseTrack":
+                        nearbyDevices[i].state = 1;
+                        break;
+                    case "nextTrack":
+                    case "endOfTrack":
+                        nearbyDevices[i].nextTrack();
+                        break;
+                    case "addTrack":
+                        for(i in event.data){
+                            nearbyDevices[i].addTrack(event.data[i]);
+                        }
+                        break;
+                }
+            }
+        }
+    }
 });

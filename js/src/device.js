@@ -1,8 +1,9 @@
 // Track Queue Service, holds the Queue that is currently being displayed
 
 musicBox.factory(
-    'device',
-function(musicBoxSession){
+    'device', 
+function(socketSession){//,musicBoxSession){
+	var socket = socketSession;
 
     return function(device){
         this.DeviceName = device.DeviceName;
@@ -22,7 +23,11 @@ function(musicBoxSession){
 
         this.themeList = [];
 
-        musicBoxSession.getTrackHistory(this.ID).then(this.setHistory);
+//        musicBoxSession.getTrackHistory(this.ID).then(this.setHistory);
+		socket.call("http://www.musicbox.com/trackHistory", [this.ID],
+		function(result){
+			this.setHistory(result);
+		});
 
         this.currentSong = undefined;
 
@@ -130,21 +135,34 @@ function(musicBoxSession){
             var themeList = this.themeList;
             var ThemeID = this.ThemeID;
             var d = this;
-            musicBoxSession.getThemes().then(function(themes){
-                for(var i in themes){
-                    if(themes[i].ThemeID === ThemeID){
-                        d.ThemeFull = themes[i];
-                    }
-                    themeList.push(themes[i]);
-                }
-            })
+			
+	        socket.call("http://www.musicbox.com/themes", [],
+            //musicBoxSession.getThemes().then(
+				function(themes){
+	                for(var i in themes){
+	                    if(themes[i].ThemeID === ThemeID){
+	                        d.ThemeFull = themes[i];
+	                    }
+	                    themeList.push(themes[i]);
+	                }
+            	}
+			);
         }
 
         this.setStation = function(stationId){
             if(this.ThemeID !== stationId){
                 this.ThemeID = stationId;
 
-                musicBoxSession.sendChangeStationMessage(this.deviceUri, stationId);
+				//musicBoxSession.sendChangeStationMessage(this.deviceUri, stationId);
+
+		        var message = {
+		            "command": "updateTheme",
+		            "data":{
+		                "ThemeID": stationId
+		            }
+		        }
+
+		        socket.publish(this.deviceUri, message, false);
             }
         }
 

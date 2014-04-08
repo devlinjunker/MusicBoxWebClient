@@ -17,8 +17,12 @@ function($scope, $location, user, musicBoxSession){
     if($scope.isMobile){
 		console.log(user.musicBoxes)
         user.musicBoxes.promise.then(function(boxes){
-            $scope.boxSession.setCurrentDevice(user.devices[0]);
+            //$scope.boxSession.setCurrentDevice(user.devices[0]);
         })
+		
+		if(user.permissions != undefined){
+			$scope.$parent.hideQuickControls = false;
+		}
         $location.path("m")
     }
 

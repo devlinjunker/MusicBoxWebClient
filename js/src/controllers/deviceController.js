@@ -10,6 +10,7 @@ function($scope, $location, musicBoxSession, user){
 	$scope.boxSession = musicBoxSession;
 
 	$scope.hideQuickControls = false;
+	$scope.hideVolumeControls = true;
 
 	$scope.playPauseTrack = function(){
 		if($scope.boxSession.getCurrentDevice().isPlaying()){

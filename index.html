@@ -56,9 +56,9 @@
             <section id="device_quick_controls" class="clearfix" 
 				data-ng-hide="hideQuickControls">
                 <menu id="controls_container">
-                    <div id="song_detail" ng-click="currentClicked()">
+                    <div id="song_detail" ng-click="currentClicked()" ng-hide=" isMobile && !hideVolumeControls">
                         <div ng-hide="boxSession.getCurrentDevice() ==  undefined || boxSession.getCurrentDevice().currentSong === undefined || boxSession.getCurrentDevice().isOffline()">
-                            <img id="current_artwork" src="{{boxSession.getCurrentDevice().currentSong.ArtworkURL}}" ng-hide="!isMobile"/>
+                            <img id="current_artwork" ng-src="{{boxSession.getCurrentDevice().currentSong.ArtworkURL}}" ng-hide="!isMobile"/>
                             
 							{{boxSession.getCurrentDevice().currentSong.Title}}
                             <em> by </em>
@@ -67,7 +67,8 @@
                                 <strong>on </strong>{{boxSession.getCurrentDevice().DeviceName}}
                             </div>
                         </div>
-                        <div ng-hide="boxSession.getCurrentDevice() === undefined || boxSession.currentDevice().isPlaying() || boxSession.getCurrentDevice().currentSong !== undefined">
+                        
+						<div ng-hide="boxSession.getCurrentDevice() === undefined || boxSession.currentDevice().isPlaying() || boxSession.getCurrentDevice().currentSong !== undefined">
                             No Song Playing
                         </div>
                         <div ng-hide="!boxSession.getCurrentDevice().isOffline()">
@@ -94,10 +95,22 @@
                         </span>
                     </div>
 
-                    <div id='volume_control'>
-                        <div id="volume_container">
-                        <i class='{{boxSession.currentDevice.Volume | volumeIcon}}'></i>
-                        </div>
+                    <div id='volume_controls' ng-hide="isMobile && hideVolumeControls">
+
+						<span id="btn">
+							<i class="icon-minus icon-large"></i>
+						</span>
+						<span id="btn">
+							<i class="icon-plus icon-large"></i>
+						</span>
+                        <span id="volume_container">
+                        	
+							<i class='{{boxSession.currentDevice.Volume | volumeIcon}} icon-large'></i>
+							<span id="volume_bar">
+								<span id="volume_ind" style="width:{{boxSession.getCurrentDevice().Volume}}px"></span>
+							</span>
+                        </span>
+
                     </div>
                 </menu>
             </section>

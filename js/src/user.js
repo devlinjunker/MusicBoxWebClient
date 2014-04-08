@@ -10,19 +10,35 @@ function(socketSession, musicBoxSession, device, $q, $cookies, $window){
     user.permissions = undefined;
 
     user.musicBoxes = $q.defer();
+	user.authenticating = undefined;
 
     user.devices = [];
 
     user.tryLogin = function(){
-        console.log(user.getStoredUsername())
-        if(user.getStoredUsername() !== undefined && user.getStoredUsername() !== null &&
-            user.getStoredSessionID() !== undefined && user.getStoredSessionID() !== null ){
-           user.authenticate(user.getStoredUsername(), user.getStoredSessionID(), function(){
-                console.log('reconnected')
-           },function(){
-                console.log('reconnect with sessionId failed');
-           });
-        }
+		var ret = $q.defer();
+		
+		if(user.permissions === undefined){
+			var username = user.getStoredUsername();
+			var sessId = user.getStoredSessionID();
+
+			if(username !== undefined && username!== null &&
+            	sessId !== undefined && sessId !== null ){
+           		
+				user.authenticate(username, sessId).then(function(){
+					ret.resolve();
+					console.log('reconnected')
+				},function(){
+			   	 	ret.reject();
+                	console.log('reconnect with sessionId failed');
+           	 	});
+        	}else{
+        		ret.reject();
+        	}
+		}else{
+			ret.resolve();
+		}
+		
+		return ret.promise;
     }
 
     user.getStoredUsername = function(){
@@ -102,23 +118,32 @@ function(socketSession, musicBoxSession, device, $q, $cookies, $window){
 	}
 
     user.authenticate = function(username, sessionID, success, fail){
-        socketSession.authenticate(username, sessionID,
-            function(permissions){
+		if(user.authenticating == undefined){
+			user.authenticating = $q.defer();
+		
+			socketSession.authenticate(username, sessionID,
+	            function(permissions){
 
-                user.username = username;
+	                user.username = username;
 
-                user.permissions = permissions;
+	                user.permissions = permissions;
 
-                user.getDevices();
+	                user.getDevices();
 
-                success();
+					user.authenticating.resolve();
 
-                return;
+	                success();
 
-            }, function(message){
-                fail(message.desc);
-            }
-        );
+	                return;
+
+	            }, function(message){
+					user.authenticating.reject();
+	                fail(message.desc);
+	            }
+	        );
+		}
+		
+		return user.authenticating.promise;
     }
 
     user.logout = function(){
@@ -129,19 +154,29 @@ function(socketSession, musicBoxSession, device, $q, $cookies, $window){
         user.username = undefined;
         user.sessionId = undefined;
         user.permissions = undefined;
+		user.authenticating = undefined;
 
         user.clearMusicBoxes();
 
-        musicBoxSession.currentDevice == undefined;
+        musicBoxSession.setCurrentDevice(undefined);
+
     }
 
     user.getDevices = function(){
-        user.getMusicBoxes().then(function(boxes){
-            for(i in boxes){
+        var promise = user.getMusicBoxes();
+		
+		promise.then(function(boxes){
+            if(user.devices.length != 0){
+            	user.devices = [];
+            }
+			
+			for(i in boxes){
                 console.log(boxes[i])
                 user.devices.push( new device(boxes[i]) );
             }
         });
+		
+		return promise;
     }
 
     /*
@@ -156,12 +191,10 @@ function(socketSession, musicBoxSession, device, $q, $cookies, $window){
                 var boxes = user.getBoxDetails(ids);
 
                 boxes.then(function(boxes){
-                    // When we recieve the user's devices, subscribe to all of them
+                    // When we recieve the user's devices, subscribe to all of them, we'll add them to the device list in getDevices
                     for(i in boxes){
                         musicBoxSession.subscribeDevice(boxes[i].deviceUri);
                     }
-
-                    //user.musicBoxes = boxes;
                 })
 
                 user.musicBoxes.resolve(boxes);
@@ -231,6 +264,20 @@ function(socketSession, musicBoxSession, device, $q, $cookies, $window){
         user.devices = [];
         user.musicBoxes = $q.defer();
     }
+
+	user.ownsDevice = function(device){
+		console.log(device)
+				console.log(user.devices)
+		var ret = false;
+
+		for(i in user.devices){
+			if(user.devices[i].ID == device.ID){
+				ret = true;
+			}
+		}
+		
+		return ret;
+	}
 
     /*
      * Handler to watch inactive sockets and keep boxes up to date
