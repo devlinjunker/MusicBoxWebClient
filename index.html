@@ -97,10 +97,10 @@
 
                     <div id='volume_controls' ng-hide="isMobile && hideVolumeControls">
 
-						<span id="btn">
+						<span id="btn" ng-click="decreaseVolume()">
 							<i class="icon-minus icon-large"></i>
 						</span>
-						<span id="btn">
+						<span id="btn" ng-click="increaseVolume()">
 							<i class="icon-plus icon-large"></i>
 						</span>
                         <span id="volume_container">

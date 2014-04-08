@@ -27,6 +27,35 @@ function($scope, $location, musicBoxSession, user){
 	$scope.skipTrack = function(){
 		musicBoxSession.sendSkipTrackMessage();
 	}
+	
+	$scope.increaseVolume = function(){
+		var vol = $scope.boxSession.getCurrentDevice().getVolume();
+		
+		
+		if(vol === undefined){
+			$scope.boxSession.getCurrentDevice().setVolume(100);
+		}else if(vol >= 100){
+			return;
+		}else if(vol > 95){
+			$scope.boxSession.getCurrentDevice().setVolume(100);
+		}else{
+			$scope.boxSession.getCurrentDevice().setVolume(vol+10);
+		}
+	}
+
+	$scope.decreaseVolume = function(){
+		var vol = $scope.boxSession.getCurrentDevice().getVolume();
+		
+		if(vol === undefined){
+			$scope.boxSession.getCurrentDevice().setVolume(0);
+		}else if(vol <= 0){
+			return;
+		}else if(vol < 5){
+			$scope.boxSession.getCurrentDevice().setVolume(0);
+		}else{
+			$scope.boxSession.getCurrentDevice().setVolume(vol-10);
+		}
+	}
 
 	$scope.formatLength = function(length){
 		if(length === undefined){

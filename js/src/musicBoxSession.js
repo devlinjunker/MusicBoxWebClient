@@ -158,6 +158,21 @@ function(socketSession, $q, device){
         socket.publish(deviceUri, message, false);
     }
 
+	this.sendSetVolumeMessage = function(deviceUri, volume){
+		if(volume < 0 || volume > 100){
+			return;
+		}
+		
+		var message = {
+			"command": "setVolume",
+			"data":{
+				"Volume": volume
+			}
+		}
+		
+		socket.publish(deviceUri, message, false);
+	}
+
     /*
      * RPC Calls (Returns Deferred Promises)
      */

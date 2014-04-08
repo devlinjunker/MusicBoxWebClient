@@ -12,6 +12,7 @@ function(socketSession){//,musicBoxSession){
         this.deviceUri = device.deviceUri;
 
         this.state = device.Playing;
+		this.volume = device.Volume;
 
         this.Location = device.Location;
         this.ThemeID = device.ThemeID;
@@ -165,6 +166,28 @@ function(socketSession){//,musicBoxSession){
 		        socket.publish(this.deviceUri, message, false);
             }
         }
+		
+		
+		this.getVolume = function(){
+			return this.volume;
+		}
+		
+		this.setVolume = function(volume){
+			console.log(volume)
+			if(volume < 0 || volume > 100){
+				return;
+			}
+		
+			var message = {
+				"command": "setVolume",
+				"data":{
+					"Volume": volume
+				}
+			}
+		
+			socket.publish(this.deviceUri, message, false);
+			this.volume = volume;
+		}
 
         this.getStations();
     }
