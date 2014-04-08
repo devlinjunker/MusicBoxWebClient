@@ -656,7 +656,7 @@ menu {
     #song_queue header h4 {
       display: inline; }
 
-#volume_controls #btn {
+#volume_controls span {
   margin: 10px; }
 #volume_controls #volume_container {
   margin: 10px; }

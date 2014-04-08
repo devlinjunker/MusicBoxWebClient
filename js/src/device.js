@@ -30,7 +30,7 @@ function(socketSession){//,musicBoxSession){
 			this.setHistory(result);
 		});
 
-        this.currentSong = undefined;
+//        this.currentSong = undefined;
 
         /*
          * Adds the trackData to the queue array. Sets the current track if it is
