@@ -3,11 +3,21 @@
 		<i class="icon-arrow-left icon-large" ng-hide="!isMobile || boxSession.getCurrentDevice() == undefined" ng-click="boxSession.setCurrentDevice(undefined)"/>
 	</nav>
 	
-	<div data-ng-hide="boxSession.getCurrentDevice() != undefined">
+	<div>
 		<div class="alert">	
 			<p>You can <a href='#/login'>log in</a> to control a private device, or <a>sign up</a> to register your new device</p>
 			</div>
 	</div>
+	
+	<menu id="breadcrumbs">
+		<menuitem id="device_list" ng-click="viewDeviceList()">
+			Devices
+		</menuitem>
+		<menuitem id="current_device" 
+			ng-hide="boxSession.getCurrentDevice() == undefined">
+			{{boxSession.getCurrentDevice().DeviceName}}
+		</menuitem>
+	</menu>
 	
 	<div ng-include="'template/onlinedevices.html'" ng-hide="boxSession.getCurrentDevice() != undefined"/>
 

@@ -405,9 +405,11 @@ body {
   @media screen and (min-width: 992px) {
     #content_area #content_views {
       overflow: hidden;
-      min-height: 600px;
+      min-height: 90%;
+      padding-bottom: 80px;
       border: 2px solid #666666;
-      border-bottom: 1px solid #666666; } }
+      border-bottom: 1px solid #666666;
+      border-top: 0px; } }
 
 #device_quick_controls {
   border-bottom: 1px solid #aaaaaa;
@@ -492,13 +494,61 @@ body {
   color: white;
   font-size: small; }
 
-#front_page .alert {
-  text-align: center; }
+#front_page {
+  padding: 0px 10px; }
+  #front_page .alert {
+    text-align: center; }
+  #front_page #breadcrumbs {
+    display: none;
+    margin: 5px; }
+    #front_page #breadcrumbs menuitem {
+      border-radius: 10px;
+      padding: 5px;
+      margin: 5px 3px;
+      border: 1px solid gray;
+      font-weight: bolder;
+      font-size: 12pt; }
+      #front_page #breadcrumbs menuitem#device_list {
+        cursor: pointer; }
+  #front_page #online_device_list {
+    margin-top: 20px; }
+    #front_page #online_device_list li {
+      width: 150px;
+      height: 100px;
+      padding-top: 40px;
+      margin: 15px 15px;
+      box-sizing: border-box;
+      border: 1px solid grey;
+      border-radius: 15px;
+      display: inline-block;
+      cursor: pointer;
+      text-align: center;
+      vertical-align: middle; }
+      #front_page #online_device_list li:first-of-type {
+        margin-left: 0px; }
+  #front_page #song_search {
+    width: 400px;
+    margin: auto;
+    padding-left: 40px; }
+    #front_page #song_search input {
+      width: 350px; }
 
 #home_admin_page ul {
   list-style: none; }
   #home_admin_page ul li {
-    cursor: pointer; }
+    width: 150px;
+    height: 100px;
+    padding-top: 40px;
+    margin: 5px 15px;
+    box-sizing: border-box;
+    border: 1px solid grey;
+    border-radius: 15px;
+    display: inline-block;
+    cursor: pointer;
+    text-align: center;
+    vertical-align: middle; }
+    #home_admin_page ul li.hidden {
+      display: none; }
 
 /*
 #queue_controller{
@@ -559,7 +609,7 @@ menu {
   box-sizing: border-box; }
   @media screen and (min-width: 992px) {
     #page_content {
-      margin-bottom: 80px;
+      margin-bottom: 10px;
       opacity: .95;
       z-index: -5; } }
 
@@ -575,7 +625,8 @@ menu {
     #page_header {
       z-index: 4; } }
   #page_header h1 {
-    margin-top: 0px; }
+    margin-top: 0px;
+    cursor: pointer; }
     @media screen and (min-width: 992px) {
       #page_header h1 {
         font-size: 2em;

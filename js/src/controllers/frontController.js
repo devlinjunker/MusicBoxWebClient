@@ -7,6 +7,10 @@ function($scope, $location, musicBoxSession, user, spotifyService, lastfmService
 
 	$scope.nearbyDevices = musicBoxSession.nearbyDevices;
 
+	$scope.$parent.changeHomeFunction(function(){
+		$scope.viewDeviceList();
+	})
+
 	if(musicBoxSession.getCurrentDevice() == undefined){
 		musicBoxSession.getNearbyDevices().then(function(boxes){
 			musicBoxSession.nearbyDevices = boxes;
@@ -82,6 +86,19 @@ function($scope, $location, musicBoxSession, user, spotifyService, lastfmService
 		
 		musicBoxSession.setCurrentDevice(device);
 		musicBoxSession.subscribeDevice(device.deviceUri);
+	}
+
+	$scope.viewDeviceList = function(device){
+		if(musicBoxSession.getCurrentDevice() != null){
+			var dev = musicBoxSession.getCurrentDevice();
+			musicBoxSession.unsubscribeDevice(dev.deviceUri);
+		}
+		
+		musicBoxSession.setCurrentDevice(undefined);
+		
+		musicBoxSession.getNearbyDevices().then(function(boxes){
+			musicBoxSession.nearbyDevices = boxes;
+		});
 	}
 
     $scope.songSearch = function(value){

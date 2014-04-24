@@ -10,7 +10,7 @@
 		        <em> by </em>       
 				{{boxSession.getCurrentDevice().currentSong.ArtistName}}
 			</div>
-			<img style="height: 250px; width:250px; margin:auto; display:block; padding: 10px;" src="http://crispme.com/wp-content/uploads/Danger-Doom.jpg" data-ng-src="{{boxSession.getCurrentDevice().currentSong.ArtworkURL}}"></img>
+			<img style="height: 250px; width:250px; margin:auto; display:block; padding: 10px;"  data-ng-src="{{boxSession.getCurrentDevice().currentSong.ArtworkURL}}"></img>
 			<div id="controls" ng-hide="user.permissions == undefined">
 				<div id="prev-btn">
 					<i class='icon-angle-left icon-2x'></i>
@@ -26,7 +26,7 @@
 			</div>
 		</section>
 
-		<section ng-include="'template/songsearch.html'" id='song_search' style='padding: 0px 50px;'></section>
+		<section ng-include="'template/songsearch.html'" id='song_search' ></section>
 
 
 		<section id="queue">

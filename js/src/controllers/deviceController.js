@@ -86,6 +86,20 @@ function($scope, $location, musicBoxSession, user){
 	$scope.changeCurrentClickFunction = function(func){
 		$scope.currentClickFunction = func;
 	}
+	
+	$scope.homeFunction = (function(){
+		return function(){
+			$location.path("home");
+		}
+	})()
+	
+	$scope.home = function(){
+		$scope.homeFunction();
+	}
+	
+	$scope.changeHomeFunction = function(func){
+		$scope.homeFunction = func;
+	}
 
 	function handleMessages(topicUri, event){
 		$scope.$apply(function(){});

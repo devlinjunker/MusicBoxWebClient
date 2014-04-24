@@ -15,11 +15,14 @@ function($scope, $location, user, musicBoxSession){
 
     var settingsChanged = false;
 
+	// TODO: Check if device online, if so select the first
+
+
+	$scope.$parent.changeHomeFunction(function(){
+		$scope.selectSubview('home');
+	})
+
     if($scope.isMobile){
-		// console.log(user.musicBoxes)
-//         user.musicBoxes.promise.then(function(boxes){
-//             //$scope.boxSession.setCurrentDevice(user.devices[0]);
-//         })
 		
 		if(user.permissions != undefined){
 			$scope.$parent.hideQuickControls = false;
