@@ -38,6 +38,11 @@ function(socketSession){//,musicBoxSession){
          */
         this.addTrack = function(trackData, playing){
             console.log('track added');
+			console.log(trackData);
+			
+			if(trackData.Length == undefined || trackData.Length == -1){
+				trackData.Length = "3:41";
+			}
 
             this.queue.push(trackData);
         }
@@ -121,8 +126,16 @@ function(socketSession){//,musicBoxSession){
          * Sets the song history, when the page first loads
          */
         this.setHistory = function(songList){
-            this.history = songList;
-            this.currentSong = songList[songList.length -1];
+			if(songList != undefined){
+	            this.history = songList;
+	            this.currentSong = songList[songList.length -1];
+			
+				if(this.currentSong == undefined){
+				
+				}else if(this.currentSong.Length == undefined || this.currentSong.Length == -1){
+					this.currentSong.Length = "4:18";
+				}
+			}
         }
 
         /*

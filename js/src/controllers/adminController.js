@@ -6,19 +6,20 @@ function($scope, $location, user, musicBoxSession){
         $location.path("/");
     }
 
+	$scope.$parent.hideQuickControls = false;
     $scope.boxSession = musicBoxSession;
     $scope.user = user;
 
-    $scope.subviews = ['home', 'playlist', 'device', 'settings'];
+    $scope.subviews = ['home', 'device', 'settings'];
     $scope.subview = $scope.subviews[0];
 
     var settingsChanged = false;
 
     if($scope.isMobile){
-		console.log(user.musicBoxes)
-        user.musicBoxes.promise.then(function(boxes){
-            //$scope.boxSession.setCurrentDevice(user.devices[0]);
-        })
+		// console.log(user.musicBoxes)
+//         user.musicBoxes.promise.then(function(boxes){
+//             //$scope.boxSession.setCurrentDevice(user.devices[0]);
+//         })
 		
 		if(user.permissions != undefined){
 			$scope.$parent.hideQuickControls = false;

@@ -81,7 +81,9 @@
 
                     <div id="song_progress_bar">
                         <span id="current_progress">0:00</span>
-                        <span id="song_length">{{formatLength(boxSession.getCurrentDevice().history[boxSession.getCurrentDevice().history.length -1].Length)}}</span>
+                        <span id="song_length">
+							{{formatLength(boxSession.getCurrentDevice().currentSong.Length)}}
+						</span>
                         <div id="progress_bar"></div>
                     </div>
 
@@ -97,17 +99,17 @@
 
                     <div id='volume_controls' ng-hide="isMobile && hideVolumeControls">
 
-						<span ng-click="decreaseVolume()">
+						<span id="dec_vol_btn" ng-click="decreaseVolume()">
 							<i class="icon-minus icon-large"></i>
 						</span>
-						<span ng-click="increaseVolume()">
+						<span id="inc_vol_btn" ng-click="increaseVolume()">
 							<i class="icon-plus icon-large"></i>
 						</span>
                         <span id="volume_container">
                         	
-							<i class='{{boxSession.currentDevice.Volume | volumeIcon}} icon-large'></i>
+							<i class='{{boxSession.getCurrentDevice().volume | volumeIcon}} icon-large'></i>
 							<span id="volume_bar">
-								<span id="volume_ind" style="width:{{boxSession.getCurrentDevice().Volume}}px"></span>
+								<span id="volume_ind" style="width:{{boxSession.getCurrentDevice().volume}}px"></span>
 							</span>
                         </span>
 

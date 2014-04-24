@@ -57,6 +57,10 @@ $tabSelectorUnselected: #777777;
 
         padding: 7px;
         box-sizing: border-box;
+		
+		&>div{
+			padding: 10px;
+		}
     }
 
     menu{
@@ -131,7 +135,7 @@ $tabSelectorUnselected: #777777;
 
     #song_history{
         overflow-y:hidden;
-        margin: 10px;
+        //margin: 10px;
     }
 
     ul, ol{
@@ -231,6 +235,15 @@ body{
     box-shadow: 3px 10px 10px;
 
     font-weight: bold;
+
+	#song_controls{
+		@media screen and (min-width:992px){
+			display: inline-block;
+			margin-left: 400px;
+			float: left;
+			padding-bottom: 10px;
+		}
+	}
 
     #song_detail{
         font-size: 10pt;
@@ -349,6 +362,15 @@ body{
 	}
 }
 
+#home_admin_page{
+	ul{
+		list-style:none;
+		li{
+			cursor: pointer;
+		}
+	}
+}
+
 /*
 #queue_controller{
 
@@ -418,6 +440,7 @@ menu{
     @media screen and (min-width:992px){
         margin-bottom:80px;
         opacity: .95;
+		z-index: -5;
     }
 
     .container{
@@ -429,6 +452,10 @@ menu{
 #page_header{
     position: absolute;
     top: 0px;
+
+	@media screen and (min-width:992px){
+		z-index: 4;
+	}
 
     width: 100%;
     height: 40px;
@@ -502,7 +529,7 @@ menu{
             font-style: italic;
             font-size: 80%;
             text-align: center;
-            vertical-align: mid7dle;
+            vertical-align: middle;
             height: 100%;
         }
     }
@@ -529,7 +556,6 @@ menu{
 }
 
 #song_queue{
-    display: none;
     #add_song{
             //float: right;
             position: relative;
@@ -540,6 +566,11 @@ menu{
                 margin-left: 20px;
                 font-weight: bolder;
             }
+
+			input{
+				margin: 0px;
+				padding: 2px 6px;
+			}
 
             &:hover{
                 color: $deviceControlHoverFont;
@@ -596,6 +627,22 @@ menu{
 }
 
 #volume_controls{
+	
+	@media screen and (min-width:992px){
+		display: inline-block;
+		float: right;
+		padding-top: 5px;
+		margin-right: 150px;
+	}
+	
+	#dec_vol_btn{
+		cursor: pointer;
+	}
+	
+	#inc_vol_btn{
+		cursor: pointer;
+	}
+	
 	span{
 		margin: 10px;
 	}

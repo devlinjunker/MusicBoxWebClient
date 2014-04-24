@@ -70,4 +70,10 @@ function($scope, $rootScope, $location, musicBoxSession, user){
             $scope.setSubview('current');
 		}
     })
+	
+    function handleMessages(topicUri,event){
+		$scope.$apply(function(){});
+    }
+
+    musicBoxSession.addCallback(handleMessages);
 });

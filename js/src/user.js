@@ -124,6 +124,10 @@ function(socketSession, musicBoxSession, device, $q, $cookies, $window){
 			socketSession.authenticate(username, sessionID,
 	            function(permissions){
 
+					if(musicBoxSession.getCurrentDevice() != undefined){
+						musicBoxSession.unsubscribeDevice(musicBoxSession.getCurrentDevice().deviceUri);
+					}
+					
 	                user.username = username;
 
 	                user.permissions = permissions;

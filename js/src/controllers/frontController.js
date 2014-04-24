@@ -16,7 +16,7 @@ function($scope, $location, musicBoxSession, user, spotifyService, lastfmService
 			if(user.devices.length == 0){
 				for(i in boxes){
 					if(boxes[i].isPlaying()){
-						//activeDevice = boxes[i];
+						activeDevice = boxes[i];
 						break;
 					}
 				}
@@ -24,7 +24,11 @@ function($scope, $location, musicBoxSession, user, spotifyService, lastfmService
 			}else{
 				activeDevice = user.getFirstActiveBox();
 			}
-			musicBoxSession.setCurrentDevice(activeDevice);
+			
+			if(activeDevice != undefined){
+				musicBoxSession.subscribeDevice(activeDevice.deviceUri);
+				musicBoxSession.setCurrentDevice(activeDevice);
+			}
 		});
 	}
 
@@ -71,7 +75,13 @@ function($scope, $location, musicBoxSession, user, spotifyService, lastfmService
     });
 
 	$scope.selectDevice = function(device){
+		if(musicBoxSession.getCurrentDevice() != null){
+			var dev = musicBoxSession.getCurrentDevice();
+			musicBoxSession.unsubscribeDevice(dev.deviceUri);
+		}
+		
 		musicBoxSession.setCurrentDevice(device);
+		musicBoxSession.subscribeDevice(device.deviceUri);
 	}
 
     $scope.songSearch = function(value){
@@ -106,8 +116,9 @@ function($scope, $location, musicBoxSession, user, spotifyService, lastfmService
     }
 
     function handleMessages(topicUri,event){
-        $scope.$apply(function(){});
+		console.log(topicUri);
+		$scope.$apply(function(){});
     }
 
-    musicBoxSession.addCurrentDeviceCallback(handleMessages);
+    musicBoxSession.addCallback(handleMessages);
 });

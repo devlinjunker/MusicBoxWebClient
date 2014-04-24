@@ -58,15 +58,11 @@ function($scope, $location, musicBoxSession, user){
 	}
 
 	$scope.formatLength = function(length){
-		if(length === undefined){
+		if(length == undefined){
 			return "0:00";
 		}
 
-		var str = Math.floor(length / 60) + ":";
-		str += (length % 60 < 10 ? "0" : "");
-		str += Math.floor(length % 60);
-
-		return str;
+		return length;
 	}
 
 	$scope.getTrackID = function(track){

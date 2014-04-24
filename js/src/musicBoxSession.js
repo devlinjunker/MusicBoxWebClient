@@ -39,8 +39,13 @@ function(socketSession, $q, device){
      * method to the device
      */
     this.subscribeDevice = function(deviceUri){
-        socket.subscribe(deviceUri, this.invokeCallbacks);
+        console.log(deviceUri)
+		socket.subscribe(deviceUri, this.invokeCallbacks);
     }
+	
+	this.unsubscribeDevice = function(deviceUri){
+		socket.unsubscribe(deviceUri);
+	}
 
 
     /*
@@ -53,7 +58,6 @@ function(socketSession, $q, device){
      */
     this.invokeCallbacks = function(topicUri, event){
         console.log('incoming event')
-        console.log(event)
 
         for(i in callbacks){
             callbacks[i](topicUri, event);
@@ -188,12 +192,14 @@ function(socketSession, $q, device){
             id = deviceId
         }
 
+
         var args = [
             id
         ];
-
+		
         socket.call("http://www.musicbox.com/trackHistory", args,
             function(result){
+				console.log(result)
                 deferred.resolve(result);
             }
         )
@@ -266,8 +272,8 @@ function(socketSession, $q, device){
 	}
 
 
-
 	var handleMessages = function(topic, event){
+		console.log(topic)
         for(i in nearbyDevices){
             if(nearbyDevices[i].deviceUri == topic){
                 switch(event.command){
@@ -301,4 +307,6 @@ function(socketSession, $q, device){
             }
         }
     }
+	
+	this.addCallback(handleMessages);
 });

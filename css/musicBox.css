@@ -314,6 +314,8 @@ You also need to include this conditional style in the <head> of your HTML file 
     #admin_controller #main_view {
       width: 80%;
       float: right; } }
+  #admin_controller #main_view > div {
+    padding: 10px; }
 #admin_controller menu {
   padding: 7px;
   box-sizing: border-box; }
@@ -355,8 +357,7 @@ You also need to include this conditional style in the <head> of your HTML file 
 #admin_controller #settings_container h4 {
   margin-bottom: 10px; }
 #admin_controller #song_history {
-  overflow-y: hidden;
-  margin: 10px; }
+  overflow-y: hidden; }
 #admin_controller ul, #admin_controller ol {
   margin: 0px; }
 
@@ -418,6 +419,12 @@ body {
       border-right: 2px solid #666666;
       text-align: center;
       background-color: #444444; } }
+  @media screen and (min-width: 992px) {
+    #device_quick_controls #song_controls {
+      display: inline-block;
+      margin-left: 400px;
+      float: left;
+      padding-bottom: 10px; } }
   #device_quick_controls #song_detail {
     font-size: 10pt;
     overflow: hidden;
@@ -488,6 +495,11 @@ body {
 #front_page .alert {
   text-align: center; }
 
+#home_admin_page ul {
+  list-style: none; }
+  #home_admin_page ul li {
+    cursor: pointer; }
+
 /*
 #queue_controller{
 
@@ -548,7 +560,8 @@ menu {
   @media screen and (min-width: 992px) {
     #page_content {
       margin-bottom: 80px;
-      opacity: .95; } }
+      opacity: .95;
+      z-index: -5; } }
 
 #page_header {
   position: absolute;
@@ -558,6 +571,9 @@ menu {
   background-color: #222222;
   color: white;
   vertical-align: middle; }
+  @media screen and (min-width: 992px) {
+    #page_header {
+      z-index: 4; } }
   #page_header h1 {
     margin-top: 0px; }
     @media screen and (min-width: 992px) {
@@ -599,7 +615,7 @@ menu {
       font-style: italic;
       font-size: 80%;
       text-align: center;
-      vertical-align: mid7dle;
+      vertical-align: middle;
       height: 100%; }
   #queue_controller #song_search_field {
     width: 100%;
@@ -617,45 +633,56 @@ menu {
     cursor: pointer;
     background-color: #333333; }
 
-#song_queue {
-  display: none; }
-  #song_queue #add_song {
-    position: relative; }
-    #song_queue #add_song .btn {
-      padding: 0px 6px;
-      border-radius: 10px;
-      margin-left: 20px;
-      font-weight: bolder; }
-    #song_queue #add_song:hover {
-      color: #777777;
-      cursor: pointer; }
-  #song_queue .song_search {
-    position: absolute;
-    width: 250px;
-    padding: 4px;
-    border-radius: 5px;
-    overflow: hidden;
-    font-size: 8pt;
-    background-color: #fff;
-    cursor: default;
-    z-index: 100; }
-    #song_queue .song_search .dropdown-menu {
-      position: initial;
-      min-width: 100%;
-      border-radius: 0px;
-      box-shadow: none;
-      background-color: default;
-      border: none;
-      cursor: pointer; }
-    #song_queue .song_search input {
-      padding: 2px 4px; }
-    #song_queue .song_search li {
-      padding-right: 10px; }
-  #song_queue header {
-    margin: 10px 0px; }
-    #song_queue header h4 {
-      display: inline; }
+#song_queue #add_song {
+  position: relative; }
+  #song_queue #add_song .btn {
+    padding: 0px 6px;
+    border-radius: 10px;
+    margin-left: 20px;
+    font-weight: bolder; }
+  #song_queue #add_song input {
+    margin: 0px;
+    padding: 2px 6px; }
+  #song_queue #add_song:hover {
+    color: #777777;
+    cursor: pointer; }
+#song_queue .song_search {
+  position: absolute;
+  width: 250px;
+  padding: 4px;
+  border-radius: 5px;
+  overflow: hidden;
+  font-size: 8pt;
+  background-color: #fff;
+  cursor: default;
+  z-index: 100; }
+  #song_queue .song_search .dropdown-menu {
+    position: initial;
+    min-width: 100%;
+    border-radius: 0px;
+    box-shadow: none;
+    background-color: default;
+    border: none;
+    cursor: pointer; }
+  #song_queue .song_search input {
+    padding: 2px 4px; }
+  #song_queue .song_search li {
+    padding-right: 10px; }
+#song_queue header {
+  margin: 10px 0px; }
+  #song_queue header h4 {
+    display: inline; }
 
+@media screen and (min-width: 992px) {
+  #volume_controls {
+    display: inline-block;
+    float: right;
+    padding-top: 5px;
+    margin-right: 150px; } }
+#volume_controls #dec_vol_btn {
+  cursor: pointer; }
+#volume_controls #inc_vol_btn {
+  cursor: pointer; }
 #volume_controls span {
   margin: 10px; }
 #volume_controls #volume_container {

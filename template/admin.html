@@ -25,49 +25,35 @@
             </ul>
         </menuitem>
 
-        <menuitem id='playlist_list'>
+        <!--menuitem id='playlist_list'>
             <header><strong>Playlists:</strong></header>
             <ul>
                 <li data-ng-class="{'selected': subview == 'playlist'}" data-ng-click="selectSubview('playlist')"><i class='icon-music'/> Playlist</li>
             </ul>
-        </menuitem>
+        </menuitem-->
     </menu>
 
     <section id='main_view' ng-switch='subview'>
-        <div ng-switch-when='home'>
-            Landing Page!
+        <div ng-switch-when='home' id="home_admin_page">
+            <h4>Select a device:</h4>
+            <ul>
+                <li data-ng-repeat="box in user.devices | reverse" data-ng-class="{'selected': box == boxSession.getCurrentDevice() && subview == 'device'}" data-ng-click="selectBox(box);selectSubview('device')">
+
+                    <span data-ng-class="{ 'hidden': box.state == 0}">
+                        {{box.DeviceName}}
+                    </span>
+                </li>
+            </ul>
+			<div ng-hide="user.devices.length > 0">
+				You have no devices online right now
+			</div>
         </div>
 
         <div ng-switch-when='device' ng-controller='queueController'>
             <span id="settings_menu" ng-click="selectSubview('settings')">
                 <i class="icon-gear icon-large"></i>
             </span>
-            <section id='song_history' >
-
-                <h4>
-                    Song History
-                </h4>
-
-                <!--hr style='margin-top:0px;'/-->
-
-                <div class='no_songs_alert' ng-hide='boxSession.getCurrentDevice().history.length != 0'>
-                    No Songs have been played on this device
-                </div>
-
-                <section id='history_list'>
-                    <div id='{{getTrackID(track)}}' class="song_info"  data-ng-repeat="track in boxSession.getCurrentDevice().history.slice(boxSession.getCurrentDevice.history.length - 35, boxSession.getCurrentDevice.history.length) | reverse" ng-click='toggleTrackExtras(getTrackID(track))'>
-                        <header class="song_title" style="">{{track.Title}} - {{track.ArtistName}}</header>
-
-                        <section class='hidden song_extras clearfix'>
-                            <img class="song_img" src="{{track.ArtworkURL}}" style="float:left; margin: 10px;"/>
-                            <p class="song_details" style="">
-                                Song Details
-                            </p>
-                        </section>
-                    </div>
-                </section>
-            </section>
-
+			
             <section id='song_queue'>
                 <header>
                     <h4>
@@ -86,6 +72,32 @@
                 <section id="queue_list" 
 					ng-include="'template/songqueue.html'">
                     
+                </section>
+            </section>
+			
+            <section id='song_history' >
+
+                <h4>
+                    Song History
+                </h4>
+
+                <!--hr style='margin-top:0px;'/-->
+
+                <div class='no_songs_alert' ng-hide='boxSession.getCurrentDevice().history.length != 0'>
+                    No Songs have been played on this device
+                </div>
+
+                <section id='history_list'>
+                    <div id='{{getTrackID(track)}}' class="song_info"  data-ng-repeat="track in boxSession.getCurrentDevice().history.slice(boxSession.getCurrentDevice.history.length - 10, boxSession.getCurrentDevice.history.length) | reverse" ng-click='toggleTrackExtras(getTrackID(track))'>
+                        <header class="song_title" style="">{{track.Title}} - {{track.ArtistName}}</header>
+
+                        <section class='hidden song_extras clearfix'>
+                            <img class="song_img" src="{{track.ArtworkURL}}" style="float:left; margin: 10px;"/>
+                            <p class="song_details" style="">
+                                Song Details
+                            </p>
+                        </section>
+                    </div>
                 </section>
             </section>
         </div>
