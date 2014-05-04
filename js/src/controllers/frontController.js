@@ -7,6 +7,8 @@ function($scope, $location, musicBoxSession, user, spotifyService, lastfmService
 
 	$scope.nearbyDevices = musicBoxSession.nearbyDevices;
 
+	$scope.hideSongSearch = true;
+
 	$scope.$parent.changeHomeFunction(function(){
 		$scope.viewDeviceList();
 	})
@@ -104,6 +106,12 @@ function($scope, $location, musicBoxSession, user, spotifyService, lastfmService
     $scope.songSearch = function(value){
        return spotifyService.search(value);
     }
+	
+	$scope.songSearchClicked=function(){
+		if(isMobile){
+			$scope.hideSongSearch = false;
+		}
+	}
 
     $scope.addTrack = function(){
         if(musicBoxSession.getCurrentDevice().Playing != 0){
