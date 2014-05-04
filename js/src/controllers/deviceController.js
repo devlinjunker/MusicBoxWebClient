@@ -104,7 +104,7 @@ function($scope, $location, musicBoxSession, user){
 	function handleMessages(topicUri, event){
 		$scope.$apply(function(){});
 	}
-
+	
 	// Initizialization
 	musicBoxSession.addCurrentDeviceCallback(handleMessages);
 

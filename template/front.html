@@ -21,7 +21,78 @@
 	
 	<div ng-include="'template/onlinedevices.html'" ng-hide="boxSession.getCurrentDevice() != undefined"/>
 
-	<div ng-include="'template/currentdevice.html'" data-ng-hide="boxSession.getCurrentDevice() == undefined || boxSession.getCurrentDevice().isOffline()" >
+	<div data-ng-hide="boxSession.getCurrentDevice() == undefined || boxSession.getCurrentDevice().isOffline()" >
+		<div ng-hide="!boxSession.getCurrentDevice().isOffline()">
+			This Device is Offline
+		</div>
+	
+		<div ng-hide="boxSession.getCurrentDevice().isOffline()">
+			<section id="now_playing" style="padding:10px;" >
+				<div id="song_details" style="margin:auto; width: 250px; text-align: center;">
+			        {{boxSession.getCurrentDevice().currentSong.Title}}
+			        <em> by </em>       
+					{{boxSession.getCurrentDevice().currentSong.ArtistName}}
+				</div>
+				<img style="height: 250px; width:250px; margin:auto; display:block; padding: 10px;"  data-ng-src="{{boxSession.getCurrentDevice().currentSong.ArtworkURL}}"></img>
+				<div id="controls" ng-hide="user.permissions == undefined">
+					<div id="prev-btn">
+						<i class='icon-angle-left icon-2x'></i>
+					</div>
+				
+					<div id="play-pause-btn" ng-click="playPauseTrack()">
+	                	<i class="{{(boxSession.getCurrentDevice().isPlaying()) | playPauseIcon}} icon-2x" ></i>
+					</div>
+				
+					<div id="next-btn">
+						<i class='icon-angle-right icon-4x'></i>
+					</div>
+				</div>
+			</section>
+
+			<section id='song_search' 
+				ng-click="if(isMobile){hideSongSearch = false;}">  
+				<input type='text'
+ 					ng-click="songSearchClicked()"
+					placeholder="Add to Queue"
+					class="typeahead"
+					data-typeahead="track as 
+						track.Title + '<em> by ' + track.ArtistName + '</em>' 
+						for track in songSearch($viewValue)"
+					ng-model="songToAdd"
+					autocomplete="off"
+					typeahead-on-select="addTrack()"/>
+				</section>
+
+
+			<section id="queue">
+				<header>Upcoming Songs</header>
+				<div id="no_song_alert"
+				data-ng-hide="boxSession.getCurrentDevice().queue.length != 0">
+				    There are currently no songs in the {{boxSession.getCurrentDevice().DeviceName}} queue
+				</div>
+
+
+				<div class="song_info" style="" 
+				data-ng-repeat="track in boxSession.getCurrentDevice().queue"
+				data-ng-hide="boxSession.getCurrentDevice().queue.length === 0">
+
+					<header class="song_title" style="">
+						{{track.Title}} - {{track.ArtistName}}
+					</header>
+
+				    <section class="hidden song_extras clearfix">
+				        <img class="song_img" 
+							src="{{track.ArtworkURL}}" style=""/>
+				        <p class="song_details" style="">
+				           {{track.Details}}
+				        </p>
+				    </section>
+				</div>
+			</section>
 		
+			<section id="song_search_mobile" ng-hide="hideSongSearch">
+				
+			</section>
+		</div>
 	</div>
 </section>

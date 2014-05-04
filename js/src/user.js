@@ -270,8 +270,6 @@ function(socketSession, musicBoxSession, device, $q, $cookies, $window){
     }
 
 	user.ownsDevice = function(device){
-		console.log(device)
-				console.log(user.devices)
 		var ret = false;
 
 		for(i in user.devices){

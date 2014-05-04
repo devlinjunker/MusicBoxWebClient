@@ -26,12 +26,14 @@
 			</div>
 		</section>
 
-		<section ng-include="'template/songsearch.html'" id='song_search' ></section>
+		<section ng-include="'template/songsearch.html'" id='song_search' ng-click="if(isMobile){hideSongSearch = false;}"></section>
 
 
 		<section id="queue">
 			<header>Upcoming Songs</header>
 			<div ng-include="'template/songqueue.html'">
 		</section>
+		
+		<section id="song_search_mobile" ng-hide="hideSongSearch" ng-include="'template/songsearchmobile.html"></section>
 	</div>
 </section>

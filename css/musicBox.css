@@ -527,11 +527,11 @@ body {
       #front_page #online_device_list li:first-of-type {
         margin-left: 0px; }
   #front_page #song_search {
-    width: 400px;
+    width: 350px;
     margin: auto;
     padding-left: 40px; }
     #front_page #song_search input {
-      width: 350px; }
+      width: 300px; }
 
 #home_admin_page ul {
   list-style: none; }

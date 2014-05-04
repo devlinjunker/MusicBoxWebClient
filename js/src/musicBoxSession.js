@@ -114,7 +114,9 @@ function(socketSession, $q, device){
             ]
         }
 
+		console.log(socket);
         socket.publish(currentDevice.deviceUri, message, false);
+		console.log(socket);
     }
 
 
