@@ -108,6 +108,7 @@ function($scope, $location, musicBoxSession, user, spotifyService, lastfmService
     $scope.addTrack = function(){
         if(musicBoxSession.getCurrentDevice().Playing != 0){
             var song = $scope.songToAdd;
+			console.log(song)
 
             // First get album info for artwork
             var album = lastfmService.getAlbumInfo(song.ArtistName, song.AlbumName);

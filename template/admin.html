@@ -64,7 +64,16 @@
                             Add Song
                         </span>
 
-                        <span ng-hide="addSongHidden" ng-include="'template/songsearch.html'">
+                        <span ng-hide="addSongHidden">
+						    <input type='text'
+						       placeholder="Add to Queue"
+						       class="typeahead"
+						       data-typeahead="track as 
+						   		track.Title + '<em> by ' + track.ArtistName + '</em>' 
+						   		for track in songSearch($viewValue)"
+						       ng-model="songToAdd"
+						       autocomplete="off"
+						       typeahead-on-select="addTrack()"/>
                         </span>
                     </span>
                 </header>
