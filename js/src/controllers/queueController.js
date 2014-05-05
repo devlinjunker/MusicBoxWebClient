@@ -80,10 +80,10 @@ function($scope, musicBoxSession, user, spotifyService, lastfmService){
 
                 // Then get song Info for duration
                 var songInfo = lastfmService.getSongInfo(song.ArtistName, song.Title);
-                songInfo.then(function(songInfo){
-					console.log(song);
+                songInfo.then(function(info){
+					console.log(info);
 					
-                    song.Length = songInfo.duration / 1000;
+                    song.Length = info.duration / 1000;
 
 
                     musicBoxSession.getCurrentDevice().addTrack(song);
