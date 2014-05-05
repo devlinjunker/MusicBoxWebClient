@@ -83,8 +83,11 @@ function($scope, musicBoxSession, user, spotifyService, lastfmService){
                 songInfo.then(function(info){
 					console.log(info);
 					
-                    song.Length = info.duration / 1000;
-
+					if(info != undefined && info.duration != undefined){
+	                    song.Length = info.duration / 1000;
+					}else{
+						song.Length = 212;
+					}
 
                     musicBoxSession.getCurrentDevice().addTrack(song);
 

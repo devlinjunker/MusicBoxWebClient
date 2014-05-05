@@ -3,7 +3,7 @@
 		This Device is Offline
 	</div>
 	
-	<div ng-hide="boxSession.getCurrentDevice().isOffline()">
+	<div ng-hide="boxSession.getCurrentDevice().isOffline()" ng-controller="queueController">
 		<section id="now_playing" style="padding:10px;" >
 			<div id="song_details" style="margin:auto; width: 250px; text-align: center;">
 		        {{boxSession.getCurrentDevice().currentSong.Title}}
@@ -26,7 +26,18 @@
 			</div>
 		</section>
 
-		<section ng-include="'template/songsearch.html'" id='song_search' ng-click="if(isMobile){hideSongSearch = false;}"></section>
+		<section id='song_search'>
+		    <input type='text'
+		    	ng-click="songSearchClicked()"
+		       placeholder="Add to Queue"
+		       class="typeahead"
+		       data-typeahead="track as 
+		   		track.Title + '<em> by ' + track.ArtistName + '</em>' 
+		   		for track in songSearch($viewValue)"
+		       ng-model="songToAdd"
+		       autocomplete="off"
+		       typeahead-on-select="addTrack()"/>
+		</section>
 
 
 		<section id="queue">
@@ -34,6 +45,6 @@
 			<div ng-include="'template/songqueue.html'">
 		</section>
 		
-		<section id="song_search_mobile" ng-hide="hideSongSearch" ng-include="'template/songsearchmobile.html"></section>
+		<section id="song_search_mobile" ng-hide="hideSongSearch" ng-include="'template/songsearchmobile.html'"></section>
 	</div>
 </section>
