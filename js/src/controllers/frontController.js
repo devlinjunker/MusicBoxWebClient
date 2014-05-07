@@ -142,7 +142,6 @@ function($scope, $location, musicBoxSession, user, spotifyService, lastfmService
     }
 
     function handleMessages(topicUri,event){
-		console.log(topicUri);
 		$scope.$apply(function(){});
     }
 

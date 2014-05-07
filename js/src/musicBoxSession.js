@@ -273,8 +273,8 @@ function(socketSession, $q, device){
 
 
 	var handleMessages = function(topic, event){
-		console.log(topic)
-        for(i in nearbyDevices){
+        console.log(event)
+		for(i in nearbyDevices){
             if(nearbyDevices[i].deviceUri == topic){
                 switch(event.command){
                     case "boxConnected":
@@ -284,8 +284,12 @@ function(socketSession, $q, device){
                         nearbyDevices[i].state = 0;
                         break;
                     case "startedTrack":
-                        nearbyDevices[i].addTrack(event.data.track);
-                        nearbyDevices[i].nextTrack();
+						if(event.data.track.ProviderID != undefined && event.data.track.ProviderID.indexOf("pandora") > 0){
+							nearbyDevices[i].addTrack(event.data.track);
+							nearbyDevices[i].nextTrack();
+						}else{
+							nearbyDevices[i].currentSong = event.data.track;
+						}
                         nearbyDevices[i].state = 2;
                         break;
                     case "playTrack":
@@ -296,7 +300,7 @@ function(socketSession, $q, device){
                         break;
                     case "nextTrack":
                     case "endOfTrack":
-                        nearbyDevices[i].nextTrack();
+                        //nearbyDevices[i].nextTrack();
                         break;
                     case "addTrack":
                         for(i in event.data){

@@ -295,8 +295,12 @@ function(socketSession, musicBoxSession, device, $q, $cookies, $window){
                         user.devices[i].state = 0;
                         break;
                     case "startedTrack":
-                        user.devices[i].addTrack(event.data.track);
-                        user.devices[i].nextTrack();
+						if(event.data.track.ProviderID.indexOf("spotify") < 0){
+							user.devices[i].addTrack(event.data.track);
+							user.devices[i].nextTrack();
+						}else{
+							user.devices[i].nextTrack();
+						}
                         user.devices[i].state = 2;
                         break;
                     case "playTrack":
@@ -307,7 +311,7 @@ function(socketSession, musicBoxSession, device, $q, $cookies, $window){
                         break;
                     case "nextTrack":
                     case "endOfTrack":
-                        user.devices[i].nextTrack();
+                       //user.devices[i].nextTrack();
                         break;
                     case "addTrack":
                         for(i in event.data){

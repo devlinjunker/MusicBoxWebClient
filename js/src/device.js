@@ -37,14 +37,16 @@ function(socketSession){//,musicBoxSession){
          * the only track in the queue.
          */
         this.addTrack = function(trackData, playing){
-            console.log('track added');
+			console.log('track added');
 			console.log(trackData);
 			
 			if(trackData.Length == undefined || trackData.Length == -1){
 				trackData.Length = "3:41";
 			}
 
-            this.queue.push(trackData);
+			if(this.queue[this.queue.length] != trackData){
+				this.queue.push(trackData);
+			}
         }
 
         /*
@@ -53,14 +55,18 @@ function(socketSession){//,musicBoxSession){
          * the noSong
          */
         this.nextTrack = function(){
-            if(this.queue[0] !== undefined){
+            if(this.queue.length > 0){
                 console.log('next track')
+				console.log(this.queue)
 
-                var startedTrack = this.queue.shift();
-
+                var startedTrack = this.queue[0];
+				this.queue = this.queue.slice(1,this.queue.length)
+				
+				console.log(startedTrack)
+				console.log(this.queue)
                 this.currentSong = startedTrack;
-
-                this.history.push(startedTrack);
+				
+				this.history.push(startedTrack);
             }else{
                 this.currentSong == undefined;
                 if(this.ThemeFull.Type == 0){
@@ -68,6 +74,17 @@ function(socketSession){//,musicBoxSession){
                 }
             }
         }
+
+		this.recentHistoryContains = function(track){
+			console.log(this.history)
+			for(var i = 0; i < this.history.length && i < 5; i++){
+				if(this.history[i].ProviderID == track.ProviderID){
+					return true;
+				}
+			}
+			
+			return false
+		}
 
         /*
          * Method to check if the track queue has no tracks in it, returns true if

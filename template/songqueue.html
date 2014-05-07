@@ -5,7 +5,7 @@
 
 
 <div class="song_info" style="" 
-	data-ng-repeat="track in boxSession.getCurrentDevice().queue"
+	data-ng-repeat="track in boxSession.getCurrentDevice().queue | reverse"
 	data-ng-hide="boxSession.getCurrentDevice().queue.length === 0">
 
 	<header class="song_title" style="">
