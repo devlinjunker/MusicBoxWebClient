@@ -75,8 +75,9 @@
   #footer {
     display: none; }
 
-  #front_page #song_search {
-    input: 80%; }
+  #front_page #song_search input {
+    width: 100%;
+    padding-left: 0px; }
 
   #current_device #song_search input {
     width: 100%; }
@@ -530,11 +531,13 @@ body {
       #front_page #online_device_list li:first-of-type {
         margin-left: 0px; }
   #front_page #song_search {
-    width: 350px;
-    margin: auto;
-    padding-left: 40px; }
-    #front_page #song_search input {
-      width: 300px; }
+    margin: auto; }
+    @media screen and (min-width: 992px) {
+      #front_page #song_search {
+        padding-left: 40px;
+        width: 350px; }
+        #front_page #song_search input {
+          width: 300px; } }
 
 #home_admin_page ul {
   list-style: none; }

@@ -130,7 +130,10 @@
 
 	#front_page{
 		#song_search{
-			input:80%;
+			input{
+				width: 100%;
+				padding-left: 0px;
+			}
 		}
 	}
 

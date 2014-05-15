@@ -411,13 +411,16 @@ body{
 	}
 	
 	#song_search{
-		width: 350px;
+
 		margin: auto;
 		
-		padding-left: 40px;
+		@media screen and (min-width:992px){
+			padding-left: 40px;
+			width: 350px;
 		
-		input{
-			width: 300px;
+			input{
+				width: 300px;
+			}
 		}
 	}
 }

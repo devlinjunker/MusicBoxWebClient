@@ -338,8 +338,15 @@ function(socketSession, $q, device){
                         }
                         break;
                 }
+				
+				if(topic == currentDevice.deviceUri){
+					currentDevice = nearbyDevices[i];
+					console.log(currentDevice);
+				}
             }
         }
+   
+		
     }
 	
 	this.addCallback(handleMessages);

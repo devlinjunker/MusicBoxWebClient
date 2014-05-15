@@ -131,8 +131,8 @@ function($scope, $location, musicBoxSession, user, spotifyService, lastfmService
                 songInfo.then(function(songInfo){
                     song.Length = songInfo.duration / 1000;
 
-
-                    musicBoxSession.getCurrentDevice().addTrack(song);
+					// Song will be added by the socket callback
+//                    musicBoxSession.getCurrentDevice().addTrack(song);
 
                     musicBoxSession.sendAddTrackMessage(song);
                 })
