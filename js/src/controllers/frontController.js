@@ -108,7 +108,7 @@ function($scope, $location, musicBoxSession, user, spotifyService, lastfmService
     }
 	
 	$scope.songSearchClicked=function(){
-		if(isMobile){
+		if($scope.isMobile){
 			$scope.hideSongSearch = false;
 		}
 	}
@@ -121,8 +121,10 @@ function($scope, $location, musicBoxSession, user, spotifyService, lastfmService
             // First get album info for artwork
             var album = lastfmService.getAlbumInfo(song.ArtistName, song.AlbumName);
             album.then(function(album){
-
-                song.ArtworkURL = album.image[2]["#text"];
+				
+				if(album != undefined){
+					song.ArtworkURL = album.image[2]["#text"];
+				}
 
                 // Then get song Info for duration
                 var songInfo = lastfmService.getSongInfo(song.ArtistName, song.Title);

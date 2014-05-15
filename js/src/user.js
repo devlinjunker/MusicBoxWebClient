@@ -188,7 +188,6 @@ function(socketSession, musicBoxSession, device, $q, $cookies, $window){
      */
     user.getMusicBoxes = function(){
         if(user.permissions !== undefined){
-
             var ids = user.getMusicBoxIds();;
 
             ids.then(function(ids){
@@ -216,6 +215,7 @@ function(socketSession, musicBoxSession, device, $q, $cookies, $window){
     user.getMusicBoxIds = function(){
         if(user.permissions !== undefined){
             var deferred = $q.defer();
+						console.log('test')
 
             socketSession.call('http://www.musicbox.com/players', [],
                 function(result){

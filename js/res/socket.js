@@ -81,8 +81,8 @@ angular.module('webSocket', []).
 		// Publishes the command to the channelUri given, if exclude me is set
 		// the message will not be recieved at this end of the socket
 		socket.publish = function(channelUri, command, excludeMe){
-			console.log([channelUri, command, excludeMe])
 			socket.onConnect(function(){
+				console.log([channelUri, command, excludeMe]);
 				socket.session.publish(channelUri, command, excludeMe);
 			});
 		}

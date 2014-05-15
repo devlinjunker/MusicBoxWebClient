@@ -24,11 +24,22 @@ function(socketSession){//,musicBoxSession){
 
         this.themeList = [];
 
+		// Doesn't work for some reason
+		
 //        musicBoxSession.getTrackHistory(this.ID).then(this.setHistory);
-		socket.call("http://www.musicbox.com/trackHistory", [this.ID],
-		function(result){
-			this.setHistory(result);
-		});
+		// socket.call("http://www.musicbox.com/trackHistory", [this.ID],
+// 		function(result){
+// 			console.log("history");
+// 			console.log(this.history);
+// //			setHistory(result);
+// 			console.log(this.history);
+// 		});
+// 		
+// 		socket.call("http://www.musicbox.com/queue", [this.ID],
+// 		function(result){
+// 			console.log("queue");
+// 			setQueue(result);
+// 		});
 
 //        this.currentSong = undefined;
 
@@ -142,7 +153,8 @@ function(socketSession){//,musicBoxSession){
         /*
          * Sets the song history, when the page first loads
          */
-        this.setHistory = function(songList){
+		setHistory = function(songList){
+			console.log(this.history);
 			if(songList != undefined){
 	            this.history = songList;
 	            this.currentSong = songList[songList.length -1];
@@ -154,13 +166,15 @@ function(socketSession){//,musicBoxSession){
 				}
 			}
         }
+		this.setHistory = setHistory;
 
         /*
          * Sets the song queue, when the page first loads
          */
-        this.setQueue = function(songList){
+        setQueue = function(songList){
             this.queue = songList;
         }
+		this.setQueue = setQueue;
 
         this.getStations = function(){
             var themeList = this.themeList;

@@ -32,6 +32,7 @@ function($scope, $location, user, musicBoxSession){
 
 
     $scope.selectBox = function(box){
+		console.log(user.devices)
         musicBoxSession.setCurrentDevice(box);
     }
 

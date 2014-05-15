@@ -21,9 +21,13 @@ function(socketSession, $q, device){
         currentDevice = deviceDetails;
 
         if(deviceDetails !== undefined){
-            this.getTrackHistory(currentDevice.ID).then(function(tracks){
-                currentDevice.setHistory(tracks);
-            });
+             this.getTrackHistory(currentDevice.ID).then(function(tracks){
+                 currentDevice.setHistory(tracks);
+             });
+			 
+			 this.getQueue(currentDevice.ID).then(function(tracks){
+				 currentDevice.setQueue(tracks);
+			 })
         }
     }
 
@@ -99,6 +103,7 @@ function(socketSession, $q, device){
      *      Title, ArtistName, ArtworkURL, ProviderID, Length, Date
      */
     this.sendAddTrackMessage = function(track){
+		console.log("SENDING ADD TRACK");
         var message = {
             "command": "addTrack",
             "data" : [
@@ -207,6 +212,30 @@ function(socketSession, $q, device){
         return deferred.promise;
     }
 
+	this.getQueue = function(deviceId){
+		var deferred = $q.defer();
+		
+		if(deviceId !== undefined){
+            id = deviceId
+        }
+
+
+        var args = [
+            id
+        ];
+		
+        socket.call("http://www.musicbox.com/queue", id,
+            function(result){
+				console.log(result)
+                deferred.resolve(result);
+            }
+        )
+
+        return deferred.promise;	
+		
+		
+	}
+
     /*
      *  Requests the list of themes from the server
      */
@@ -284,7 +313,7 @@ function(socketSession, $q, device){
                         nearbyDevices[i].state = 0;
                         break;
                     case "startedTrack":
-						if(event.data.track.ProviderID != undefined && event.data.track.ProviderID.indexOf("pandora") > 0){
+						if(event.data.track.ProviderID != undefined && event.data.track.ProviderID.indexOf("spotify") < 0){
 							nearbyDevices[i].addTrack(event.data.track);
 							nearbyDevices[i].nextTrack();
 						}else{
@@ -304,6 +333,7 @@ function(socketSession, $q, device){
                         break;
                     case "addTrack":
                         for(i in event.data){
+							console.log(event.data)
                             nearbyDevices[i].addTrack(event.data[i]);
                         }
                         break;

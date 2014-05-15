@@ -75,6 +75,9 @@
   #footer {
     display: none; }
 
+  #front_page #song_search {
+    input: 80%; }
+
   #current_device #song_search input {
     width: 100%; }
   #current_device #song_search ul {
