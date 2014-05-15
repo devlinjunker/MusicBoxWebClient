@@ -311,7 +311,7 @@ function(socketSession, musicBoxSession, device, $q, $cookies, $window){
                         break;
                     case "nextTrack":
                     case "endOfTrack":
-                       //user.devices[i].nextTrack();
+                       user.devices[i].nextTrack();
                         break;
                     case "addTrack":
                         for(i in event.data){

@@ -91,7 +91,8 @@ function($scope, musicBoxSession, user, spotifyService, lastfmService){
 						song.Length = 212;
 					}
 
-                    musicBoxSession.getCurrentDevice().addTrack(song);
+					// this will happen in socket handler
+                    //musicBoxSession.getCurrentDevice().addTrack(song);
 
                     musicBoxSession.sendAddTrackMessage(song);
                 })

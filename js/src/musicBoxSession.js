@@ -317,7 +317,7 @@ function(socketSession, $q, device){
 							nearbyDevices[i].addTrack(event.data.track);
 							nearbyDevices[i].nextTrack();
 						}else{
-							nearbyDevices[i].currentSong = event.data.track;
+							nearbyDevices[i].nextTrack();
 						}
                         nearbyDevices[i].state = 2;
                         break;
@@ -332,14 +332,15 @@ function(socketSession, $q, device){
                         //nearbyDevices[i].nextTrack();
                         break;
                     case "addTrack":
-                        for(i in event.data){
+                        for(j in event.data){
 							console.log(event.data)
-                            nearbyDevices[i].addTrack(event.data[i]);
+                            nearbyDevices[i].addTrack(event.data[j]);
+							
                         }
                         break;
                 }
 				
-				if(topic == currentDevice.deviceUri){
+				if(currentDevice != undefined && topic == currentDevice.deviceUri){
 					currentDevice = nearbyDevices[i];
 					console.log(currentDevice);
 				}
